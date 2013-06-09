@@ -6,7 +6,6 @@ import unittest
 class TestCase(unittest.TestCase):
 
     def setUp(self):
-        self.
         self.app = app.app.test_client()
 
     def tearDown(self):
