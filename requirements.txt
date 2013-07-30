@@ -1,6 +1,12 @@
 Flask==0.9
 Jinja2==2.7
 MarkupSafe==0.18
+PyYAML==3.10
 Werkzeug==0.8.3
+coverage==3.6
+coveralls==0.2
+docopt==0.6.1
 gunicorn==17.5
+requests==1.2.3
+sh==1.08
 wsgiref==0.1.2
