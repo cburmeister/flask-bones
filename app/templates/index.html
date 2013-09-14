@@ -6,9 +6,11 @@
 {% endblock %}
 
 {% block body %}
-    Hello World!
+    {% for u in users %}
+        <p>{{ u.username }}</p>
+    {% endfor %}
 {% endblock %}
 
 {% block footer %}
-     Request completed in: {{ g.request_time() }}
+    Request completed in: {{ g.request_time() }}
 {% endblock %}
