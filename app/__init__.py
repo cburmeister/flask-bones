@@ -7,8 +7,8 @@ import time
 DEBUG = True
 SECRET_KEY = '''\xad\x96\xf9;[\x95&\xda%(\xc9\xea\xb5\xe3\x13er.,m\xf0\xe0]\xbb'''
 WTF_CSRF_ENABLED = False if DEBUG else True
-#SQLALCHEMY_DATABASE_URI = 'postgresql://cburmeister@localhost/flask_bones'
-SQLALCHEMY_DATABASE_URI = environ.get('DATABASE_URL') 
+SQLALCHEMY_DATABASE_URI = 'postgresql://cburmeister@localhost/flask_bones'
+#SQLALCHEMY_DATABASE_URI = environ.get('DATABASE_URL') 
 
 app = Flask(__name__)
 app.config.from_object(__name__)
