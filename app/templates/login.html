@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+    <h1>Login</h1>
+{% endblock %}
+
+{% block body %}
+    <form method="POST" action="{{ request.url }}">
+        {{ form.csrf_token }}
+        {{ form.username.label }} {{ form.username() }}
+        {% if form.username.errors %}
+            <ul class="errors">
+                {% for error in form.username.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {{ form.password.label }} {{ form.password() }}
+        {% if form.password.errors %}
+            <ul class="errors">
+                {% for error in form.password.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <input type="submit" value="Login">
+    </form>
+{% endblock %}
+
+{% block footer %}
+    Request completed in: {{ g.request_time() }}
+{% endblock %}

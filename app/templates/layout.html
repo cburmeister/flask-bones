@@ -7,6 +7,16 @@
 </head>
 <body>
     <div class="container">
+        {% if not session.user_id %}
+            <a href="{{ url_for('login') }}">log in</a>
+        {% else %}
+            <a href="{{ url_for('logout') }}">log out</a>
+        {% endif %}
+
+        {% for message in get_flashed_messages() %}
+            <div class=flash>{{ message }}</div>
+        {% endfor %}
+
         {% block header %}{% endblock %}
         {% block body %}{% endblock %}
         {% block footer %}{% endblock %}
