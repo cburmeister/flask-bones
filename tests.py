@@ -52,9 +52,6 @@ class TestCase(unittest.TestCase):
         resp = self.login('cburmeister', 'test123')
         assert 'You were logged in' in resp.data
 
-        # test that user in globals
-        return g.user
-
     def test_logout(self):
         resp = self.login('cburmeister', 'test123')
         assert 'You were logged in' in resp.data
