@@ -3,34 +3,40 @@ import app
 import unittest
 from app import db
 from app.models import User, Permission
+from werkzeug.security import generate_password_hash, check_password_hash
+
+def make_db():
+    db.drop_all()
+    db.create_all()
+
+    permissions = [
+        Permission('permissions'),
+        Permission('users'),
+        Permission('create_user', 2),
+        Permission('edit_user', 2)
+    ]
+    [db.session.add(x) for x in permissions]
+
+    users = [
+        User('cburmeister', 'burmeister.corey@gmail.com', 'test123'),
+        User('dbolt', 'junglist88@gmail.com', 'test123'),
+        User('abihner', 'senamoru@gmail.com', 'test123'),
+        User('ekroll', 'djkrypplephite@gmail.com', 'test123')
+    ]
+    [db.session.add(x) for x in users]
+
+    for u in users:
+        for p in permissions:
+            u.permissions.append(p)
+
+    db.session.commit()
 
 
 class TestCase(unittest.TestCase):
 
-    def make_db(self):
-        db.drop_all()
-        db.create_all()
-
-        users = [
-            User('cburmeister', 'burmeister.corey@gmail.com', 'test123'),
-            User('dbolt', 'junglist88@gmail.com', 'test123'),
-            User('abihner', 'senamoru@gmail.com', 'test123'),
-            User('ekroll', 'djkrypplephite@gmail.com', 'test123')
-        ]
-        [db.session.add(x) for x in users]
-
-        permissions = [
-            Permission('admin', 1),
-            Permission('create_user', 1),
-            Permission('admin', 2),
-        ]
-        [db.session.add(x) for x in permissions]
-
-        db.session.commit()
-
     def setUp(self):
         self.app = app.app.test_client()
-        self.make_db()
+        make_db()
 
     def tearDown(self):
         self.make_db()

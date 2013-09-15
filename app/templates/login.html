@@ -3,32 +3,31 @@
 {% block title %}{% endblock %}
 
 {% block header %}
-    <h1>Login</h1>
 {% endblock %}
 
 {% block body %}
     <form method="POST" action="{{ request.url }}">
-        {{ form.csrf_token }}
-        {{ form.username.label }} {{ form.username() }}
-        {% if form.username.errors %}
-            <ul class="errors">
-                {% for error in form.username.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        {{ form.password.label }} {{ form.password() }}
-        {% if form.password.errors %}
-            <ul class="errors">
-                {% for error in form.password.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        <input type="submit" value="Login">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Login</h3>
+            </div>
+            <div class="panel-body">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    {{ form.username.label }} {{ form.username(class='form-control') }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label }} {{ form.password(class='form-control') }}
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-log-in"></span> Login
+                </button>
+            </div>
+        </div>
     </form>
 {% endblock %}
 
 {% block footer %}
-    Request completed in: {{ g.request_time() }}
 {% endblock %}

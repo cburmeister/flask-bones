@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block body %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Users</h3>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                </tr>
+                {% for u in users %}
+                    <tr>
+                        <td>{{ u.id }}</td>
+                        <td>
+                            <a href="{{ url_for('edit_user', id=u.id) }}">
+                                {{ u.username }}
+                            </a>
+                        </td>
+                        <td>{{ u.email }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="panel-footer">
+            <div class="btn-group">
+                <a href="{{ url_for('create_user') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> Create User
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
