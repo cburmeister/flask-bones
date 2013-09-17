@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}Internal Server Error{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block body %}
+    <h1>500 Internal Server Error</h1>
+    <p>Something blew up.</p>
+    <p><a href="{{ url_for('index') }}">Go somewhere nice</a></p>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

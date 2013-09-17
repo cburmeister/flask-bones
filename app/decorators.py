@@ -9,7 +9,7 @@ def require_login():
         def wrapper(*args, **kwargs):
 
             if not g.user:
-                abort(401)
+                abort(403)
 
             return function(*args, **kwargs)
         return wrapper

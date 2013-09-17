@@ -1,4 +1,4 @@
-from flask import flash
+from flask import flash, url_for
 from flask_wtf import Form
 from wtforms import TextField, PasswordField, BooleanField
 from wtforms.validators import DataRequired
@@ -9,7 +9,9 @@ from app.models import User
 class LoginForm(Form):
     username = TextField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    accept_tos = BooleanField('I have read and accept the Terms of Service', validators=[DataRequired()])
+    accept_tos = BooleanField(
+            'I have read and accept the <a href="/tos">Terms of Service</a>',
+            validators=[DataRequired()])
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)

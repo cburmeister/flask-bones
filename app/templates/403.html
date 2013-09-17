@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block title %}Forbidden{% endblock %}
+{% block body %}
+    <h1>403 Forbidden</h1>
+    <p>You're not allowed to see this.
+    <p><a href="{{ url_for('index') }}">Go somewhere nice</a>
+{% endblock %}

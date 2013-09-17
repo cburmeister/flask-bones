@@ -6,10 +6,6 @@ from app.decorators import require_login
 from .forms import LoginForm
 
 
-@app.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
