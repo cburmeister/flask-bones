@@ -12,6 +12,7 @@ Werkzeug==0.8.3
 coverage==3.6
 coveralls==0.2
 docopt==0.6.1
+fake-factory==0.2
 flask-heroku==0.1.4
 gunicorn==17.5
 itsdangerous==0.23
