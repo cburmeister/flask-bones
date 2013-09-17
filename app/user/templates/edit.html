@@ -1,8 +1,12 @@
 {% extends "layout.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}Edit User - {{ user.username }}{% endblock %}
 
 {% block header %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url_for('.list') }}">Users</a></li>
+        <li class="active">Edit</li>
+    </ol>
 {% endblock %}
 
 {% block body %}
@@ -19,17 +23,19 @@
                 <div class="form-group">
                     {{ form.email.label }} {{ form.email(class='form-control') }}
                 </div>
-                <div class="form-group">
-                    {{ form.permissions.label }} {{ form.permissions() }}
-                </div>
             </div>
             <div class="panel-footer">
                 <button type="submit" class="btn btn-default">
                     <span class="glyphicon glyphicon-floppy-disk"></span> Save
                 </button>
-                <button type="submit" class="btn btn-default">
-                    <span class="glyphicon glyphicon-trash"></span> Delete
-                </button>
+                <a class="btn btn-default" href="{{ url_for('.list') }}">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel
+                </a>
+                {% if not user == g.user %}
+                    <a class="btn btn-default pull-right" href="{{ url_for('.delete', id=user.id) }}">
+                        <span class="glyphicon glyphicon-trash"></span> Delete
+                    </a>
+                {% endif %}
             </div>
         </div>
     </form>

@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block header %}
 {% endblock %}
@@ -19,6 +19,9 @@
                 <div class="form-group">
                     {{ form.password.label }} {{ form.password(class='form-control') }}
                 </div>
+                <div class="checkbox">
+                    {{ form.accept_tos.label }} {{ form.accept_tos() }}
+                </div>
             </div>
             <div class="panel-footer">
                 <button type="submit" class="btn btn-default">
@@ -27,7 +30,4 @@
             </div>
         </div>
     </form>
-{% endblock %}
-
-{% block footer %}
 {% endblock %}

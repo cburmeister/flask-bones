@@ -24,18 +24,19 @@
                 <ul class="nav navbar-nav">
 
                     {% if g.user %}
-                        <li><a href="{{ url_for('users') }}">Users</a></li>
-                        <li><a href="{{ url_for('permissions') }}">Permissions</a></li>
+                        <li><a href="{{ url_for('user.list') }}">Users</a></li>
                     {% else %}
                     {% endif %}
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+
                     {% if g.user %}
                         <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                     {% else %}
                         <li><a href="{{ url_for('login') }}">Log In</a></li>
                     {% endif %}
+
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -59,7 +60,7 @@
 
     </div>
 
-     <script src="../static/js/jquery.js"></script>
-     <script src="../static/js/bootstrap.min.js"></script>
+     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
 </html>

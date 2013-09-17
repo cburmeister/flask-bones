@@ -1,10 +1,11 @@
-from flask import session, abort, flash, redirect, url_for, g
+from flask import abort, g
 from functools import wraps
-from models import User, Permission
+from models import User
 
 
 def require_login():
     def decorator(function):
+        @wraps(function)
         def wrapper(*args, **kwargs):
 
             if not g.user:
@@ -14,12 +15,13 @@ def require_login():
         return wrapper
     return decorator
 
-def require_permission(desc):
+def require_permission(name):
     def decorator(function):
+        @wraps(function)
         def wrapper(*args, **kwargs):
 
-            if not desc in [x.desc for x in g.user.permissions]:
-                abort(401)
+            #if not name in [x.name for x in g.user.group.permissions]:
+            #    abort(401)
 
             return function(*args, **kwargs)
         return wrapper
