@@ -1,5 +1,6 @@
 from app import db
 
+
 class CRUDMixin(object):
     __table_args__ = {'extend_existing': True}
 
@@ -8,7 +9,7 @@ class CRUDMixin(object):
     @classmethod
     def get_by_id(cls, id):
         if any((isinstance(id, basestring) and id.isdigit(),
-            isinstance(id, (int, float))),):
+                isinstance(id, (int, float))),):
             return cls.query.get(int(id))
         return None
 

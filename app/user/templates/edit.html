@@ -31,7 +31,7 @@
                 <a class="btn btn-default" href="{{ url_for('.list') }}">
                     <span class="glyphicon glyphicon-remove"></span> Cancel
                 </a>
-                {% if not user == g.user %}
+                {% if not user == current_user %}
                     <a class="btn btn-default pull-right" href="{{ url_for('.delete', id=user.id) }}">
                         <span class="glyphicon glyphicon-trash"></span> Delete
                     </a>

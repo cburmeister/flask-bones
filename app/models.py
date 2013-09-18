@@ -1,12 +1,12 @@
-from flask import request
+from flask.ext.login import UserMixin
 from app import db
 from mixins import CRUDMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.exceptions import abort
 import datetime
+from app import api
 
 
-class User(CRUDMixin, db.Model):
+class User(CRUDMixin, UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
     email = db.Column(db.String(128), nullable=False, unique=True)
@@ -31,3 +31,8 @@ class User(CRUDMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.pw_hash, password)
+
+
+api.create_api(User, 
+        methods=['GET', 'POST', 'DELETE'],
+        exclude_columns=['pw_hash', 'remote_addr', 'sudo'])

@@ -22,7 +22,7 @@ def make_db():
         admin_password,
         fake.ipv4())
     ]
-    for _ in range(100):
+    for _ in range(50):
         u = User(fake.userName(),
                 fake.email(),
                 fake.word(),
@@ -36,6 +36,8 @@ def make_db():
 
 class TestCase(unittest.TestCase):
     def setUp(self):
+        app.app.config['TESTING'] = True
+        app.app.config['WTF_CSRF_ENABLED'] = False
         self.app = app.app.test_client()
         make_db()
 

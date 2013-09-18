@@ -1,9 +1,6 @@
-from flask import flash
 from flask_wtf import Form
-from wtforms import TextField, PasswordField, BooleanField
+from wtforms import TextField, PasswordField
 from wtforms.validators import DataRequired, Email, EqualTo
-from wtforms.ext.sqlalchemy.fields import QuerySelectField
-
 from app.models import User
 
 
@@ -16,7 +13,8 @@ class UserForm(Form):
 
 
 class CreateUserForm(UserForm):
-    password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm', message='Passwords must match')])
+    password = PasswordField('Password', validators=[DataRequired(),
+        EqualTo('confirm', message='Passwords must match')])
     confirm = PasswordField('Confirm Password', validators=[DataRequired()])
 
     def __init__(self, *args, **kwargs):
