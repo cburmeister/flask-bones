@@ -6,9 +6,9 @@ from app.user import user
 from app.auth import auth
 
 
-def create_app():
+def create_app(config=base_config):
     app = Flask(__name__)
-    app.config.from_object(base_config)
+    app.config.from_object(config)
 
     from flask.ext.heroku import Heroku
     heroku = Heroku(app)
@@ -18,6 +18,7 @@ def create_app():
 
     register_blueprints(app)
     register_errorhandlers(app)
+
 
     @app.before_request
     def before_request():

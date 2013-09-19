@@ -1,17 +1,18 @@
 from flask import g
-import app
-import unittest
-from app import db
+from app import create_app
+from app.config import test_config
+from app.database import db
 from app.models import User
-from werkzeug.security import generate_password_hash, check_password_hash
 from  sqlalchemy.sql.expression import func
 from faker import Factory
+import unittest
 
 fake = Factory.create()
 
 admin_username = 'cburmeister'
 admin_email = 'cburmeister@discogs.com'
 admin_password = 'test123'
+
 
 def make_db():
     db.drop_all()
@@ -36,9 +37,9 @@ def make_db():
 
 class TestCase(unittest.TestCase):
     def setUp(self):
-        app.app.config['TESTING'] = True
-        app.app.config['WTF_CSRF_ENABLED'] = False
-        self.app = app.app.test_client()
+        app = create_app(test_config)
+        db.app = app # hack for using db.init_app(app) in app/__init__.py
+        self.app = app.test_client()
         make_db()
 
     def tearDown(self):
