@@ -1,10 +1,10 @@
 from flask import request, redirect, url_for, render_template, flash
 from flask.ext.login import login_user, login_required, logout_user
-from app import app, lm
+from app.extensions import lm
 from app.utils import flash_errors
-
 from app.models import User
 from .forms import LoginForm
+from ..auth import auth
 
 
 @lm.user_loader
@@ -12,7 +12,7 @@ def load_user(id):
     return User.get_by_id(int(id))
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -24,7 +24,7 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route('/logout', methods=['GET'])
+@auth.route('/logout', methods=['GET'])
 @login_required
 def logout():
     logout_user()

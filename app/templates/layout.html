@@ -32,18 +32,16 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     {% if current_user.is_authenticated() %}
-                        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
                     {% else %}
-                        <li><a href="{{ url_for('login') }}">Log In</a></li>
+                        <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
                     {% endif %}
 
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
     </div>
-
     <div class="container">
-
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -51,15 +49,11 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-
         {% block header %}{% endblock %}
         {% block body %}{% endblock %}
         {% block footer %}{% endblock %}
-
         <p>Request completed in: {{ g.request_time() }}</p>
-
     </div>
-
      <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>

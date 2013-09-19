@@ -1,9 +1,7 @@
 from flask.ext.login import UserMixin
-from app import db
-from mixins import CRUDMixin
+from app.database import CRUDMixin, db
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
-from app import api
 
 
 class User(CRUDMixin, UserMixin, db.Model):
@@ -31,8 +29,3 @@ class User(CRUDMixin, UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.pw_hash, password)
-
-
-api.create_api(User, 
-        methods=['GET', 'POST', 'DELETE'],
-        exclude_columns=['pw_hash', 'remote_addr', 'sudo'])

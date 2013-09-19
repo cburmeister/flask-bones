@@ -1,4 +1,10 @@
-from app import db
+import app
+
+from flask.ext.sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
+
+from flask.ext.restless import APIManager
+api = APIManager(app, flask_sqlalchemy_db=db)
 
 
 class CRUDMixin(object):
