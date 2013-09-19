@@ -44,4 +44,4 @@ def register_errorhandlers(app):
 
 
 def handle_error(e):
-    return render_template('%s.html' % e.code), e.code
+    return render_template('errors/%s.html' % e.code), e.code
