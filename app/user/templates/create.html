@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}{% endblock %}
+
+{% block header %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url_for('.list') }}">Users</a></li>
+        <li class="active">Create</li>
+    </ol>
+{% endblock %}
+
+{% block body %}
+    <form method="POST" action="{{ request.url }}">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Create User</h3>
+            </div>
+            <div class="panel-body">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    {{ form.username.label }} {{ form.username(class='form-control') }}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label }} {{ form.email(class='form-control') }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label }} {{ form.password(class='form-control') }}
+                </div>
+                <div class="form-group">
+                    {{ form.confirm.label }} {{ form.confirm(class='form-control') }}
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> Save
+                </button>
+                <a class="btn btn-default" href="{{ url_for('.list') }}">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel
+                </a>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
