@@ -15,3 +15,4 @@ class test_config(base_config):
     WTF_CSRF_ENABLED = False
     if os.environ.get('CI'):
         SQLALCHEMY_DATABASE_URI = 'postgresql://postgres@localhost/flask_bones'
+        SECRET_KEY = 'travis_ci_secret'
