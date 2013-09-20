@@ -13,5 +13,5 @@ class dev_config(base_config):
 class test_config(base_config):
     TESTING = True
     WTF_CSRF_ENABLED = False
-    if os.environ.get('CI')
+    if os.environ.get('CI'):
         SQLALCHEMY_DATABASE_URI = 'postgresql://postgres@localhost/flask_bones'
