@@ -9,6 +9,7 @@ MarkupSafe==0.18
 SQLAlchemy==0.8.2
 WTForms==1.0.5
 Werkzeug==0.9.4
+coverage==3.6
 fake-factory==0.2
 flask-heroku==0.1.4
 itsdangerous==0.23
