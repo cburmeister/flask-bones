@@ -9,7 +9,6 @@ from app.auth import auth
 def create_app(config=config.base_config):
     app = Flask(__name__)
     app.config.from_object(config)
-    app.config['DEBUG'] = True
 
     from flask.ext.heroku import Heroku
     heroku = Heroku(app)
