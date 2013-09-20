@@ -23,7 +23,7 @@ def make_db():
         admin_password,
         fake.ipv4())
     ]
-    for _ in range(50):
+    for _ in range(5):
         u = User(fake.userName(),
                 fake.email(),
                 fake.word(),

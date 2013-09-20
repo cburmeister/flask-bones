@@ -1,10 +1,11 @@
 from flask.ext.script import Server, Shell, Manager
 from app import create_app
 from app.database import db
+from app import config
 from tests import make_db
 
 def _make_context():
-    return dict(app=create_app(), db=db, make_db=make_db)
+    return dict(app=create_app(config.dev_config), db=db, make_db=make_db)
 
 manager = Manager(create_app())
 manager.add_command('runserver', Server())

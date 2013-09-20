@@ -1,14 +1,15 @@
 from flask import Flask, g, render_template
 from app.database import db
 from app.extensions import lm
-from app.config import base_config
+from app import config
 from app.user import user
 from app.auth import auth
 
 
-def create_app(config=base_config):
+def create_app(config=config.base_config):
     app = Flask(__name__)
     app.config.from_object(config)
+    app.config['DEBUG'] = True
 
     from flask.ext.heroku import Heroku
     heroku = Heroku(app)
