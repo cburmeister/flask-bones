@@ -29,3 +29,7 @@ class User(CRUDMixin, UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.pw_hash, password)
+
+
+from app.extensions import api
+#api.create_api_blueprint(User, methods=['GET', 'POST', 'DELETE'])

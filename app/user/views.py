@@ -1,14 +1,14 @@
 from flask import request, redirect, url_for, render_template, abort, flash
 from flask.ext.login import login_required
 from app.utils import flash_errors
-from app.models import User
+from app.user.models import User
 from forms import EditUserForm, CreateUserForm
 
 from ..user import user
 
 
-@user.route('/list', defaults={'page': 1}, methods=['GET', 'POST'])
-@user.route('/list/<int:page>', methods=['GET', 'POST'])
+@user.route('/', defaults={'page': 1}, methods=['GET', 'POST'])
+@user.route('/<int:page>', methods=['GET', 'POST'])
 @login_required
 def list(page=1):
     users = User.query.paginate(page, 50)

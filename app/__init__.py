@@ -1,6 +1,6 @@
 from flask import Flask, g, render_template
 from app.database import db
-from app.extensions import lm
+from app.extensions import lm, api
 from app import config
 from app.user import user
 from app.auth import auth
@@ -14,6 +14,9 @@ def create_app(config=config.base_config):
     heroku = Heroku(app)
 
     db.init_app(app)
+
+    api.init_app(app)
+
     lm.init_app(app)
 
     register_blueprints(app)

@@ -2,7 +2,7 @@ from flask_wtf import Form
 from wtforms import TextField, PasswordField, BooleanField
 from wtforms.validators import DataRequired
 
-from app.models import User
+from app.user.models import User
 
 
 class LoginForm(Form):
