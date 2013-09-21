@@ -11,7 +11,7 @@ class User(CRUDMixin, UserMixin, db.Model):
     pw_hash = db.Column(db.String(80), nullable=False)
     created_ts = db.Column(db.DateTime(), nullable=False)
     remote_addr = db.Column(db.String(20))
-    sudo = db.Column(db.Boolean())
+    active = db.Column(db.Boolean())
 
     def __init__(self, username, email, password, remote_addr):
         self.username = username
@@ -19,7 +19,7 @@ class User(CRUDMixin, UserMixin, db.Model):
         self.set_password(password)
         self.created_ts = datetime.datetime.now()
         self.remote_addr = remote_addr
-        self.sudo = False
+        self.active = False
 
     def __repr__(self):
         return '<User %s>' % self.username
@@ -29,6 +29,9 @@ class User(CRUDMixin, UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.pw_hash, password)
+
+    def set_verification_code(self):
+        return ''
 
 
 from app.extensions import api

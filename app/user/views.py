@@ -2,7 +2,7 @@ from flask import request, redirect, url_for, render_template, abort, flash
 from flask.ext.login import login_required
 from app.utils import flash_errors
 from app.user.models import User
-from forms import EditUserForm, CreateUserForm
+from forms import EditUserForm, RegisterUserForm
 
 from ..user import user
 

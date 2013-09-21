@@ -1,25 +1,28 @@
 from flask import Flask, g, render_template
 from app.database import db
-from app.extensions import lm, api, travis
+from app.extensions import lm, api, travis, mail
 from app import config
 from app.user import user
 from app.auth import auth
+from os import environ
 
 
 def create_app(config=config.base_config):
     app = Flask(__name__)
     app.config.from_object(config)
+    app.config.setdefault('MAIL_SERVER', environ.get('MAILGUN_SMTP_SERVER'))
+    app.config.setdefault('MAIL_USERNAME', environ.get('MAILGUN_SMTP_LOGIN'))
+    app.config.setdefault('MAIL_PASSWORD', environ.get('MAILGUN_SMTP_PASSWORD'))
+    app.config.setdefault('MAIL_USE_TLS', True)
 
     from flask.ext.heroku import Heroku
     heroku = Heroku(app)
 
     travis.init_app(app)
-
     db.init_app(app)
-
     api.init_app(app)
-
     lm.init_app(app)
+    mail.init_app(app)
 
     register_blueprints(app)
     register_errorhandlers(app)

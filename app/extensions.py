@@ -6,3 +6,6 @@ api = APIManager()
 
 from flask.ext.travis import Travis
 travis = Travis()
+
+from flask.ext.mail import Mail
+mail = Mail()
