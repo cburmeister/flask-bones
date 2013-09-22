@@ -1,4 +1,5 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
+{% from '_macro.html' import pagination %}
 
 {% block title %}Users{% endblock %}
 
@@ -9,98 +10,35 @@
 {% endblock %}
 
 {% block body %}
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Brand</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Panel title</h3>
-        </div>
         <div class="panel-body">
             <div class="table-responsive">
                 <table class="table table-striped">
-                    <tr>
-                        <th>#</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Created Date</th>
-                        <th>IP</th>
-                    </tr>
-                    {% for u in users.items %}
+                    <thead>
                         <tr>
-                            <td>{{ u.id }}</td>
-                            <td><a href="{{ url_for('.edit', id=u.id) }}">{{ u.username }}</a></td>
-                            <td>{{ u.email }}</td>
-                            <td>{{ u.created_ts.strftime('%B %e, %Y') }}</td>
-                            <td>{{ u.remote_addr }}</td>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Created Date</th>
+                            <th>IP</th>
                         </tr>
-                    {% endfor %}
+                    </thead>
+                    <tbody>
+                        {% for u in users.items %}
+                            <tr>
+                                <td>{{ u.id }}</td>
+                                <td><a href="{{ url_for('.edit', id=u.id) }}">{{ u.username }}</a></td>
+                                <td>{{ u.email }}</td>
+                                <td>{{ u.created_ts.strftime('%B %e, %Y') }}</td>
+                                <td>{{ u.remote_addr }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>
         <div class="panel-footer">
-            <ul class="pagination" style="margin: 0;">
-                {% if users.has_prev %}
-                    <li><a href="{{ url_for(request.endpoint, page=users.prev_num) }}">&laquo;</a></li>
-                {% else %}
-                    <li class="disabled"><a>&laquo;</a></li>
-                {% endif %}
-                {%- for page in users.iter_pages() %}
-                    {% if page %}
-                        {% if page != users.page %}
-                            <li><a href="{{ url_for(request.endpoint, page=page) }}">{{ page }}</a></li>
-                        {% else %}
-                            <li class="active"><a>{{ page }}</a></li>
-                        {% endif %}
-                    {% else %}
-                        <li><span class=ellipsis>…</span></li>
-                    {% endif %}
-                {%- endfor %}
-                {% if users.has_next %}
-                    <li><a href="{{ url_for(request.endpoint, page=users.next_num) }}">&raquo;</a></li>
-                {% else %}
-                    <li class="disabled"><a>&raquo;</a></li>
-                {% endif %}
-            </ul>
+            {{ pagination(users) }}
         </div>
     </div>
 {% endblock %}

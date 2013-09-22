@@ -24,7 +24,7 @@ def make_db():
         fake.ipv4(),
         active=True)
     ]
-    for _ in range(5):
+    for _ in range(200):
         u = User(fake.userName(),
                 fake.email(),
                 fake.word(),

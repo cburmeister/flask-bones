@@ -82,6 +82,7 @@ def verify(token):
     else:
         user.active = True
         user.update()
+        User.update_stats()
 
         flash('Registered user %s. Please login to continue.' % user.username, 'success')
         return redirect(url_for('auth.login'))

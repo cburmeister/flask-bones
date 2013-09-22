@@ -1,5 +1,6 @@
 from flask import request, redirect, url_for, render_template, abort, flash
 from flask.ext.login import login_required
+from app.extensions import cache
 from app.utils import flash_errors
 from app.user.models import User
 from forms import EditUserForm, RegisterUserForm
@@ -12,7 +13,9 @@ from ..user import user
 @login_required
 def list(page=1):
     users = User.query.paginate(page, 50)
-    return render_template('list.html', users=users)
+
+    stats = User.stats()
+    return render_template('list.html', users=users, stats=stats)
 
 
 @user.route('/edit/<int:id>', methods=['GET', 'POST'])
@@ -35,6 +38,8 @@ def edit(id):
 @login_required
 def delete(id):
     user = User.get_by_id(id)
+    if not user:
+        abort(404)
     user.delete()
     flash('User %s deleted' % user.username, 'success')
     return redirect(url_for('.list'))
