@@ -54,7 +54,6 @@ def register():
             remote_addr=request.remote_addr,
         )
 
-
         s = URLSafeSerializer(current_app.secret_key)
         token = s.dumps(user.id)
 

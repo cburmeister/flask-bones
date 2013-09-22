@@ -21,7 +21,8 @@ def make_db():
     users = [User(admin_username,
         admin_email,
         admin_password,
-        fake.ipv4())
+        fake.ipv4(),
+        active=True)
     ]
     for _ in range(5):
         u = User(fake.userName(),
@@ -48,16 +49,16 @@ class TestCase(unittest.TestCase):
     def login(self, username, password):
         return self.app.post('/login', data=dict(
             username=username,
-            password=password,
-            accept_tos=True
+            password=password
         ), follow_redirects=True)
 
-    def create_user(self, username, email, password):
-        return self.app.post('/user/create', data=dict(
+    def register_user(self, username, email, password):
+        return self.app.post('/register', data=dict(
             username=username,
             email=email,
             password=password,
-            confirm=password
+            confirm=password,
+            accept_tos=True
         ), follow_redirects=True)
 
     def edit_user(self, user, email):
@@ -76,11 +77,12 @@ class TestCase(unittest.TestCase):
         resp = self.app.get('/logout', follow_redirects=True)
         assert 'You were logged out' in resp.data
 
-    def test_create_user(self):
+    def test_register_user(self):
         username = fake.userName()
-        resp = self.login(admin_username, admin_password)
-        resp = self.create_user(username, fake.email(), fake.word())
-        assert 'User %s created' % username in resp.data
+        email = fake.email()
+        password = fake.word()
+        resp = self.register_user(username, email, password)
+        assert 'Sent verification email to %s' % email in resp.data
 
     def test_edit_user(self):
         user = User.query.order_by(func.random()).first()

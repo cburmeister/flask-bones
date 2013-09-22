@@ -15,24 +15,6 @@ def list(page=1):
     return render_template('list.html', users=users)
 
 
-@user.route('/create', methods=['GET', 'POST'])
-@login_required
-def create():
-    form = CreateUserForm()
-    if form.validate_on_submit():
-        user = User.create(
-            username=form.data['username'],
-            email=form.data['email'],
-            password=form.data['password'],
-            remote_addr=request.remote_addr,
-        )
-        flash('User %s created' % user.username, 'success')
-        return redirect(url_for('.list'))
-    else:
-        flash_errors(form)
-    return render_template('create.html', form=form)
-
-
 @user.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
