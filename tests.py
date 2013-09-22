@@ -24,10 +24,10 @@ def make_db():
         fake.ipv4(),
         active=True)
     ]
-    for _ in range(200):
+    for _ in range(5):
         u = User(fake.userName(),
                 fake.email(),
-                fake.word(),
+                fake.word() + fake.word(),
                 fake.ipv4()
             )
         users.append(u)
@@ -80,7 +80,7 @@ class TestCase(unittest.TestCase):
     def test_register_user(self):
         username = fake.userName()
         email = fake.email()
-        password = fake.word()
+        password = fake.word() + fake.word()
         resp = self.register_user(username, email, password)
         assert 'Sent verification email to %s' % email in resp.data
 

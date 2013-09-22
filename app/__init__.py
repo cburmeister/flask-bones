@@ -1,6 +1,6 @@
 from flask import Flask, g, render_template
 from app.database import db
-from app.extensions import lm, api, travis, mail, heroku
+from app.extensions import lm, api, travis, mail, heroku, bcrypt
 from app import config
 from app.user import user
 from app.auth import auth
@@ -35,6 +35,7 @@ def register_extensions(app):
     api.init_app(app)
     lm.init_app(app)
     mail.init_app(app)
+    bcrypt.init_app(app)
 
 
 def register_blueprints(app):

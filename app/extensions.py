@@ -15,3 +15,6 @@ mail = Mail()
 
 from cachecore import SimpleCache
 cache = SimpleCache()
+
+from flask.ext.bcrypt import Bcrypt
+bcrypt = Bcrypt()
