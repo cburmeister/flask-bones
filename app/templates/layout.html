@@ -47,7 +47,12 @@
         {% block header -%}{%- endblock %}
         {% block body -%}{%- endblock %}
         {% block footer -%}{%- endblock %}
-        <p>Request completed in: {{ g.request_time() }}</p>
+        <hr />
+        <p class="text-center text-muted">
+            <span>
+                Request completed in: {{ g.request_time() }}
+            </span>
+        </p>
     </div>
      <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
