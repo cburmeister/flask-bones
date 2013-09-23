@@ -1,10 +1,15 @@
-from flask import request, redirect, url_for, render_template, flash
+from flask import current_app, request, redirect, url_for, render_template, flash, abort
 from flask.ext.login import login_user, login_required, logout_user
-from app.extensions import lm
+from flask.ext.mail import Message
+from app.extensions import lm, mail
 from app.utils import flash_errors
 from app.user.models import User
+from app.user.forms import RegisterUserForm
 from .forms import LoginForm
 from ..auth import auth
+from ..tasks import send_email
+
+from itsdangerous import URLSafeSerializer, BadSignature
 
 
 @lm.user_loader
@@ -30,3 +35,55 @@ def logout():
     logout_user()
     flash('You were logged out', 'success')
     return redirect(url_for('.login'))
+
+
+def get_serializer(secret_key=None):
+    if secret_key is None:
+        secret_key = current_app.secret_key
+        return URLSafeSerializer(current_app.secret_key)
+
+
+@auth.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterUserForm()
+    if form.validate_on_submit():
+
+        user = User.create(
+            username=form.data['username'],
+            email=form.data['email'],
+            password=form.data['password'],
+            remote_addr=request.remote_addr,
+        )
+
+        s = URLSafeSerializer(current_app.secret_key)
+        token = s.dumps(user.id)
+
+        msg = Message('User Registration', sender='admin@flask-bones.com', recipients=[user.email])
+        msg.body = render_template('mail/registration.mail', user=user, token=token)
+
+        send_email.delay(msg)
+
+        flash('Sent verification email to %s' % (user.email), 'success')
+        return redirect(url_for('index'))
+    else:
+        flash_errors(form)
+    return render_template('register.html', form=form)
+
+
+@auth.route('/verify/<token>', methods=['GET'])
+def verify(token):
+    s = URLSafeSerializer(current_app.secret_key)
+    try:
+        user_id = s.loads(token)
+    except BadSignature:
+        abort(404)
+
+    user = User.get_by_id(user_id)
+    if not user or user.active:
+        abort(404)
+    else:
+        user.active = True
+        user.update()
+
+        flash('Registered user %s. Please login to continue.' % user.username, 'success')
+        return redirect(url_for('auth.login'))
