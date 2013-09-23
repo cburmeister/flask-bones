@@ -11,7 +11,7 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
 1. Caching with Memcached
 
     ```bash
-    from app import cache
+    from app.extensions import cache
 
     # cache something
     cache.set('some_key', 'some_value')
@@ -51,7 +51,7 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
 4. Stupid simple user management
 
     ```bash
-    from app.extensions import
+    from app.extensions import login_user, logout_user, login_required
 
     # login user
     login_user(user)
@@ -69,6 +69,8 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
 5. Password security that can keep up with Moores Law
 
     ```bash
+    from app.extensions import bcrypt
+
     # hash password
     pw_hash = bcrypt.generate_password_hash('password')
 
@@ -94,6 +96,12 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
     ```bash
     from app.config import dev_config, test_config
     app = Flask(__name__)
+
+    class dev_config():
+        DEBUG = True
+
+    class test_config():
+        TESTING = True
 
     # configure for testing
     app.config.from_object(test_config)
@@ -142,6 +150,8 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
 12.  Use any relational database using the SQLAlchemy ORM
 
     ```bash
+    from app.user.models import User
+
     # fetch user by id
     user = User.get_by_id(id)
 
