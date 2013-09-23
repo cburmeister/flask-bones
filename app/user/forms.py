@@ -30,7 +30,7 @@ class RegisterUserForm(UserForm):
 
         user = User.query.filter_by(username=self.username.data).first()
         if user:
-            self.username.errors.append('Username taken')
+            self.username.errors.append('Username already registered')
             return False
 
         user = User.query.filter_by(email=self.email.data).first()

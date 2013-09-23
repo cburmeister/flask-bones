@@ -13,14 +13,16 @@ class User(CRUDMixin, UserMixin, db.Model):
     created_ts = db.Column(db.DateTime(), nullable=False)
     remote_addr = db.Column(db.String(20))
     active = db.Column(db.Boolean())
+    is_admin = db.Column(db.Boolean())
 
-    def __init__(self, username, email, password, remote_addr, active=False):
+    def __init__(self, username, email, password, remote_addr, active=False, is_admin=False):
         self.username = username
         self.email = email
         self.set_password(password)
         self.created_ts = datetime.datetime.now()
         self.remote_addr = remote_addr
         self.active = active
+        self.is_admin = is_admin
 
     def __repr__(self):
         return '<User %s>' % self.username

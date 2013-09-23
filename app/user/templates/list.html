@@ -4,9 +4,6 @@
 {% block title %}Users{% endblock %}
 
 {% block header %}
-    <ol class="breadcrumb">
-        <li class="active">Users</li>
-    </ol>
 {% endblock %}
 
 {% block body %}
@@ -16,18 +13,21 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Username</th>
                             <th>Email</th>
                             <th>Created Date</th>
-                            <th>IP</th>
+                            <th>Last IP</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for u in users.items %}
                             <tr>
-                                <td>{{ u.id }}</td>
-                                <td><a href="{{ url_for('.edit', id=u.id) }}">{{ u.username }}</a></td>
+                                <td>
+                                    <a href="{{ url_for('.edit', id=u.id) }}">{{ u.username }}</a>
+                                    {% if u.is_admin %}
+                                        <span class="label label-info">Admin</span>
+                                    {% endif %}
+                                </td>
                                 <td>{{ u.email }}</td>
                                 <td>{{ u.created_ts.strftime('%B %e, %Y') }}</td>
                                 <td>{{ u.remote_addr }}</td>

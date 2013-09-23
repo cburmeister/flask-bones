@@ -18,18 +18,22 @@ def make_db():
     db.drop_all()
     db.create_all()
 
-    users = [User(admin_username,
-        admin_email,
-        admin_password,
-        fake.ipv4(),
-        active=True)
+    users = [
+        User(admin_username,
+            admin_email,
+            admin_password,
+            fake.ipv4(),
+            active=True,
+            is_admin=True
+        )
     ]
     for _ in range(5):
-        u = User(fake.userName(),
-                fake.email(),
-                fake.word() + fake.word(),
-                fake.ipv4()
-            )
+        u = User(
+            fake.userName(),
+            fake.email(),
+            fake.word() + fake.word(),
+            fake.ipv4()
+        )
         users.append(u)
     [db.session.add(x) for x in users]
 
@@ -89,6 +93,7 @@ class TestCase(unittest.TestCase):
         resp = self.login(admin_username, admin_password)
         resp = self.edit_user(user, email=fake.email())
         assert 'User %s edited' % user.username in resp.data
+
 
 if __name__ == '__main__':
     unittest.main()

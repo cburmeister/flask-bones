@@ -21,9 +21,9 @@
                 <a class="navbar-brand" href="{{ url_for('index') }}">Flask Bones</a>
             </div>
             <div class="navbar-collapse collapse">
-                {% if current_user.is_authenticated() %}
+                {% if current_user.is_admin %}
                     <ul class="nav navbar-nav">
-                            <li><a href="{{ url_for('user.list') }}">Users</a></li>
+                        <li><a href="{{ url_for('user.list') }}">Users</a></li>
                     </ul>
                 {% endif %}
                 <ul class="nav navbar-nav navbar-right">
