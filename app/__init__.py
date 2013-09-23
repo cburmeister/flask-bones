@@ -1,6 +1,6 @@
 from flask import Flask, g, render_template
 from app.database import db
-from app.extensions import lm, api, travis, mail, heroku, bcrypt
+from app.extensions import lm, api, travis, mail, heroku, bcrypt, celery
 from app import config
 from app.user import user
 from app.auth import auth
@@ -25,6 +25,7 @@ def create_app(config=config.base_config):
     def index():
         return render_template('index.html')
 
+
     return app
 
 
@@ -36,6 +37,7 @@ def register_extensions(app):
     lm.init_app(app)
     mail.init_app(app)
     bcrypt.init_app(app)
+    celery.config_from_object(app.config)
 
 
 def register_blueprints(app):

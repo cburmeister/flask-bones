@@ -18,3 +18,6 @@ cache = SimpleCache()
 
 from flask.ext.bcrypt import Bcrypt
 bcrypt = Bcrypt()
+
+from celery import Celery
+celery = Celery()

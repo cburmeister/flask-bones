@@ -7,6 +7,7 @@ from app.user.models import User
 from app.user.forms import RegisterUserForm
 from .forms import LoginForm
 from ..auth import auth
+from ..tasks import send_email
 
 from itsdangerous import URLSafeSerializer, BadSignature
 
@@ -59,9 +60,10 @@ def register():
 
         msg = Message('User Registration', sender='admin@flask-bones.com', recipients=[user.email])
         msg.body = render_template('mail/registration.mail', user=user, token=token)
-        mail.send(msg)
 
-        flash('Sent verification email to %s' % user.email, 'success')
+        send_email.delay(msg)
+
+        flash('Sent verification email to %s' % (user.email), 'success')
         return redirect(url_for('index'))
     else:
         flash_errors(form)
