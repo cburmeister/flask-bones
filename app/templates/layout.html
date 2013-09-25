@@ -21,38 +21,38 @@
                 <a class="navbar-brand" href="{{ url_for('index') }}">Flask Bones</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-
-                    {% if current_user.is_authenticated() %}
+                {% if current_user.is_admin %}
+                    <ul class="nav navbar-nav">
                         <li><a href="{{ url_for('user.list') }}">Users</a></li>
-                    {% else %}
-                    {% endif %}
-
-                </ul>
+                    </ul>
+                {% endif %}
                 <ul class="nav navbar-nav navbar-right">
-
                     {% if current_user.is_authenticated() %}
                         <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
                     {% else %}
                         <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
                     {% endif %}
-
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
     </div>
     <div class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% with messages = get_flashed_messages(with_categories=true) -%}
             {% if messages %}
                 {% for category, message in messages %}
                     <div class="alert alert-{{ category }}">{{ message }}</div>
                 {% endfor %}
             {% endif %}
-        {% endwith %}
-        {% block header %}{% endblock %}
-        {% block body %}{% endblock %}
-        {% block footer %}{% endblock %}
-        <p>Request completed in: {{ g.request_time() }}</p>
+        {%- endwith %}
+        {% block header -%}{%- endblock %}
+        {% block body -%}{%- endblock %}
+        {% block footer -%}{%- endblock %}
+        <hr />
+        <p class="text-center text-muted">
+            <span>
+                Request completed in: {{ g.request_time() }}
+            </span>
+        </p>
     </div>
      <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>

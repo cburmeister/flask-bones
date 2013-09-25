@@ -1,0 +1,25 @@
+{% macro pagination(pgn) %}
+    <ul class="pagination" style="margin: 0;">
+        {% if pgn.has_prev %}
+            <li><a href="{{ url_for(request.endpoint, page=pgn.prev_num) }}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><a>&laquo;</a></li>
+        {% endif %}
+        {%- for page in pgn.iter_pages() %}
+            {% if page %}
+                {% if page != pgn.page %}
+                    <li><a href="{{ url_for(request.endpoint, page=page) }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="active"><a>{{ page }}</a></li>
+                {% endif %}
+            {% else %}
+                <li><span class=ellipsis>…</span></li>
+            {% endif %}
+        {%- endfor %}
+        {% if pgn.has_next %}
+            <li><a href="{{ url_for(request.endpoint, page=pgn.next_num) }}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><a>&raquo;</a></li>
+        {% endif %}
+    </ul>
+{% endmacro %}
