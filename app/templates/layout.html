@@ -6,6 +6,9 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    {% assets "js_all" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 </head>
 <body>
 
@@ -54,7 +57,5 @@
             </span>
         </p>
     </div>
-     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
-     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
 </html>

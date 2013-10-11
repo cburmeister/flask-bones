@@ -21,3 +21,6 @@ bcrypt = Bcrypt()
 
 from celery import Celery
 celery = Celery()
+
+from flask.ext.assets import Environment
+assets = Environment()
