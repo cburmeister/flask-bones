@@ -161,3 +161,22 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
     # fetch a paginated set of users
     users = User.query.paginate(page, 50)
     ```
+
+13. Merge and compress your javascripts and stylesheets
+
+    ```bash
+    # create a bundle of assets
+    js = Bundle(
+        'js/jquery.js',
+        'js/bootstrap.min.js',
+        filters='jsmin',
+        output='gen/packed.js'
+    )
+    ```
+
+    ```bash
+    # serve up a single minified file
+    {% assets "js_all" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    ```

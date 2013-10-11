@@ -40,6 +40,7 @@ def register_extensions(app):
     bcrypt.init_app(app)
     celery.config_from_object(app.config)
 
+
 def register_assets(app):
     js = Bundle(
         'js/jquery.js',
@@ -47,8 +48,13 @@ def register_assets(app):
         filters='jsmin',
         output='gen/packed.js'
     )
+    css = Bundle(
+        'css/bootstrap.min.css',
+        'css/style.css'
+    )
     assets.init_app(app)
     assets.register('js_all', js)
+    assets.register('css_all', css)
 
 
 def register_blueprints(app):
