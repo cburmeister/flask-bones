@@ -37,12 +37,6 @@ def logout():
     return redirect(url_for('.login'))
 
 
-def get_serializer(secret_key=None):
-    if secret_key is None:
-        secret_key = current_app.secret_key
-        return URLSafeSerializer(current_app.secret_key)
-
-
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterUserForm()
