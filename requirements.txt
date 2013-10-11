@@ -24,6 +24,7 @@ cachecore==0.1.0
 celery==3.0.23
 celery-with-redis==3.0
 coverage==3.6
+cssmin==0.1.4
 fake-factory==0.2
 gunicorn==18.0
 itsdangerous==0.23

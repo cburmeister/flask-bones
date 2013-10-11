@@ -9,7 +9,9 @@ js = Bundle(
 
 css = Bundle(
     'css/bootstrap.min.css',
-    'css/style.css'
+    'css/style.css',
+    filters='cssmin',
+    output='gen/packed.css'
 )
 
 assets = Environment()

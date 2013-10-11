@@ -9,7 +9,6 @@ from app.auth import auth
 from os import environ
 import time
 
-
 def create_app(config=config.base_config):
     app = Flask(__name__)
     app.config.from_object(config)
@@ -29,7 +28,6 @@ def create_app(config=config.base_config):
 
     return app
 
-
 def register_extensions(app):
     heroku.init_app(app)
     travis.init_app(app)
@@ -41,16 +39,13 @@ def register_extensions(app):
     celery.config_from_object(app.config)
     assets.init_app(app)
 
-
 def register_blueprints(app):
     app.register_blueprint(user, url_prefix='/user')
     app.register_blueprint(auth)
 
-
 def register_errorhandlers(app):
     for e in [401, 404, 500]:
         app.errorhandler(e)(render_error)
-
 
 def render_error(e):
     return render_template('errors/%s.html' % e.code), e.code
