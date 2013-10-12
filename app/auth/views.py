@@ -1,15 +1,14 @@
 from flask import current_app, request, redirect, url_for, render_template, flash, abort
 from flask.ext.login import login_user, login_required, logout_user
 from flask.ext.mail import Message
+from itsdangerous import URLSafeSerializer, BadSignature
 from app.extensions import lm, mail
 from app.utils import flash_errors
+from app.tasks import send_registration_email
 from app.user.models import User
 from app.user.forms import RegisterUserForm
 from .forms import LoginForm
 from ..auth import auth
-import app.tasks
-
-from itsdangerous import URLSafeSerializer, BadSignature
 
 
 @lm.user_loader
@@ -52,7 +51,7 @@ def register():
         s = URLSafeSerializer(current_app.secret_key)
         token = s.dumps(user.id)
 
-        tasks.send_registration_email.delay(user, token)
+        send_registration_email.delay(user, token)
 
         flash('Sent verification email to %s' % (user.email), 'success')
         return redirect(url_for('index'))

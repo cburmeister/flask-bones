@@ -1,13 +1,20 @@
 from app.extensions import celery, mail
 from app.database import db
-from flask.globals import current_app
 from celery.signals import task_postrun
 
 
 @celery.task
 def send_registration_email(user, token):
-    msg = Message('User Registration', sender='admin@flask-bones.com', recipients=[user.email])
-    msg.body = render_template('mail/registration.mail', user=user, token=token)
+    msg = Message(
+        'User Registration',
+        sender='admin@flask-bones.com',
+        recipients=[user.email]
+    )
+    msg.body = render_template(
+        'mail/registration.mail',
+        user=user,
+        token=token
+    )
     mail.send(msg)
 
 
