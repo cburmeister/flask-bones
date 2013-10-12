@@ -16,19 +16,24 @@ def list(page=1):
     query = User.query
 
     possible_sorts = ['username', 'email']
-    possible_orders = ['desc', 'asac']
+    possible_orders = ['desc', 'asc']
 
-    sort = request.values.get('sort')
-    order = request.values.get('order')
+    sort = request.values.get('sort', possible_sorts[0])
+    order = request.values.get('order', possible_orders[0])
 
     if sort in possible_sorts and order in possible_orders:
-        field = getattr(User, sort)
-        field = getattr(field, order)
+        field = getattr(getattr(User, sort), order)
         query = query.order_by(field())
 
-    users = query.paginate(page, 50)
+    users = query.paginate(page, 10)
     stats = User.stats()
-    return render_template('list.html', users=users, stats=stats)
+
+    return render_template(
+        'list.html',
+        sorts=possible_sorts,
+        users=users,
+        stats=stats
+    )
 
 
 @user.route('/edit/<int:id>', methods=['GET', 'POST'])

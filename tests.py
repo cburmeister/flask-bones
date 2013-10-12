@@ -27,7 +27,7 @@ def make_db():
             is_admin=True
         )
     ]
-    for _ in range(5):
+    for _ in range(80):
         u = User(
             fake.userName(),
             fake.email(),

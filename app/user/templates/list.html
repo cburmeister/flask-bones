@@ -13,7 +13,6 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            {% set sorts = ['username', 'email'] %}
                             {% for item in sorts %}
                                 {% set sort = request.values.get('sort', 'username') %}
                                 {% set order = request.values.get('order', 'desc') %}
