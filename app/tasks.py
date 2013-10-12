@@ -5,7 +5,9 @@ from celery.signals import task_postrun
 
 
 @celery.task
-def send_email(msg):
+def send_registration_email(user, token):
+    msg = Message('User Registration', sender='admin@flask-bones.com', recipients=[user.email])
+    msg.body = render_template('mail/registration.mail', user=user, token=token)
     mail.send(msg)
 
 
