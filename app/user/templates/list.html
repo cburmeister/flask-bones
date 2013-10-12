@@ -13,8 +13,13 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Username</th>
-                            <th>Email</th>
+                            {% set sorts = ['username', 'email'] %}
+                            {% for item in sorts %}
+                                {% set sort = request.values.get('sort', 'username') %}
+                                {% set order = request.values.get('order', 'desc') %}
+                                {% set order = 'asc' if order == 'desc' else 'desc' %}
+                                <th><a href="{{ url_for(request.endpoint, sort=item, order=order) }}">{{ item|title }}</a></th>
+                            {% endfor %}
                             <th>Created Date</th>
                             <th>Last IP</th>
                         </tr>

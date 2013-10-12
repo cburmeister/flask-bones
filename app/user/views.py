@@ -12,8 +12,21 @@ from ..user import user
 @user.route('/<int:page>', methods=['GET', 'POST'])
 @login_required
 def list(page=1):
-    users = User.query.paginate(page, 50)
 
+    query = User.query
+
+    possible_sorts = ['username', 'email']
+    possible_orders = ['desc', 'asac']
+
+    sort = request.values.get('sort')
+    order = request.values.get('order')
+
+    if sort in possible_sorts and order in possible_orders:
+        field = getattr(User, sort)
+        field = getattr(field, order)
+        query = query.order_by(field())
+
+    users = query.paginate(page, 50)
     stats = User.stats()
     return render_template('list.html', users=users, stats=stats)
 

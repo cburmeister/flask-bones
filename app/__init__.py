@@ -12,6 +12,7 @@ import time
 def create_app(config=config.base_config):
     app = Flask(__name__)
     app.config.from_object(config)
+    app.config['DEBUG'] = True
 
     register_extensions(app)
     register_blueprints(app)
