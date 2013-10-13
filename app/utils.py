@@ -8,8 +8,10 @@ def flash_errors(form, category='danger'):
 
 def url_for_other_page(remove_args=[], **kwargs):
     args = request.args.copy()
-    for key, value in remove_args:
-        args.pop(key)
+    remove_args = ['_pjax']
+    for key in remove_args:
+        if key in args.keys():
+            args.pop(key)
     new_args = [x for x in kwargs.iteritems()]
     for key, value in new_args:
         args[key] = value

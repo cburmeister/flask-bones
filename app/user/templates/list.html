@@ -9,46 +9,9 @@
 {% endblock %}
 
 {% block body %}
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    {% for item in sorts %}
-                        {% if request.values.get('sort', sorts[0]) == item %}
-                            {% if request.values.get('order', 'asc') == 'asc' %}
-                                <th>
-                                    <span class="glyphicon glyphicon-chevron-up"></span>
-                                    <a href="{{ url_for_other_page(sort=item, order='desc') }}">{{ item|title }}</a>
-                                </th>
-                            {% else %}
-                                <th>
-                                    <span class="glyphicon glyphicon-chevron-down"></span>
-                                    <a href="{{ url_for_other_page(sort=item, order='asc') }}">{{ item|title }}</a>
-                                </th>
-                            {% endif %}
-                        {% else %}
-                            <th>
-                                <a href="{{ url_for_other_page(sort=item, order='asc') }}">{{ item|title }}</a>
-                            </th>
-                        {% endif %}
-                    {% endfor %}
-                    <th>Created Date</th>
-                    <th>Last IP</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for u in users.items %}
-                    <tr>
-                        <td><a href="{{ url_for('.edit', id=u.id) }}">{{ u.username }}</a></td>
-                        <td>{{ u.email }}</td>
-                        <td>{{ u.created_ts.strftime('%B %e, %Y') }}</td>
-                        <td>{{ u.remote_addr }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div id="pjax-container">
+        {% include 'users.html' %}
     </div>
-    {{ pagination(users, limits) }}
 {% endblock %}
 
 {% block footer %}

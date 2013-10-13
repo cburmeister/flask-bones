@@ -1,38 +1,48 @@
 {% macro pagination(pgn, limits=[]) %}
     <div class="pagination-component">
-        <ul class="pagination" style="margin: 0;">
-            {% if pgn.has_prev %}
-                <li><a href="{{ url_for_other_page(page=pgn.prev_num) }}">&laquo;</a></li>
-            {% else %}
-                <li class="disabled"><a>&laquo;</a></li>
-            {% endif %}
-            {%- for page in pgn.iter_pages() %}
-                {% if page %}
-                    {% if page != pgn.page %}
-                        <li><a href="{{ url_for_other_page(page=page) }}">{{ page }}</a></li>
-                    {% else %}
-                        <li class="active"><a>{{ page }}</a></li>
-                    {% endif %}
-                {% else %}
-                    <li><span class=ellipsis>…</span></li>
-                {% endif %}
-            {%- endfor %}
-            {% if pgn.has_next %}
-                <li><a href="{{ url_for_other_page(page=pgn.next_num) }}">&raquo;</a></li>
-            {% else %}
-                <li class="disabled"><a>&raquo;</a></li>
-            {% endif %}
-        </ul>
-        <form method=="POST" action="{{ url_for(request.endpoint, **request.args) }}">
-            <select name="limit" class="">
-                {% for l in limits %}
-                    <option {{ 'selected="selected"' if l|string == request.values.get('limit', limits[0]) }}value="{{ l }}">{{ l }}</option>
-                {% endfor %}
-            </select>
-            {% set filter_keys = ['limit', 'page'] %}
-            {% for key, value in request.values.items(multi=True) if not key in filter_keys %}
-                <input type="hidden" name="{{ key|e }}" value="{{ value|e }}" />
-            {% endfor %}
-        </form>
+        {{ pagination_links(pgn) }}
+        {{ pagination_limit(pgn, limits) }}
     </div>
+{% endmacro %}
+
+{% macro pagination_links(pgn) %}
+    <ul class="pagination" style="margin: 0;">
+        {% if pgn.has_prev %}
+            <li><a href="{{ url_for_other_page(page=pgn.prev_num) }}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><a>&laquo;</a></li>
+        {% endif %}
+        {%- for page in pgn.iter_pages() %}
+            {% if page %}
+                {% if page != pgn.page %}
+                    <li><a href="{{ url_for_other_page(page=page) }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="active"><a>{{ page }}</a></li>
+                {% endif %}
+            {% else %}
+                <li><span class=ellipsis>…</span></li>
+            {% endif %}
+        {%- endfor %}
+        {% if pgn.has_next %}
+            <li><a href="{{ url_for_other_page(page=pgn.next_num) }}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><a>&raquo;</a></li>
+        {% endif %}
+    </ul>
+{% endmacro %}
+
+{% macro pagination_limit(pgn, limits) %}
+    <form data-pjax method=="POST" action="{{ url_for_other_page() }}" class="form-inline" role="form">
+        <label for="limit">Show</label>
+        <select name="limit" class="form-control">
+            {% for l in limits %}
+                <option {{ 'selected="selected"' if l|string == request.values.get('limit', limits[0]) }}value="{{ l }}">{{ l }}</option>
+            {% endfor %}
+        </select>
+        {% set filter_keys = ['limit', 'page', '_pjax'] %}
+        {% for key, value in request.values.items(multi=True) if not key in filter_keys %}
+            <input type="hidden" name="{{ key|e }}" value="{{ value|e }}" />
+        {% endfor %}
+        <noscript><button type="submit">Refresh</button></noscript>
+    </form>
 {% endmacro %}

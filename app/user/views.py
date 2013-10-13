@@ -29,6 +29,15 @@ def list():
     users = query.paginate(page, limit)
     stats = User.stats()
 
+    if 'X-PJAX' in request.headers:
+        return render_template(
+            'users.html',
+            sorts=possible_sorts,
+            limits=possible_limits,
+            users=users,
+            stats=stats
+        )
+
     return render_template(
         'list.html',
         sorts=possible_sorts,
