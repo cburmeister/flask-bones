@@ -7,21 +7,35 @@ from forms import EditUserForm
 from ..user import user
 
 
-@user.route('/list')
+@user.route('/list', methods=['GET', 'POST'])
 @login_required
 def list():
-    query = User.query
-
     sorts = ['username', 'email']
     orders = ['asc', 'desc']
 
+    page = request.values.get('page', 1, type=int)
     sort = request.values.get('sort', sorts[0])
     order = request.values.get('order', orders[0])
-    page = request.values.get('page', 1, type=int)
+    filter = request.values.get('active', None)
+    search = request.values.get('query', None)
+
+    query = User.query
 
     if sort in sorts and order in orders:
         field = getattr(getattr(User, sort), order)
         query = query.order_by(field())
+
+    if filter:
+        field = getattr(User, 'active')
+        query = query.filter(field==filter)
+
+    if search:
+        search_query = '%%%s%%' % search
+        from sqlalchemy import or_
+        query = query.filter(or_(
+            User.email.like(search_query),
+            User.username.like(search_query)
+        ))
 
     users = query.paginate(page, 25)
     stats = User.stats()

@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 
-{% block title %}Login{% endblock %}
+{% block title %}
+    Login
+{% endblock %}
 
 {% block header %}
 {% endblock %}
@@ -14,12 +16,10 @@
             <div class="panel-body">
                 {{ form.csrf_token }}
                 <div class="form-group">
-                    {{ form.username.label }}
-                    {{ form.username(class='form-control') }}
+                    {{ form.username.label }} {{ form.username(class='form-control') }}
                 </div>
                 <div class="form-group">
-                    {{ form.password.label }}
-                    {{ form.password(class='form-control') }}
+                    {{ form.password.label }} {{ form.password(class='form-control') }}
                 </div>
             </div>
             <div class="panel-footer">

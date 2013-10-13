@@ -35,6 +35,8 @@
                     <td>{{ u.created_ts.strftime('%B %e, %Y') }}</td>
                     <td>{{ u.remote_addr }}</td>
                 </tr>
+            {% else %}
+                <tr><td colspan="4">No results found for: {{ request.values.get('query') }}</td></tr>
             {% endfor %}
         </tbody>
     </table>

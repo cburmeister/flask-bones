@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}
+{% endblock %}
 
 {% block header %}
 {% endblock %}
@@ -16,24 +17,19 @@
             <div class="panel-body">
                 {{ form.csrf_token }}
                 <div class="form-group">
-                    {{ form.username.label }}
-                    {{ form.username(class='form-control') }}
+                    {{ form.username.label }} {{ form.username(class='form-control') }}
                 </div>
                 <div class="form-group">
-                    {{ form.email.label }}
-                    {{ form.email(class='form-control') }}
+                    {{ form.email.label }} {{ form.email(class='form-control') }}
                 </div>
                 <div class="form-group">
-                    {{ form.password.label }}
-                    {{ form.password(class='form-control') }}
+                    {{ form.password.label }} {{ form.password(class='form-control') }}
                 </div>
                 <div class="form-group">
-                    {{ form.confirm.label }}
-                    {{ form.confirm(class='form-control') }}
+                    {{ form.confirm.label }} {{ form.confirm(class='form-control') }}
                 </div>
                 <div class="checkbox">
-                    {{ form.accept_tos.label }}
-                    {{ form.accept_tos() }}
+                    {{ form.accept_tos.label }} {{ form.accept_tos() }}
                 </div>
             </div>
             <div class="panel-footer">
