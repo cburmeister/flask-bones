@@ -45,6 +45,7 @@ class TestCase(unittest.TestCase):
         app = create_app(test_config)
         db.app = app  # hack for using db.init_app(app) in app/__init__.py
         self.app = app.test_client()
+        make_db()
 
     def tearDown(self):
         make_db()
