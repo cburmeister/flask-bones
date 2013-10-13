@@ -3,6 +3,7 @@ from flask.ext.assets import Bundle, Environment
 js = Bundle(
     'js/jquery.js',
     'js/bootstrap.min.js',
+    'js/pagination.js',
     filters='jsmin',
     output='gen/packed.js'
 )

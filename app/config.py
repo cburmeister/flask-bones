@@ -9,6 +9,7 @@ class base_config(object):
 
 class dev_config(base_config):
     DEBUG = True
+    ASSETS_DEBUG = True
     WTF_CSRF_ENABLED = False
 
 

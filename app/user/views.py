@@ -8,29 +8,31 @@ from forms import EditUserForm, RegisterUserForm
 from ..user import user
 
 
-@user.route('/', defaults={'page': 1}, methods=['GET', 'POST'])
-@user.route('/<int:page>', methods=['GET', 'POST'])
+@user.route('/list')
 @login_required
-def list(page=1):
-
+def list():
     query = User.query
 
     possible_sorts = ['username', 'email']
-    possible_orders = ['desc', 'asc']
+    possible_orders = ['asc', 'desc']
+    possible_limits = [10, 25, 50, 100]
 
     sort = request.values.get('sort', possible_sorts[0])
     order = request.values.get('order', possible_orders[0])
+    limit = request.values.get('limit', possible_limits[0], type=int)
+    page = request.values.get('page', 1, type=int)
 
     if sort in possible_sorts and order in possible_orders:
         field = getattr(getattr(User, sort), order)
         query = query.order_by(field())
 
-    users = query.paginate(page, 10)
+    users = query.paginate(page, limit)
     stats = User.stats()
 
     return render_template(
         'list.html',
         sorts=possible_sorts,
+        limits=possible_limits,
         users=users,
         stats=stats
     )

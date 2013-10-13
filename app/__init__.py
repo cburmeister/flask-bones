@@ -1,22 +1,24 @@
-from flask import Flask, g, render_template
+from flask import Flask, g, render_template, request, url_for
+from flask.ext.assets import Bundle
 from app.database import db
 from app.extensions import lm, api, travis, mail, heroku, bcrypt, celery, assets
 from app.assets import assets
-from flask.ext.assets import Bundle
+import app.utils as utils
 from app import config
 from app.user import user
 from app.auth import auth
 from os import environ
 import time
 
-def create_app(config=config.base_config):
+def create_app(config=config.dev_config):
     app = Flask(__name__)
     app.config.from_object(config)
-    app.config['DEBUG'] = True
 
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
+
+    app.jinja_env.globals['url_for_other_page'] = utils.url_for_other_page
 
     @app.before_request
     def before_request():
