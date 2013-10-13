@@ -12,33 +12,7 @@
     {%- endassets %}
 </head>
 <body>
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}">Flask Bones</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                {% if current_user.is_admin -%}
-                    <ul class="nav navbar-nav">
-                        <li><a href="{{ url_for('user.list') }}">Users</a></li>
-                    </ul>
-                {%- endif %}
-                <ul class="nav navbar-nav navbar-right">
-                    {% if current_user.is_authenticated() -%}
-                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
-                    {% else %}
-                        <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
-                    {%- endif %}
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div>
-    </div>
+    {% include 'components/menu.html' %}
     <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) -%}
             {% if messages -%}

@@ -1,9 +1,8 @@
-{% macro pagination(pgn, limits=[]) %}
+{% macro pagination(pgn) %}
     <hr>
     <div class="pagination-component">
         {{ pagination_links(pgn) }}
         {{ pagination_total(pgn) }}
-        {{ pagination_limit(pgn, limits) }}
         <div class="clearfix"></div>
     </div>
 {% endmacro %}
@@ -14,6 +13,7 @@
         {{ min(pgn.total, start) }} &ndash; {{ min(pgn.total, start + pgn.per_page) }} of {{ pgn.total }}
     </strong>
 {%- endmacro %}
+
 {% macro min(a, b) -%}
     {{ a if a < b else b }}
 {%- endmacro %}
@@ -42,20 +42,4 @@
             <li class="disabled"><a>&raquo;</a></li>
         {% endif %}
     </ul>
-{% endmacro %}
-
-{% macro pagination_limit(pgn, limits) %}
-    <form data-pjax method=="POST" action="{{ url_for_other_page() }}" class="form-inline pull-right" role="form">
-        <label for="limit">Show</label>
-        <select name="limit" class="form-control" style="width: 75px;">
-            {% for l in limits %}
-                <option {{ 'selected="selected"' if l|string == request.values.get('limit', limits[0]) }}value="{{ l }}">{{ l }}</option>
-            {% endfor %}
-        </select>
-        {% set filter_keys = ['limit', 'page', '_pjax'] %}
-        {% for key, value in request.values.items(multi=True) if not key in filter_keys %}
-            <input type="hidden" name="{{ key|e }}" value="{{ value|e }}" />
-        {% endfor %}
-        <noscript><button type="submit">Refresh</button></noscript>
-    </form>
 {% endmacro %}

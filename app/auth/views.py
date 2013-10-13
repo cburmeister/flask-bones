@@ -1,8 +1,7 @@
 from flask import current_app, request, redirect, url_for, render_template, flash, abort
 from flask.ext.login import login_user, login_required, logout_user
-from flask.ext.mail import Message
 from itsdangerous import URLSafeSerializer, BadSignature
-from app.extensions import lm, mail
+from app.extensions import lm
 from app.utils import flash_errors
 from app.tasks import send_registration_email
 from app.user.models import User
@@ -64,12 +63,12 @@ def register():
 def verify(token):
     s = URLSafeSerializer(current_app.secret_key)
     try:
-        user_id = s.loads(token)
+        id = s.loads(token)
     except BadSignature:
         abort(404)
 
-    user = User.get_by_id(user_id)
-    if not user or user.active:
+    user = User.query.filter_by(id=id).first_or_404()
+    if user.active:
         abort(404)
     else:
         user.active = True

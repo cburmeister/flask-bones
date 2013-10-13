@@ -1,6 +1,5 @@
 from flask.ext.script import Server, Shell, Manager
 from app import create_app
-from app.extensions import celery
 from app.database import db
 from app import config
 from tests import make_db

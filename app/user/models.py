@@ -1,7 +1,6 @@
 from flask.ext.login import UserMixin
 from app.extensions import cache, bcrypt
 from app.database import CRUDMixin, db
-from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 
 
@@ -37,12 +36,12 @@ class User(CRUDMixin, UserMixin, db.Model):
     def stats(cls):
         active_users = cache.get('active_users')
         if not active_users:
-            active_users = cls.query.filter_by(active=True).count() 
+            active_users = cls.query.filter_by(active=True).count()
             cache.set('active_users', active_users)
 
         inactive_users = cache.get('inactive_users')
         if not inactive_users:
-            inactive_users = cls.query.filter_by(active=False).count() 
+            inactive_users = cls.query.filter_by(active=False).count()
             cache.set('inactive_users', inactive_users)
 
         return {
@@ -50,6 +49,3 @@ class User(CRUDMixin, UserMixin, db.Model):
             'active': active_users,
             'inactive': inactive_users
         }
-
-from app.extensions import api
-#api.create_api_blueprint(User, methods=['GET', 'POST', 'DELETE'])
