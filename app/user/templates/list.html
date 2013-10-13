@@ -8,13 +8,18 @@
 {% endblock %}
 
 {% block body %}
-    <p class="lead">
-        There are {{ stats.all }} users <a href="{{ url_for('.list') }}">Total</a>.
-        {{ stats.active }} <a href="{{ url_for('.list', active=True) }}">Active</a>.
-        {{ stats.inactive }} <a href="{{ url_for('.list', active=False) }}">Inactive</a>.
-    </p>
-    <hr>
-    {% include 'components/search.html' %}
+    <div class="row">
+        <div class="col-md-7">
+            <p class="lead">
+                There are {{ stats.all }} users <a href="{{ url_for('.list') }}">Total</a>.
+                {{ stats.active }} <a href="{{ url_for('.list', active=True) }}">Active</a>.
+                {{ stats.inactive }} <a href="{{ url_for('.list', active=False) }}">Inactive</a>.
+            </p>
+        </div>
+        <div class="col-md-5">
+            {% include 'components/search.html' %}
+        </div>
+    </div>
     <hr>
     <div id="pjax-container">
         {% include 'users.html' %}

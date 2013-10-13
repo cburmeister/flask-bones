@@ -85,7 +85,8 @@ function handleClick(event, container, options) {
   var defaults = {
     url: link.href,
     container: $(link).attr('data-pjax'),
-    target: link
+    target: link,
+    scrollTo: false
   }
 
   var opts = $.extend({}, defaults, options)

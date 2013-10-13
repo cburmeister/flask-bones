@@ -1,3 +1,3 @@
 $(function() {
-    $(document).pjax('.pagination a', '#pjax-container')
+    $(document).pjax('#pjax-container, a[data-pjax]', '#pjax-container')
 });

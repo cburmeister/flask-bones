@@ -21,14 +21,14 @@
 {% macro pagination_links(pgn) %}
     <ul class="pagination" style="margin: 0;">
         {% if pgn.has_prev %}
-            <li><a href="{{ url_for_other_page(page=pgn.prev_num) }}">&laquo;</a></li>
+            <li><a data-pjax href="{{ url_for_other_page(page=pgn.prev_num) }}">&laquo;</a></li>
         {% else %}
             <li class="disabled"><a>&laquo;</a></li>
         {% endif %}
         {%- for page in pgn.iter_pages() %}
             {% if page %}
                 {% if page != pgn.page %}
-                    <li><a href="{{ url_for_other_page(page=page) }}">{{ page }}</a></li>
+                    <li><a data-pjax href="{{ url_for_other_page(page=page) }}">{{ page }}</a></li>
                 {% else %}
                     <li class="active"><a>{{ page }}</a></li>
                 {% endif %}
@@ -37,7 +37,7 @@
             {% endif %}
         {%- endfor %}
         {% if pgn.has_next %}
-            <li><a href="{{ url_for_other_page(page=pgn.next_num) }}">&raquo;</a></li>
+            <li><a data-pjax href="{{ url_for_other_page(page=pgn.next_num) }}">&raquo;</a></li>
         {% else %}
             <li class="disabled"><a>&raquo;</a></li>
         {% endif %}

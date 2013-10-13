@@ -13,7 +13,7 @@ admin_email = 'cburmeister@discogs.com'
 admin_password = 'test123'
 
 
-def make_db():
+def make_db(num_users=5):
     db.drop_all()
     db.create_all()
 
@@ -27,7 +27,7 @@ def make_db():
             is_admin=True
         )
     ]
-    for _ in range(80):
+    for _ in range(num_users):
         u = User(
             fake.userName(),
             fake.email(),
@@ -45,7 +45,6 @@ class TestCase(unittest.TestCase):
         app = create_app(test_config)
         db.app = app  # hack for using db.init_app(app) in app/__init__.py
         self.app = app.test_client()
-        make_db()
 
     def tearDown(self):
         make_db()
