@@ -1,3 +1,4 @@
+{% from 'components/field.html' import render_field %}
 {% extends "layout.html" %}
 
 {% block title %}
@@ -15,12 +16,8 @@
             </div>
             <div class="panel-body">
                 {{ form.csrf_token }}
-                <div class="form-group">
-                    {{ form.username.label }} {{ form.username(class='form-control') }}
-                </div>
-                <div class="form-group">
-                    {{ form.password.label }} {{ form.password(class='form-control') }}
-                </div>
+                {{ render_field(form.username) }}
+                {{ render_field(form.password) }}
             </div>
             <div class="panel-footer">
                 <button type="submit" class="btn btn-default" style="margin-right: 1em;">

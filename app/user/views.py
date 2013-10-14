@@ -1,6 +1,5 @@
 from flask import request, redirect, url_for, render_template, flash, g
 from flask.ext.login import login_required
-from app.utils import flash_errors
 from app.user.models import User
 from forms import EditUserForm
 
@@ -65,8 +64,6 @@ def edit(id):
         form.populate_obj(user)
         user.update()
         flash('User %s edited' % user.username, 'success')
-    else:
-        flash_errors(form)
     return render_template('edit.html', form=form, user=user)
 
 

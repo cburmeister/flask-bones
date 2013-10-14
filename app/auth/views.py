@@ -2,7 +2,6 @@ from flask import current_app, request, redirect, url_for, render_template, flas
 from flask.ext.login import login_user, login_required, logout_user
 from itsdangerous import URLSafeSerializer, BadSignature
 from app.extensions import lm
-from app.utils import flash_errors
 from app.tasks import send_registration_email
 from app.user.models import User
 from app.user.forms import RegisterUserForm
@@ -22,8 +21,6 @@ def login():
         login_user(form.user)
         flash('You were logged in as %s' % form.user.username, 'success')
         return redirect(request.args.get('next') or url_for('index'))
-    else:
-        flash_errors(form)
     return render_template('login.html', form=form)
 
 
@@ -54,8 +51,6 @@ def register():
 
         flash('Sent verification email to %s' % (user.email), 'success')
         return redirect(url_for('index'))
-    else:
-        flash_errors(form)
     return render_template('register.html', form=form)
 
 
