@@ -11,10 +11,12 @@ from ..user import user
 def list():
     sorts = ['username', 'email']
     orders = ['asc', 'desc']
+    limits = [25, 50, 100]
 
     page = request.values.get('page', 1, type=int)
     sort = request.values.get('sort', sorts[0])
     order = request.values.get('order', orders[0])
+    limit = request.values.get('limit', limits[1], type=int)
     filter = request.values.get('active', None)
     search = request.values.get('query', None)
 
@@ -36,12 +38,13 @@ def list():
             User.username.like(search_query)
         ))
 
-    users = query.paginate(page, 25)
+    users = query.paginate(page, limit)
     stats = User.stats()
 
     if g.pjax:
         return render_template(
             'users.html',
+            limits=limits,
             sorts=sorts,
             users=users,
             stats=stats
@@ -49,6 +52,7 @@ def list():
 
     return render_template(
         'list.html',
+        limits=limits,
         sorts=sorts,
         users=users,
         stats=stats

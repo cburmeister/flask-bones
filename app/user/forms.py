@@ -51,4 +51,4 @@ class RegisterUserForm(UserForm):
 
 
 class EditUserForm(UserForm):
-    pass
+    is_admin = BooleanField('Admin')
