@@ -30,7 +30,8 @@
                     <i class="icon-remove"></i> Cancel
                 </a>
                 {% if not user == current_user %}
-                    <a class="btn btn-default pull-right" href="{{ url_for('.delete', id=user.id) }}">
+                    {% set dialogue = 'Are you sure you want to delete %s?' % user.username %}
+                    <a data-confirm data-dialogue="{{ dialogue }}" class="btn btn-default pull-right" href="{{ url_for('.delete', id=user.id) }}">
                         <i class="icon-trash"></i> Delete
                     </a>
                 {% endif %}
