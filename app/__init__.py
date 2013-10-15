@@ -9,7 +9,7 @@ from app.auth import auth
 import time
 
 
-def create_app(config=config.dev_config):
+def create_app(config=config.base_config):
     app = Flask(__name__)
     app.config.from_object(config)
 
