@@ -8,12 +8,12 @@
                     {% if request.values.get('sort', sorts[0]) == item %}
                         {% if request.values.get('order', 'asc') == 'asc' %}
                             <th>
-                                <span class="glyphicon glyphicon-chevron-up"></span>
+                                <i class="icon-chevron-up"></i>
                                 <a data-pjax href="{{ url_for_other_page(sort=item, order='desc') }}">{{ item|title }}</a>
                             </th>
                         {% else %}
                             <th>
-                                <span class="glyphicon glyphicon-chevron-down"></span>
+                                <i class="icon-chevron-down"></i>
                                 <a data-pjax href="{{ url_for_other_page(sort=item, order='asc') }}">{{ item|title }}</a>
                             </th>
                         {% endif %}
