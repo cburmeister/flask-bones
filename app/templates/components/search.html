@@ -1,12 +1,14 @@
-<form method="GET" action="{{ request.url }}">
-    <div class="input-group">
-        <input type="text" name="query" class="form-control" placeholder="Search for a Username, or Email" value="{{ request.values.get('query', '') }}">
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
-        </span>
-        {% set filter_keys = ['limit', 'page', 'query'] %}
-        {% for key, value in request.values.items(multi=True) if not key in filter_keys %}
-            <input type="hidden" name="{{ key }}" value="{{ value }}" />
-         {% endfor %}
-    </div>
-</form>
+{% macro search(placeholder) %}
+    <form method="GET" action="{{ request.url }}">
+        <div class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="{{ placeholder }}" value="{{ request.values.get('query', '') }}">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
+            </span>
+            {% set filter_keys = ['limit', 'page', 'query'] %}
+            {% for key, value in request.values.items(multi=True) if not key in filter_keys %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}" />
+             {% endfor %}
+        </div>
+    </form>
+{% endmacro %}

@@ -1,27 +1,14 @@
+{% from 'components/table.html' import sort_link %}
 {% from 'components/pagination.html' import pagination %}
 
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
-                {% for item in sorts %}
-                    {% if request.values.get('sort', sorts[0]) == item %}
-                        {% if request.values.get('order', 'asc') == 'asc' %}
-                            <th>
-                                <i class="icon-chevron-up"></i>
-                                <a data-pjax href="{{ url_for_other_page(sort=item, order='desc') }}">{{ item|title }}</a>
-                            </th>
-                        {% else %}
-                            <th>
-                                <i class="icon-chevron-down"></i>
-                                <a data-pjax href="{{ url_for_other_page(sort=item, order='asc') }}">{{ item|title }}</a>
-                            </th>
-                        {% endif %}
-                    {% else %}
-                        <th>
-                            <a data-pjax href="{{ url_for_other_page(sort=item, order='asc') }}">{{ item|title }}</a>
-                        </th>
-                    {% endif %}
+                {% set selected_sort = request.values.get('sort', sorts[0]) %}
+                {% set order = 'asc' if request.values.get('order', 'asc') == 'asc' else 'desc' %}
+                {% for sort in sorts %}
+                    <th>{{ sort_link(sort, selected_sort, order) }}</th>
                 {% endfor %}
                 <th>Created Date</th>
                 <th>Last IP</th>
