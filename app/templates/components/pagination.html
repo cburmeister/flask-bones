@@ -1,0 +1,62 @@
+{% macro pagination(pgn, limits=[]) %}
+    <div class="btn-toolbar">
+        <div class="row">
+            <div class="col-md-7">
+                {{ pagination_links(pgn) }}
+                {{ pagination_total(pgn) }}
+            </div>
+            <div class="col-md-5">
+                {% if limits %}
+                    {{ pagination_limit(pgn, limits) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro pagination_total(pgn) -%}
+    {% set start = (pgn.page - 1) * pgn.per_page + 1 -%}
+    <strong class="pagination_total">
+        {{ min(pgn.total, start) }} &ndash; {{ min(pgn.total, start + pgn.per_page) }} of {{ pgn.total }}
+    </strong>
+{%- endmacro %}
+
+{% macro min(a, b) -%}
+    {{ a if a < b else b }}
+{%- endmacro %}
+
+{% macro pagination_links(pgn) -%}
+    <ul class="pagination" style="margin: 0;">
+        {% if pgn.has_prev %}
+            <li><a data-pjax href="{{ url_for_other_page(page=pgn.prev_num) }}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><a>&laquo;</a></li>
+        {% endif %}
+        {%- for page in pgn.iter_pages(left_edge=2, left_current=2, right_current=2, right_edge=2) %}
+            {% if page %}
+                {% if page != pgn.page %}
+                    <li><a data-pjax href="{{ url_for_other_page(page=page) }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="active"><a>{{ page }}</a></li>
+                {% endif %}
+            {% else %}
+                <li><span class=ellipsis>…</span></li>
+            {% endif %}
+        {%- endfor %}
+        {% if pgn.has_next %}
+            <li><a data-pjax href="{{ url_for_other_page(page=pgn.next_num) }}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><a>&raquo;</a></li>
+        {% endif %}
+    </ul>
+{%- endmacro %}
+
+{% macro pagination_limit(pgn, limits) -%}
+    <div class="btn-group pull-right">
+        {% for limit in limits -%}
+            {% set active = ' active' if pgn.per_page == limit %}
+            {% set url = url_for(request.endpoint, limit=limit, **request.view_args) %}
+            <a data-pjax class="btn btn-default{{ active }}" href="{{ url }}">{{ limit }}</a>
+        {%- endfor %}
+    </div>
+{%- endmacro %}

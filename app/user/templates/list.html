@@ -1,45 +1,30 @@
+{% from 'components/search.html' import search %}
 {% extends 'layout.html' %}
-{% from 'components.html' import pagination %}
 
-{% block title %}Users{% endblock %}
+{% block title %}
+    Users
+{% endblock %}
 
 {% block header %}
 {% endblock %}
 
 {% block body %}
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Created Date</th>
-                            <th>Last IP</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for u in users.items %}
-                            <tr>
-                                <td>
-                                    <a href="{{ url_for('.edit', id=u.id) }}">{{ u.username }}</a>
-                                    {% if u.is_admin %}
-                                        <span class="label label-info">Admin</span>
-                                    {% endif %}
-                                </td>
-                                <td>{{ u.email }}</td>
-                                <td>{{ u.created_ts.strftime('%B %e, %Y') }}</td>
-                                <td>{{ u.remote_addr }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+    <p class="lead">
+        There are currently {{ stats.total }} users.
+        {{ stats.active }} are <a href="{{ url_for('.list', is_active=True) }}">Active</a>
+        {{ stats.inactive }} are <a href="{{ url_for('.list', is_active=False) }}">Inactive</a>
+    </p>
+    <hr>
+    <div class="row">
+        <div class="col-md-7">
         </div>
-        <div class="panel-footer">
-            {{ pagination(users) }}
+        <div class="col-md-5">
+            {{ search('Search for a Username or Email') }}
         </div>
+    </div>
+    <br>
+    <div id="pjax-container">
+        {% include 'users.html' %}
     </div>
 {% endblock %}
 

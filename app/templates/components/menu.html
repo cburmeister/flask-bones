@@ -1,0 +1,36 @@
+{% set nav = [
+    ('users', 'user.list'),
+] %}
+
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('index') }}">{{ config.SITE_NAME }}</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            {% if current_user.is_admin -%}
+                <ul class="nav navbar-nav">
+                    {% for title, endpoint in nav %}
+                        {% if endpoint == request.endpoint %}
+                            <li class="active"><a href="{{ url_for(endpoint) }}">{{ title|title }}</a></li>
+                        {% else %}
+                            <li><a href="{{ url_for(endpoint) }}">{{ title|title }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {%- endif %}
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated() -%}
+                    <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+                {%- endif %}
+            </ul>
+        </div>
+    </div>
+</div>

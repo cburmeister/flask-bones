@@ -18,18 +18,18 @@ class LoginForm(Form):
         if not rv:
             return False
 
-        user = User.query.filter_by(username=self.username.data).first()
-        if not user:
+        self.user = User.query.filter_by(username=self.username.data).first()
+
+        if not self.user:
             self.username.errors.append('Unknown username')
             return False
 
-        if not user.check_password(self.password.data):
+        if not self.user.check_password(self.password.data):
             self.password.errors.append('Invalid password')
             return False
 
-        if not user.active:
+        if not self.user.active:
             self.username.errors.append('User not activated')
             return False
 
-        self.user = user
         return True

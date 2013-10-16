@@ -1,9 +1,8 @@
-from flask import g
 from app import create_app
 from app.config import test_config
 from app.database import db
 from app.user.models import User
-from  sqlalchemy.sql.expression import func
+from sqlalchemy.sql.expression import func
 from faker import Factory
 import unittest
 
@@ -14,12 +13,13 @@ admin_email = 'cburmeister@discogs.com'
 admin_password = 'test123'
 
 
-def make_db():
+def make_db(num_users=5):
     db.drop_all()
     db.create_all()
 
     users = [
-        User(admin_username,
+        User(
+            admin_username,
             admin_email,
             admin_password,
             fake.ipv4(),
@@ -27,7 +27,7 @@ def make_db():
             is_admin=True
         )
     ]
-    for _ in range(5):
+    for _ in range(num_users):
         u = User(
             fake.userName(),
             fake.email(),
@@ -43,12 +43,12 @@ def make_db():
 class TestCase(unittest.TestCase):
     def setUp(self):
         app = create_app(test_config)
-        db.app = app # hack for using db.init_app(app) in app/__init__.py
+        db.app = app  # hack for using db.init_app(app) in app/__init__.py
         self.app = app.test_client()
         make_db()
 
     def tearDown(self):
-       make_db()
+        make_db()
 
     def login(self, username, password):
         return self.app.post('/login', data=dict(
