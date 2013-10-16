@@ -1,6 +1,9 @@
+{% from 'components/field.html' import render_field %}
 {% extends "layout.html" %}
 
-{% block title %}Edit User - {{ user.username }}{% endblock %}
+{% block title %}
+    Edit User - {{ user.username }}
+{% endblock %}
 
 {% block header %}
 {% endblock %}
@@ -13,23 +16,23 @@
             </div>
             <div class="panel-body">
                 {{ form.csrf_token }}
-                <div class="form-group">
-                    {{ form.username.label }} {{ form.username(class='form-control') }}
-                </div>
-                <div class="form-group">
-                    {{ form.email.label }} {{ form.email(class='form-control') }}
+                {{ render_field(form.username) }}
+                {{ render_field(form.email) }}
+                <div class="checkbox">
+                    {{ form.is_admin.label }} {{ form.is_admin() }}
                 </div>
             </div>
             <div class="panel-footer">
                 <button type="submit" class="btn btn-default">
-                    <span class="glyphicon glyphicon-floppy-disk"></span> Save
+                    <i class="icon-save"></i> Save
                 </button>
                 <a class="btn btn-default" href="{{ url_for('.list') }}">
-                    <span class="glyphicon glyphicon-remove"></span> Cancel
+                    <i class="icon-remove"></i> Cancel
                 </a>
                 {% if not user == current_user %}
-                    <a class="btn btn-default pull-right" href="{{ url_for('.delete', id=user.id) }}">
-                        <span class="glyphicon glyphicon-trash"></span> Delete
+                    {% set dialogue = 'Are you sure you want to delete %s?' % user.username %}
+                    <a data-confirm data-dialogue="{{ dialogue }}" class="btn btn-default pull-right" href="{{ url_for('.delete', id=user.id) }}">
+                        <i class="icon-trash"></i> Delete
                     </a>
                 {% endif %}
             </div>

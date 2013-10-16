@@ -13,9 +13,17 @@ class UserForm(Form):
 
 
 class RegisterUserForm(UserForm):
-    password = PasswordField('Password', validators=[DataRequired(),
-        EqualTo('confirm', message='Passwords must match'),
-        Length(min=6, max=20)])
+    password = PasswordField(
+        'Password',
+        validators=[
+            DataRequired(),
+            EqualTo(
+                'confirm',
+                message='Passwords must match'
+            ),
+            Length(min=6, max=20)
+        ]
+    )
     confirm = PasswordField('Confirm Password', validators=[DataRequired()])
     accept_tos = BooleanField('I accept the TOS', validators=[DataRequired()])
 
@@ -43,4 +51,4 @@ class RegisterUserForm(UserForm):
 
 
 class EditUserForm(UserForm):
-    pass
+    is_admin = BooleanField('Admin')

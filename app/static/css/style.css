@@ -3,3 +3,10 @@ body {
     padding-top: 70px;
     padding-bottom: 70px;
 }
+
+.pagination_total {
+    height: 34px;
+    position: relative;
+    top: -12px;
+    margin-left: 10px;
+}

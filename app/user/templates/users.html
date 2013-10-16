@@ -1,0 +1,32 @@
+{% from 'components/table.html' import sort_link %}
+{% from 'components/pagination.html' import pagination %}
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                {% set selected_sort = request.values.get('sort', sorts[0]) %}
+                {% set order = 'asc' if request.values.get('order', 'asc') == 'asc' else 'desc' %}
+                {% for sort in sorts %}
+                    <th>{{ sort_link(sort, selected_sort, order) }}</th>
+                {% endfor %}
+                <th>Created Date</th>
+                <th>Last IP</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users.items %}
+                <tr>
+                    <td><a href="{{ url_for('.edit', id=u.id) }}">{{ u.username }}</a></td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.created_ts.strftime('%B %e, %Y') }}</td>
+                    <td>{{ u.remote_addr }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="4">No results found for: {{ request.values.get('query') }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<hr>
+{{ pagination(users, limits) }}

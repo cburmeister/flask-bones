@@ -1,6 +1,8 @@
+{% from 'components/field.html' import render_field %}
 {% extends "layout.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}
+{% endblock %}
 
 {% block header %}
 {% endblock %}
@@ -15,30 +17,17 @@
             </div>
             <div class="panel-body">
                 {{ form.csrf_token }}
-                <div class="form-group">
-                    {{ form.username.label }}
-                    {{ form.username(class='form-control') }}
-                </div>
-                <div class="form-group">
-                    {{ form.email.label }}
-                    {{ form.email(class='form-control') }}
-                </div>
-                <div class="form-group">
-                    {{ form.password.label }}
-                    {{ form.password(class='form-control') }}
-                </div>
-                <div class="form-group">
-                    {{ form.confirm.label }}
-                    {{ form.confirm(class='form-control') }}
-                </div>
+                {{ render_field(form.username) }}
+                {{ render_field(form.email) }}
+                {{ render_field(form.password) }}
+                {{ render_field(form.confirm) }}
                 <div class="checkbox">
-                    {{ form.accept_tos.label }}
-                    {{ form.accept_tos() }}
+                    {{ form.accept_tos.label }} {{ form.accept_tos() }}
                 </div>
             </div>
             <div class="panel-footer">
                 <button type="submit" class="btn btn-default">
-                    <span class="glyphicon glyphicon-ok-circle"></span> Register
+                    <i class="icon-ok-sign"></i> Submit
                 </button>
             </div>
         </div>

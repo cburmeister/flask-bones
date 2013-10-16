@@ -1,13 +1,13 @@
-from flask import Flask, g, render_template
+from flask import Flask, g, render_template, request
 from app.database import db
-from app.extensions import lm, api, travis, mail, heroku, bcrypt, celery, assets
+from app.extensions import lm, api, travis, mail, heroku, bcrypt, celery
 from app.assets import assets
-from flask.ext.assets import Bundle
+import app.utils as utils
 from app import config
 from app.user import user
 from app.auth import auth
-from os import environ
 import time
+
 
 def create_app(config=config.base_config):
     app = Flask(__name__)
@@ -16,17 +16,20 @@ def create_app(config=config.base_config):
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
+    register_jinja_env(app)
 
     @app.before_request
     def before_request():
         g.request_start_time = time.time()
         g.request_time = lambda: '%.5fs' % (time.time() - g.request_start_time)
+        g.pjax = 'X-PJAX' in request.headers
 
     @app.route('/', methods=['GET'])
     def index():
         return render_template('index.html')
 
     return app
+
 
 def register_extensions(app):
     heroku.init_app(app)
@@ -39,13 +42,20 @@ def register_extensions(app):
     celery.config_from_object(app.config)
     assets.init_app(app)
 
+
 def register_blueprints(app):
     app.register_blueprint(user, url_prefix='/user')
     app.register_blueprint(auth)
+
 
 def register_errorhandlers(app):
     for e in [401, 404, 500]:
         app.errorhandler(e)(render_error)
 
+
 def render_error(e):
     return render_template('errors/%s.html' % e.code), e.code
+
+
+def register_jinja_env(app):
+    app.jinja_env.globals['url_for_other_page'] = utils.url_for_other_page

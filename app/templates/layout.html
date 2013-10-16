@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title -%}{%- endblock %}</title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     {% assets "js_all" -%}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {%- endassets %}
@@ -12,38 +13,15 @@
     {%- endassets %}
 </head>
 <body>
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}">Flask Bones</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                {% if current_user.is_admin -%}
-                    <ul class="nav navbar-nav">
-                        <li><a href="{{ url_for('user.list') }}">Users</a></li>
-                    </ul>
-                {%- endif %}
-                <ul class="nav navbar-nav navbar-right">
-                    {% if current_user.is_authenticated() -%}
-                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
-                    {% else %}
-                        <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
-                    {%- endif %}
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div>
-    </div>
+    {% include 'components/menu.html' %}
     <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) -%}
             {% if messages -%}
                 {% for category, message in messages -%}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                    <div class="alert alert-{{ category }}">
+                        <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+                        {{ message }}
+                    </div>
                 {%- endfor %}
             {%- endif %}
         {%- endwith %}
