@@ -4,6 +4,10 @@ body {
     padding-bottom: 70px;
 }
 
+.container {
+    max-width: 100%;
+}
+
 .pagination_total {
     height: 34px;
     position: relative;
