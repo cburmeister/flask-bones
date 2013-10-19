@@ -9,47 +9,27 @@ from ..user import user
 @user.route('/list', methods=['GET', 'POST'])
 @login_required
 def list():
-    orders = ['asc', 'desc']
-    limits = [25, 50, 100]
-
-    query = User.query
-
-    # is_sorting
-    sort = request.values.get('sort', User.sortables)
-    order = request.values.get('order', orders[0])
-    if sort in User.sortables() and order in orders:
-        query = User.sort_query(query, sort, order)
-
-    # is_filtering
-    filter = request.values.get('active', None)
-    if filter:
-        query = User.filter_query(query, 'active')
-
-    # is_searching
-    search = request.values.get('query', None)
-    if search:
-        query = User.search_query(query, search)
-
-    users = query.paginate(
-        request.values.get('page', 1, type=int),
-        request.values.get('limit', limits[1], type=int)
+    from app.database import DataTable
+    datatable = DataTable(
+        model=User,
+        sortable=[User.username, User.email, User.created_ts],
+        searchable=[User.username, User.email],
+        filterable=[User.active],
+        limits=[25, 50, 100],
+        request_values=request.values
     )
     stats = User.stats()
 
     if g.pjax:
         return render_template(
             'users.html',
-            sorts=User.sortables(),
-            limits=limits,
-            users=users,
+            datatable=datatable,
             stats=stats
         )
 
     return render_template(
         'list.html',
-        sorts=User.sortables(),
-        limits=limits,
-        users=users,
+        datatable=datatable,
         stats=stats
     )
 

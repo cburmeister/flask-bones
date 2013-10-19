@@ -1,6 +1,6 @@
 from flask.ext.login import UserMixin
 from app.extensions import cache, bcrypt
-from app.database import CRUDMixin, db
+from app.database import db, CRUDMixin
 import datetime
 
 
@@ -14,9 +14,6 @@ class User(CRUDMixin, UserMixin, db.Model):
     active = db.Column(db.Boolean())
     is_admin = db.Column(db.Boolean())
 
-    sortable = [username, email, created_ts]
-    searchable = [username, email]
-
     def __init__(self, username, email, password, remote_addr, active=False, is_admin=False):
         self.username = username
         self.email = email
@@ -28,14 +25,6 @@ class User(CRUDMixin, UserMixin, db.Model):
 
     def __repr__(self):
         return '<User %s>' % self.username
-
-    @classmethod
-    def sortables(cls):
-        return [x.name for x in cls.sortable]
-
-    @classmethod
-    def searchables(cls):
-        return [x.name for x in cls.searchable]
 
     def set_password(self, password):
         self.pw_hash = bcrypt.generate_password_hash(password, 10)

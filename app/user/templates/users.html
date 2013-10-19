@@ -7,9 +7,9 @@
         {{ search('Search for a Username or Email') }}
     </div>
     <table class="table table-striped">
-        {{ table_header(sorts, items=['Last IP'], actions=True) }}
+        {{ table_header(datatable.sortables, items=['Last IP'], actions=True) }}
         <tbody>
-            {% for u in users.items %}
+            {% for u in datatable.query.items %}
                 <tr>
                     <td><a href="{{ url_for('.edit', id=u.id) }}">{{ u.username }}</a></td>
                     <td>{{ u.email }}</td>
@@ -28,6 +28,6 @@
         </tbody>
     </table>
     <div class="panel-footer">
-        {{ pagination(users, limits) }}
+        {{ pagination(datatable.query, datatable.limits) }}
     </div>
 </div>

@@ -34,19 +34,67 @@ class CRUDMixin(object):
         db.session.delete(self)
         return commit and db.session.commit()
 
-    @classmethod
-    def sort_query(cls, query, sort, order):
-        field = getattr(getattr(cls, sort), order)
-        return query.order_by(field())
 
-    @classmethod
-    def filter_query(cls, query, field):
-        field = getattr(cls, field)
-        return query.filter(field==field)
+class DataTable(object):
+    model = None
+    query = None
+    sortable = []
+    searchable = []
+    limits = []
+    orders = ['asc', 'desc']
 
-    @classmethod
-    def search_query(cls, query, search, fields=[]):
-        search_query = '%%%s%%' % search
-        from sqlalchemy import or_
-        fields = [getattr(cls, x) for x in cls.searchables()]
-        return query.filter(or_(*[x.like(search_query) for x in fields]))
+    def __init__(self, model, sortable, searchable, filterable, limits, request_values):
+        self.model = model
+        self.query = self.model.query
+        self.sortable = sortable
+        self.searchable = searchable
+        self.filterable = filterable
+        self.limits = limits
+
+        for f in self.filterable:
+            value = request_values.get(f.name, None)
+            if value:
+                self.filter(f.name, value)
+
+        self.search(request_values.get('query', None))
+
+        self.sort(
+            request_values.get('sort', self.sortables),
+            request_values.get('order', self.orders[0])
+        )
+
+        self.paginate(
+            request_values.get('page', 1, type=int),
+            request_values.get('limit', self.limits[1], type=int)
+        )
+
+    @property
+    def sortables(self):
+        return [x.name for x in self.sortable]
+
+    @property
+    def searchables(self):
+        return [x.name for x in self.searchable]
+
+    @property
+    def filterables(self):
+        return [x.name for x in self.filterable]
+
+    def sort(self, sort, order):
+        if sort in self.sortables and order in self.orders:
+            field = getattr(getattr(self.model, sort), order)
+            self.query = self.query.order_by(field())
+
+    def filter(self, field, value):
+        field = getattr(self.model, field)
+        self.query = self.query.filter(field==value)
+
+    def search(self, search, fields=[]):
+        if search:
+            search_query = '%%%s%%' % search
+            from sqlalchemy import or_
+            fields = [getattr(self.model, x) for x in self.searchables]
+            self.query = self.query.filter(or_(*[x.like(search_query) for x in fields]))
+
+    def paginate(self, page, limit):
+        self.query = self.query.paginate(page, limit)
