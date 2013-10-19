@@ -11,3 +11,19 @@
         <a data-pjax href="{{ url_for_other_page(sort=sort, order='asc') }}">{{ sort }}</a>
     {% endif %}
 {% endmacro %}
+
+{% macro table_header(sorts=[], items=[], actions=False) %}
+    <thead>
+        <tr>
+            {% set selected_sort = request.values.get('sort', sorts[0]) %}
+            {% set selected_order = 'asc' if request.values.get('order', 'asc') == 'asc' else 'desc' %}
+            {% for sort in sorts %}
+                <th>{{ sort_link(sort, selected_sort, selected_order) }}</th>
+            {% endfor %}
+            <th>Last IP</th>
+            {% if actions %}
+                <th></th>
+            {% endif %}
+        </tr>
+    </thead>
+{% endmacro %}

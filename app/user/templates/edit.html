@@ -1,4 +1,5 @@
 {% from 'components/field.html' import render_field %}
+
 {% extends "layout.html" %}
 
 {% block title %}
@@ -12,7 +13,7 @@
     <form method="POST" action="{{ request.url }}">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Edit User</h3>
+                Edit User
             </div>
             <div class="panel-body">
                 {{ form.csrf_token }}

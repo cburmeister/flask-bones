@@ -33,3 +33,20 @@ class CRUDMixin(object):
     def delete(self, commit=True):
         db.session.delete(self)
         return commit and db.session.commit()
+
+    @classmethod
+    def sort_query(cls, query, sort, order):
+        field = getattr(getattr(cls, sort), order)
+        return query.order_by(field())
+
+    @classmethod
+    def filter_query(cls, query, field):
+        field = getattr(cls, field)
+        return query.filter(field==field)
+
+    @classmethod
+    def search_query(cls, query, search, fields=[]):
+        search_query = '%%%s%%' % search
+        from sqlalchemy import or_
+        fields = [getattr(cls, x) for x in cls.searchables()]
+        return query.filter(or_(*[x.like(search_query) for x in fields]))

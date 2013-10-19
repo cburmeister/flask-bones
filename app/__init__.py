@@ -12,6 +12,7 @@ import time
 def create_app(config=config.base_config):
     app = Flask(__name__)
     app.config.from_object(config)
+    app.config['DEBUG'] = True
 
     register_extensions(app)
     register_blueprints(app)
@@ -59,3 +60,4 @@ def render_error(e):
 
 def register_jinja_env(app):
     app.jinja_env.globals['url_for_other_page'] = utils.url_for_other_page
+    app.jinja_env.globals['timeago'] = utils.timeago

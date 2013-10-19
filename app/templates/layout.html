@@ -15,23 +15,17 @@
 <body>
     {% include 'components/menu.html' %}
     <div class="container">
-        {% with messages = get_flashed_messages(with_categories=true) -%}
-            {% if messages -%}
-                {% for category, message in messages -%}
-                    <div class="alert alert-{{ category }}">
-                        <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
-                        {{ message }}
-                    </div>
-                {%- endfor %}
-            {%- endif %}
-        {%- endwith %}
+        {% include 'components/flash.html' %}
         {% block header -%}{%- endblock %}
         {% block body -%}{%- endblock %}
         {% block footer -%}{%- endblock %}
         <hr />
-        <p class="text-center text-muted">
-            <span>Request completed in: {{ g.request_time() }}</span>
-        </p>
+        <ul class="list-inline text-center">
+            <li><a href="">Terms</a></li>
+            <li><a href="">Privacy</a></li>
+            <li><a href="">Security</a></li>
+            <li><span class="text-muted"><i class="icon-time"></i> {{ g.request_time() }}</span></li>
+        </ul>
     </div>
 </body>
 </html>

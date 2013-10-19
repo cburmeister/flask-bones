@@ -1,32 +1,33 @@
-{% from 'components/table.html' import sort_link %}
+{% from 'components/table.html' import table_header %}
 {% from 'components/pagination.html' import pagination %}
+{% from 'components/search.html' import search %}
 
-<div class="table-responsive">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {{ search('Search for a Username or Email') }}
+    </div>
     <table class="table table-striped">
-        <thead>
-            <tr>
-                {% set selected_sort = request.values.get('sort', sorts[0]) %}
-                {% set order = 'asc' if request.values.get('order', 'asc') == 'asc' else 'desc' %}
-                {% for sort in sorts %}
-                    <th>{{ sort_link(sort, selected_sort, order) }}</th>
-                {% endfor %}
-                <th>Created Date</th>
-                <th>Last IP</th>
-            </tr>
-        </thead>
+        {{ table_header(sorts, items=['Last IP'], actions=True) }}
         <tbody>
             {% for u in users.items %}
                 <tr>
                     <td><a href="{{ url_for('.edit', id=u.id) }}">{{ u.username }}</a></td>
                     <td>{{ u.email }}</td>
-                    <td>{{ u.created_ts.strftime('%B %e, %Y') }}</td>
+                    <td>{{ timeago(u.created_ts) }}</td>
                     <td>{{ u.remote_addr }}</td>
+                    <td>
+                        {% set dialogue = 'Are you sure you want to delete %s?' % u.username %}
+                        <a data-confirm data-dialogue="{{ dialogue }}" class="btn btn-default btn-xs" href="{{ url_for('.delete', id=u.id) }}">
+                            <i class="icon-trash"></i>
+                        </a>
+                    </td>
                 </tr>
             {% else %}
-                <tr><td colspan="4">No results found for: {{ request.values.get('query') }}</td></tr>
+                <tr><td colspan="5">No results found for: {{ request.values.get('query') }}</td></tr>
             {% endfor %}
         </tbody>
     </table>
+    <div class="panel-footer">
+        {{ pagination(users, limits) }}
+    </div>
 </div>
-<hr>
-{{ pagination(users, limits) }}

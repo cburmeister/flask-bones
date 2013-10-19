@@ -5,7 +5,7 @@
             <span class="input-group-btn">
                 <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
             </span>
-            {% set filter_keys = ['limit', 'page', 'query'] %}
+            {% set filter_keys = ['limit', 'page', 'query', '_pjax'] %}
             {% for key, value in request.values.items(multi=True) if not key in filter_keys %}
                 <input type="hidden" name="{{ key }}" value="{{ value }}" />
              {% endfor %}

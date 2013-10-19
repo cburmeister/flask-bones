@@ -1,10 +1,11 @@
 $(function() {
     $('.alert').alert()
+
     $(document).pjax('a[data-pjax]', '#pjax-container');
 
-    $('a[data-confirm], button[data-confirm]').click( function(e) {
+    $(document).on('click', 'a[data-confirm], button[data-confirm]', function(event) {
+        event.preventDefault();
         var $el = $(this);
-        e.preventDefault();
 
         bootbox.confirm($el.data('dialogue'), function(result) {
             if(result) {
@@ -16,4 +17,5 @@ $(function() {
             }
         }); 
     });
+
 });

@@ -9,51 +9,46 @@ from ..user import user
 @user.route('/list', methods=['GET', 'POST'])
 @login_required
 def list():
-    sorts = ['username', 'email']
     orders = ['asc', 'desc']
     limits = [25, 50, 100]
 
-    page = request.values.get('page', 1, type=int)
-    sort = request.values.get('sort', sorts[0])
-    order = request.values.get('order', orders[0])
-    limit = request.values.get('limit', limits[1], type=int)
-    filter = request.values.get('active', None)
-    search = request.values.get('query', None)
-
     query = User.query
 
-    if sort in sorts and order in orders:
-        field = getattr(getattr(User, sort), order)
-        query = query.order_by(field())
+    # is_sorting
+    sort = request.values.get('sort', User.sortables)
+    order = request.values.get('order', orders[0])
+    if sort in User.sortables() and order in orders:
+        query = User.sort_query(query, sort, order)
 
+    # is_filtering
+    filter = request.values.get('active', None)
     if filter:
-        field = getattr(User, 'active')
-        query = query.filter(field==filter)
+        query = User.filter_query(query, 'active')
 
+    # is_searching
+    search = request.values.get('query', None)
     if search:
-        search_query = '%%%s%%' % search
-        from sqlalchemy import or_
-        query = query.filter(or_(
-            User.email.like(search_query),
-            User.username.like(search_query)
-        ))
+        query = User.search_query(query, search)
 
-    users = query.paginate(page, limit)
+    users = query.paginate(
+        request.values.get('page', 1, type=int),
+        request.values.get('limit', limits[1], type=int)
+    )
     stats = User.stats()
 
     if g.pjax:
         return render_template(
             'users.html',
+            sorts=User.sortables(),
             limits=limits,
-            sorts=sorts,
             users=users,
             stats=stats
         )
 
     return render_template(
         'list.html',
+        sorts=User.sortables(),
         limits=limits,
-        sorts=sorts,
         users=users,
         stats=stats
     )

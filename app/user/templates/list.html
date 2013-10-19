@@ -1,4 +1,3 @@
-{% from 'components/search.html' import search %}
 {% extends 'layout.html' %}
 
 {% block title %}
@@ -9,20 +8,6 @@
 {% endblock %}
 
 {% block body %}
-    <p class="lead">
-        There are currently {{ stats.total }} users.
-        {{ stats.active }} are <a href="{{ url_for('.list', is_active=True) }}">Active</a>
-        {{ stats.inactive }} are <a href="{{ url_for('.list', is_active=False) }}">Inactive</a>
-    </p>
-    <hr>
-    <div class="row">
-        <div class="col-md-7">
-        </div>
-        <div class="col-md-5">
-            {{ search('Search for a Username or Email') }}
-        </div>
-    </div>
-    <br>
     <div id="pjax-container">
         {% include 'users.html' %}
     </div>
