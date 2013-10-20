@@ -9,28 +9,29 @@ from ..user import user
 @user.route('/list', methods=['GET', 'POST'])
 @login_required
 def list():
+
     from app.database import DataTable
     datatable = DataTable(
         model=User,
+        columns=[User.remote_addr],
         sortable=[User.username, User.email, User.created_ts],
         searchable=[User.username, User.email],
         filterable=[User.active],
         limits=[25, 50, 100],
-        request_values=request.values
+        request=request
     )
-    stats = User.stats()
 
     if g.pjax:
         return render_template(
             'users.html',
             datatable=datatable,
-            stats=stats
+            stats=User.stats()
         )
 
     return render_template(
         'list.html',
         datatable=datatable,
-        stats=stats
+        stats=User.stats()
     )
 
 
