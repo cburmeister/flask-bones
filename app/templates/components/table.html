@@ -12,15 +12,15 @@
     {% endif %}
 {% endmacro %}
 
-{% macro table_header(sorts=[], items=[], actions=False) %}
+{% macro table_header(datatable, actions=False) %}
     <thead>
         <tr>
-            {% set selected_sort = request.values.get('sort', sorts[0]) %}
-            {% set selected_order = 'asc' if request.values.get('order', 'asc') == 'asc' else 'desc' %}
-            {% for sort in sorts %}
-                <th>{{ sort_link(sort, selected_sort, selected_order) }}</th>
+            {% for sort in datatable.sortables %}
+                <th>{{ sort_link(sort, datatable.selected_sort, datatable.selected_order) }}</th>
             {% endfor %}
-            <th>Last IP</th>
+            {% for name in datatable._columns %}
+                <th>{{ name }}</th>
+            {% endfor %}
             {% if actions %}
                 <th></th>
             {% endif %}
