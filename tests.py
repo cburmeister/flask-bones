@@ -13,7 +13,7 @@ admin_email = 'cburmeister@discogs.com'
 admin_password = 'test123'
 
 
-def make_db(num_users=5):
+def make_db(num_users=1):
     db.drop_all()
     db.create_all()
 
