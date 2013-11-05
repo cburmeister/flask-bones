@@ -1,17 +1,17 @@
 from flask.ext.assets import Bundle, Environment
 
 js = Bundle(
-    'js/jquery-2.0.3.min.js',
-    'js/jquery.pjax.js',
-    'js/bootstrap.min.js',
-    'js/bootbox.min.js',
+    'bower_components/jquery/jquery.js',
+    'bower_components/jquery-pjax/jquery.pjax.js',
+    'bower_components/bootstrap/dist/js/bootstrap.js',
+    'bower_components/bootbox/bootbox.js',
     'js/application.js',
     filters='jsmin',
     output='gen/packed.js'
 )
 
 css = Bundle(
-    'css/bootstrap.min.css',
+    'bower_components/bootstrap/dist/css/bootstrap.css',
     'css/style.css',
     filters='cssmin',
     output='gen/packed.css'
