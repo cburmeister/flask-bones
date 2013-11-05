@@ -6,27 +6,29 @@
     <div class="panel-heading">
         {{ search('Search for a Username or Email') }}
     </div>
-    <table class="table table-striped">
-        {{ table_header(datatable, actions=True) }}
-        <tbody>
-            {% for u in datatable.query.items %}
-                <tr>
-                    <td><a href="{{ url_for('.edit', id=u.id) }}">{{ u.username }}</a></td>
-                    <td>{{ u.email }}</td>
-                    <td>{{ timeago(u.created_ts) }}</td>
-                    <td>{{ u.remote_addr }}</td>
-                    <td>
-                        {% set dialogue = 'Are you sure you want to delete %s?' % u.username %}
-                        <a data-confirm data-dialogue="{{ dialogue }}" class="btn btn-default btn-xs" href="{{ url_for('.delete', id=u.id) }}">
-                            <i class="icon-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr><td colspan="{{ datatable.colspan }}">No results found for: {{ request.values.get('query') }}</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            {{ table_header(datatable, actions=True) }}
+            <tbody>
+                {% for u in datatable.query.items %}
+                    <tr>
+                        <td><a href="{{ url_for('.edit', id=u.id) }}">{{ u.username }}</a></td>
+                        <td>{{ u.email }}</td>
+                        <td>{{ timeago(u.created_ts) }}</td>
+                        <td>{{ u.remote_addr }}</td>
+                        <td>
+                            {% set dialogue = 'Are you sure you want to delete %s?' % u.username %}
+                            <a data-confirm data-dialogue="{{ dialogue }}" class="btn btn-default btn-xs" href="{{ url_for('.delete', id=u.id) }}">
+                                <i class="icon-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="{{ datatable.colspan }}">No results found for: {{ request.values.get('query') }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <div class="panel-footer">
         {{ pagination(datatable.query, datatable.limits) }}
     </div>
