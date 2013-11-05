@@ -1,0 +1,17 @@
+{
+    "name": "flask-bones",
+    "version": "0.0.1",
+    "main": "app.js",
+    "dependencies": {
+        "jquery": "2.0.3",
+        "jquery-pjax": "~1.7.3",
+        "bootstrap": "3.0.1",
+        "bootbox": "4.1.0"
+    },
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "components",
+        ".bower"
+    ]
+}

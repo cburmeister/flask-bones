@@ -4,3 +4,5 @@
 .env
 gen/
 .webassets-cache
+bower_components/
+node_modules/
