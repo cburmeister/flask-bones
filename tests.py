@@ -13,7 +13,7 @@ admin_email = 'cburmeister@discogs.com'
 admin_password = 'test123'
 
 
-def make_db(num_users=1):
+def make_db(num_users=5):
     db.drop_all()
     db.create_all()
 
@@ -71,6 +71,9 @@ class TestCase(unittest.TestCase):
             email=user.email,
         ), follow_redirects=True)
 
+    def delete_user(self, uid):
+        return self.app.get('/user/delete/%s' % uid, follow_redirects=True)
+
     def test_404(self):
         resp = self.app.get('/nope', follow_redirects=True)
         assert '404' in resp.data
@@ -95,15 +98,17 @@ class TestCase(unittest.TestCase):
         resp = self.register_user(username, email, password)
         assert 'Sent verification email to %s' % email in resp.data
 
-    def test_index(self):
-        resp = self.app.get('/index', follow_redirects=True)
-        assert 'Flask Bones' in resp.data
-
     def test_edit_user(self):
         user = User.query.order_by(func.random()).first()
         resp = self.login(admin_username, admin_password)
         resp = self.edit_user(user, email=fake.email())
         assert 'User %s edited' % user.username in resp.data
+
+    def test_delete_user(self):
+        user = User.query.order_by(func.random()).first()
+        resp = self.login(admin_username, admin_password)
+        resp = self.delete_user(user.id)
+        assert 'User %s deleted' % user.username in resp.data
 
     def test_user_list(self):
         resp = self.app.get('/user/list', follow_redirects=True)
