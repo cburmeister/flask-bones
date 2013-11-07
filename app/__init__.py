@@ -49,12 +49,11 @@ def register_blueprints(app):
 
 
 def register_errorhandlers(app):
+    def render_error(e):
+        return render_template('errors/%s.html' % e.code), e.code
+
     for e in [401, 404, 500]:
         app.errorhandler(e)(render_error)
-
-
-def render_error(e):
-    return render_template('errors/%s.html' % e.code), e.code
 
 
 def register_jinja_env(app):

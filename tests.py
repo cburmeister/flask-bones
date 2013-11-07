@@ -71,13 +71,20 @@ class TestCase(unittest.TestCase):
             email=user.email,
         ), follow_redirects=True)
 
+    def test_404(self):
+        resp = self.app.get('/nope', follow_redirects=True)
+        assert '404' in resp.data
+
+    def test_index(self):
+        resp = self.app.get('/index', follow_redirects=True)
+        assert 'Flask Bones' in resp.data
+
     def test_login(self):
         resp = self.login(admin_username, admin_password)
         assert 'You were logged in' in resp.data
 
     def test_logout(self):
         resp = self.login(admin_username, admin_password)
-        assert 'You were logged in' in resp.data
         resp = self.app.get('/logout', follow_redirects=True)
         assert 'You were logged out' in resp.data
 
@@ -88,11 +95,19 @@ class TestCase(unittest.TestCase):
         resp = self.register_user(username, email, password)
         assert 'Sent verification email to %s' % email in resp.data
 
+    def test_index(self):
+        resp = self.app.get('/index', follow_redirects=True)
+        assert 'Flask Bones' in resp.data
+
     def test_edit_user(self):
         user = User.query.order_by(func.random()).first()
         resp = self.login(admin_username, admin_password)
         resp = self.edit_user(user, email=fake.email())
         assert 'User %s edited' % user.username in resp.data
+
+    def test_user_list(self):
+        resp = self.app.get('/user/list', follow_redirects=True)
+        assert 'Users' in resp.data
 
 
 if __name__ == '__main__':
