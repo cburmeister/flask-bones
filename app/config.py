@@ -4,8 +4,6 @@ import os
 class base_config(object):
     SITE_NAME = 'Flask Bones'
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    BROKER_URL = os.environ.get('REDISCLOUD_URL', 'redis://127.0.0.1:6379')
-    BROKER_BACKEND = os.environ.get('REDISCLOUD_URL', 'redis://127.0.0.1:6379')
 
 
 class dev_config(base_config):
