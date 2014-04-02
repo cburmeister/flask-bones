@@ -2,6 +2,6 @@ Welcome {{ user.username }},
 
 Please follow the link below to finish your registration.
 
-{{ url_for('.verify', token=token, _external=True) }}
+{{ url_for('auth.verify', token=token, _external=True) }}
 
 If you did not initiate this request, you can ignore this email.

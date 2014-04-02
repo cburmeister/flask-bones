@@ -52,3 +52,4 @@ class RegisterUserForm(UserForm):
 
 class EditUserForm(UserForm):
     is_admin = BooleanField('Admin')
+    active = BooleanField('Activated')

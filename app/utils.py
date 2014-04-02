@@ -4,8 +4,11 @@ from flask import flash, request, url_for
 def flash_errors(form, category='danger'):
     for field, errors in form.errors.items():
         for error in errors:
-            flash(u'%s - %s' % (getattr(form, field).label.text,
-                error), category)
+            flash(
+                u'%s - %s' % (getattr(form, field).label.text, error),
+                category
+            )
+
 
 def url_for_other_page(remove_args=[], **kwargs):
     args = request.args.copy()
@@ -29,8 +32,8 @@ def timeago(time=False):
     now = datetime.now()
     if type(time) is int:
         diff = now - datetime.fromtimestamp(time)
-    elif isinstance(time,datetime):
-        diff = now - time 
+    elif isinstance(time, datetime):
+        diff = now - time
     elif not time:
         diff = now - now
     second_diff = diff.seconds
@@ -45,13 +48,13 @@ def timeago(time=False):
         if second_diff < 60:
             return str(second_diff) + " seconds ago"
         if second_diff < 120:
-            return  "a minute ago"
+            return "a minute ago"
         if second_diff < 3600:
-            return str( second_diff / 60 ) + " minutes ago"
+            return str(second_diff / 60) + " minutes ago"
         if second_diff < 7200:
             return "an hour ago"
         if second_diff < 86400:
-            return str( second_diff / 3600 ) + " hours ago"
+            return str(second_diff / 3600) + " hours ago"
     if day_diff == 1:
         return "Yesterday"
     if day_diff < 7:
