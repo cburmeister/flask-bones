@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/cburmeister/flask-bones.png?label=ready&title=Ready)](https://waffle.io/cburmeister/flask-bones)
 flask-bones
 ===========
 
