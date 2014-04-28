@@ -5,6 +5,47 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
 
 ## 
 
+### Installation & Setup
+
+1) Install required services
+```
+$ brew update
+$ brew install memcached
+$ brew install redis
+$ brew install postgresql
+```
+
+2) Install Python packages
+
+```
+$ [sudo] pip install -r requirements.txt
+```
+note: if you get an error when running that command similar to `clang: error: unknown argument: ‘-mno-fused-madd’`, try running:
+
+```
+$ sudo ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future pip install -r requirements.txt
+```
+
+3) Be sure to set a secret key (used in `app/config.py`).
+
+4) Install Javascript dependencies:
+
+```
+cd app/static
+bower install
+```
+
+5) Run with:
+```
+python manage.py runserver
+```
+or
+```
+SECRET_KEY=foobar python manage.py runserver
+```
+
+### Features
+
 1. Caching with Memcached
 
     ```bash
