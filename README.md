@@ -1,8 +1,5 @@
-flask-bones
+flask-bones [![Build Status](https://travis-ci.org/cburmeister/flask-bones.png?branch=master)](https://travis-ci.org/cburmeister/flask-bones) [![Coverage Status](https://coveralls.io/repos/cburmeister/flask-bones/badge.png?branch=master)](https://coveralls.io/r/cburmeister/flask-bones?branch=master) [![Stories in Ready](https://badge.waffle.io/cburmeister/flask-bones.png?label=ready&title=Ready)](https://waffle.io/cburmeister/flask-bones)
 ===========
-
-[![Build Status](https://travis-ci.org/cburmeister/flask-bones.png?branch=master)](https://travis-ci.org/cburmeister/flask-bones)
-[![Coverage Status](https://coveralls.io/repos/cburmeister/flask-bones/badge.png?branch=master)](https://coveralls.io/r/cburmeister/flask-bones?branch=master)
 
 I've been reusing this pattern for Flask applications and decided to stop repeating myself.
 
