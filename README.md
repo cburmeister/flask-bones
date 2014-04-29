@@ -3,218 +3,234 @@ flask-bones [![Build Status](https://travis-ci.org/cburmeister/flask-bones.png?b
 
 I've been reusing this pattern for Flask applications and decided to stop repeating myself.
 
-## 
+## Setup
 
-### Installation & Setup
+1. Install required services:
 
-1) Install required services
 ```
-$ brew update
 $ brew install memcached
 $ brew install redis
 $ brew install postgresql
 ```
 
-2) Install Python packages
+2. Install Python packages:
 
 ```
-$ [sudo] pip install -r requirements.txt
-```
-note: if you get an error when running that command similar to `clang: error: unknown argument: ‘-mno-fused-madd’`, try running:
-
-```
-$ sudo ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
-3) Be sure to set a secret key (used in `app/config.py`).
-
-4) Install Javascript dependencies:
+3. Set necessary environment variables:
 
 ```
-cd app/static
-bower install
+$ export SECRET_KEY=46-2346-24986-2384632-2039845-24
+$ export DATABASE_URL=postgresql://$USER@localhost/flask_bones
+$ export SERVER_NAME=$HOST:5000
 ```
 
-5) Run with:
+4. Install Javascript dependencies:
+
 ```
-python manage.py runserver
-```
-or
-```
-SECRET_KEY=foobar python manage.py runserver
+$ cd app/static
+$ bower install
 ```
 
-### Features
+5. Setup database and seed with test data:
+
+```
+$ python manage.py shell
+>>> import tests
+>>> tests.make_db()
+```
+
+6. Run a local smtp debugging server:
+
+```
+$ sudo python -m smtpd -n -c DebuggingServer localhost:25
+```
+
+7. Run the celery worker:
+
+```
+$ python runcelery.py -A app.tasks worker
+```
+
+8. Run local server:
+
+```
+$ python manage.py runserver --host 0.0.0.0
+```
+
+## Features
 
 1. Caching with Memcached
 
-    ```bash
-    from app.extensions import cache
+```bash
+from app.extensions import cache
 
-    # cache something
-    cache.set('some_key', 'some_value')
+# cache something
+cache.set('some_key', 'some_value')
 
-    # fetch it later
-    cache.get('some_key')
-    ```
+# fetch it later
+cache.get('some_key')
+```
 
 2. Email delivery with Mailgun
 
-    ```bash
-    from app.extensions import mail
-    from flask.ext.mail import Message
+```bash
+from app.extensions import mail
+from flask.ext.mail import Message
 
-    # build an email
-    msg = Message('User Registration', sender='admin@flask-bones.com', recipients=[user.email])
-    msg.body = render_template('mail/registration.mail', user=user, token=token)
+# build an email
+msg = Message('User Registration', sender='admin@flask-bones.com', recipients=[user.email])
+msg.body = render_template('mail/registration.mail', user=user, token=token)
 
-    # send
-    mail.send(msg)
-    ```
+# send
+mail.send(msg)
+```
 
 3. Asynchronous job scheduling with Celery & Redis
 
-    ```bash
-    from app.extensions import celery
+```bash
+from app.extensions import celery
 
-    # define a job
-    @celery.task                                                                     
-    def send_email(msg):                                                             
-        mail.send(msg) 
+# define a job
+@celery.task                                                                     
+def send_email(msg):                                                             
+    mail.send(msg) 
 
-    # queue job
-    send_email.delay(msg)
-    ```
+# queue job
+send_email.delay(msg)
+```
 
 4. Stupid simple user management
 
-    ```bash
-    from app.extensions import login_user, logout_user, login_required
+```bash
+from app.extensions import login_user, logout_user, login_required
 
-    # login user
-    login_user(user)
+# login user
+login_user(user)
 
-    # you now have a global proxy for the user
-    current_user.is_authenticated
+# you now have a global proxy for the user
+current_user.is_authenticated
 
-    # secure endpoints with a decorator
-    @login_required
+# secure endpoints with a decorator
+@login_required
 
-    # log out user
-    logout_user()
-    ```
+# log out user
+logout_user()
+```
 
 5. Password security that can keep up with Moores Law
 
-    ```bash
-    from app.extensions import bcrypt
+```bash
+from app.extensions import bcrypt
 
-    # hash password
-    pw_hash = bcrypt.generate_password_hash('password')
+# hash password
+pw_hash = bcrypt.generate_password_hash('password')
 
-    # validate password
-    bcrypt.check_password_hash(pw_hash, 'password')
-    ```
+# validate password
+bcrypt.check_password_hash(pw_hash, 'password')
+```
 
 6. Deploy on Heroku with ease
 
-    ```bash
-    # provision new stack
-    $ heroku create
+```bash
+# provision new stack
+$ heroku create
 
-    # configure environment
-    $ heroku config
+# configure environment
+$ heroku config
 
-    # deploy
-    $ git push heroku master
-    ```
+# deploy
+$ git push heroku master
+```
 
 7. Easily swap between multiple application configurations
 
-    ```bash
-    from app.config import dev_config, test_config
-    app = Flask(__name__)
+```bash
+from app.config import dev_config, test_config
+app = Flask(__name__)
 
-    class dev_config():
-        DEBUG = True
+class dev_config():
+    DEBUG = True
 
-    class test_config():
-        TESTING = True
+class test_config():
+    TESTING = True
 
-    # configure for testing
-    app.config.from_object(test_config)
+# configure for testing
+app.config.from_object(test_config)
 
-    # configure for development
-    app.config.from_object(dev_config)
-    ```
+# configure for development
+app.config.from_object(dev_config)
+```
 
 8. Form validation & CSRF protection with WTForms
 
-    ```bash
-    # place a csrf token on a form
-    {{ form.csrf_token }}
+```bash
+# place a csrf token on a form
+{{ form.csrf_token }}
 
-    # then validate
-    form.validate_on_submit()
-    ```
+# then validate
+form.validate_on_submit()
+```
 
 10. Scale with Blueprints
 
-    ```bash
-    # app/user/__init__.py
-    user = Blueprint('user', __name__, template_folder='templates')
+```bash
+# app/user/__init__.py
+user = Blueprint('user', __name__, template_folder='templates')
 
-    # app/__init__.py
-    app = Flask(__name__)
-    app.register_blueprint(user, url_prefix='/user')
-    ```
+# app/__init__.py
+app = Flask(__name__)
+app.register_blueprint(user, url_prefix='/user')
+```
 
 11. Automated tests and continuous integration support for TravisCI
 
-    ```bash
-    # run the test suite
-    python tests.py
+```bash
+# run the test suite
+python tests.py
 
-    #from travis.yml
-    coverage run tests.py
-    ```
+#from travis.yml
+coverage run tests.py
+```
 
-    ```bash
-    # load the database with test data 
-    from tests import make_db
-    make_db()
-    ```
+```bash
+# load the database with test data 
+from tests import make_db
+make_db()
+```
 
 12.  Use any relational database using the SQLAlchemy ORM
 
-    ```bash
-    from app.user.models import User
+```bash
+from app.user.models import User
 
-    # fetch user by id
-    user = User.get_by_id(id)
+# fetch user by id
+user = User.get_by_id(id)
 
-    # save current state of user
-    user.update()
+# save current state of user
+user.update()
 
-    # fetch a paginated set of users
-    users = User.query.paginate(page, 50)
-    ```
+# fetch a paginated set of users
+users = User.query.paginate(page, 50)
+```
 
 13. Merge and compress your javascripts and stylesheets
 
-    ```bash
-    # create a bundle of assets
-    js = Bundle(
-        'js/jquery.js',
-        'js/bootstrap.min.js',
-        filters='jsmin',
-        output='gen/packed.js'
-    )
-    ```
+```bash
+# create a bundle of assets
+js = Bundle(
+    'js/jquery.js',
+    'js/bootstrap.min.js',
+    filters='jsmin',
+    output='gen/packed.js'
+)
+```
 
-    ```bash
-    # serve up a single minified file
-    {% assets "js_all" %}
-        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-    ```
+```bash
+# serve up a single minified file
+{% assets "js_all" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}
+```
