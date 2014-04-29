@@ -3,7 +3,64 @@ flask-bones [![Build Status](https://travis-ci.org/cburmeister/flask-bones.png?b
 
 I've been reusing this pattern for Flask applications and decided to stop repeating myself.
 
-## 
+## Setup
+
+1. Install required services:
+
+    ```
+    $ brew install memcached
+    $ brew install redis
+    $ brew install postgresql
+    ```
+
+2. Install Python packages:
+
+    ```
+    $ pip install -r requirements.txt
+    ```
+
+3. Set necessary environment variables:
+
+    ```
+    $ export SECRET_KEY=46-2346-24986-2384632-2039845-24
+    $ export DATABASE_URL=postgresql://$USER@localhost/flask_bones
+    $ export SERVER_NAME=$HOST:5000
+    ```
+
+4. Install Javascript dependencies:
+
+    ```
+    $ cd app/static
+    $ bower install
+    ```
+
+5. Setup database and seed with test data:
+
+    ```
+    $ python manage.py shell
+    >>> import tests
+    >>> tests.make_db()
+    ```
+
+6. Run a local smtp debugging server:
+
+    ```
+    $ sudo python -m smtpd -n -c DebuggingServer localhost:25
+    ```
+
+7. Run the celery worker:
+
+    ```
+    $ python runcelery.py -A app.tasks worker
+    ```
+
+8. Run local server:
+
+    ```
+    $ python manage.py runserver --host 0.0.0.0
+    ```
+
+## Features
 
 1. Caching with Memcached
 
