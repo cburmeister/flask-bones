@@ -3,48 +3,64 @@ flask-bones [![Build Status](https://travis-ci.org/cburmeister/flask-bones.png?b
 
 I've been reusing this pattern for Flask applications and decided to stop repeating myself.
 
-## 
+## Setup
 
-### Installation & Setup
+1. Install required services:
 
-1) Install required services
-```
-$ brew update
-$ brew install memcached
-$ brew install redis
-$ brew install postgresql
-```
+    ```
+    $ brew install memcached
+    $ brew install redis
+    $ brew install postgresql
+    ```
 
-2) Install Python packages
+2. Install Python packages:
 
-```
-$ [sudo] pip install -r requirements.txt
-```
-note: if you get an error when running that command similar to `clang: error: unknown argument: ‘-mno-fused-madd’`, try running:
+    ```
+    $ pip install -r requirements.txt
+    ```
 
-```
-$ sudo ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future pip install -r requirements.txt
-```
+3. Set necessary environment variables:
 
-3) Be sure to set a secret key (used in `app/config.py`).
+    ```
+    $ export SECRET_KEY=46-2346-24986-2384632-2039845-24
+    $ export DATABASE_URL=postgresql://$USER@localhost/flask_bones
+    $ export SERVER_NAME=$HOST:5000
+    ```
 
-4) Install Javascript dependencies:
+4. Install Javascript dependencies:
 
-```
-cd app/static
-bower install
-```
+    ```
+    $ cd app/static
+    $ bower install
+    ```
 
-5) Run with:
-```
-python manage.py runserver
-```
-or
-```
-SECRET_KEY=foobar python manage.py runserver
-```
+5. Setup database and seed with test data:
 
-### Features
+    ```
+    $ python manage.py shell
+    >>> import tests
+    >>> tests.make_db()
+    ```
+
+6. Run a local smtp debugging server:
+
+    ```
+    $ sudo python -m smtpd -n -c DebuggingServer localhost:25
+    ```
+
+7. Run the celery worker:
+
+    ```
+    $ python runcelery.py -A app.tasks worker
+    ```
+
+8. Run local server:
+
+    ```
+    $ python manage.py runserver --host 0.0.0.0
+    ```
+
+## Features
 
 1. Caching with Memcached
 
