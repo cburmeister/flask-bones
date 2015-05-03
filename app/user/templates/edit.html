@@ -25,10 +25,16 @@
                 {{ render_field(form.username) }}
                 {{ render_field(form.email) }}
                 <div class="checkbox">
-                    {{ form.is_admin.label }} {{ form.is_admin() }}
+                    <label>
+                        {{ form.is_admin() }}
+                        {{ form.is_admin.label.text }}
+                    </label>
                 </div>
                 <div class="checkbox">
-                    {{ form.active.label }} {{ form.active() }}
+                    <label>
+                        {{ form.active() }}
+                        {{ form.active.label.text }}
+                    </label>
                 </div>
             </div>
             <div class="panel-footer">

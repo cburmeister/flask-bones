@@ -1,7 +1,7 @@
 from flask.ext.assets import Bundle, Environment
 
 js = Bundle(
-    'bower_components/jquery/jquery.js',
+    'bower_components/jquery/dist/jquery.js',
     'bower_components/jquery-pjax/jquery.pjax.js',
     'bower_components/bootbox/bootbox.js',
     'bower_components/bootstrap/dist/js/bootstrap.min.js',

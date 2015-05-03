@@ -22,7 +22,10 @@
                 {{ render_field(form.password) }}
                 {{ render_field(form.confirm) }}
                 <div class="checkbox">
-                    {{ form.accept_tos.label }} {{ form.accept_tos() }}
+                    <label>
+                        {{ form.accept_tos() }}
+                        {{ form.accept_tos.label.text }}
+                    </label>
                 </div>
             </div>
             <div class="panel-footer">
