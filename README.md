@@ -16,7 +16,7 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
 2. Install Python packages:
 
     ```
-    $ pip install -r requirements.txt
+    $ make init
     ```
 
 3. Set necessary environment variables:
@@ -30,16 +30,13 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
 4. Install Javascript dependencies:
 
     ```
-    $ cd app/static
-    $ bower install
+    $ make assets
     ```
 
 5. Setup database and seed with test data:
 
     ```
-    $ python manage.py shell
-    >>> import tests
-    >>> tests.make_db()
+    $ make db
     ```
 
 6. Run a local smtp debugging server:
@@ -51,13 +48,13 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
 7. Run the celery worker:
 
     ```
-    $ python runcelery.py -A app.tasks worker
+    $ make celery
     ```
 
 8. Run local server:
 
     ```
-    $ python manage.py runserver --host 0.0.0.0
+    $ make server
     ```
 
 ## Features
@@ -193,12 +190,6 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
 
     #from travis.yml
     coverage run tests.py
-    ```
-
-    ```bash
-    # load the database with test data 
-    from tests import make_db
-    make_db()
     ```
 
 12.  Use any relational database using the SQLAlchemy ORM

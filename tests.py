@@ -14,9 +14,6 @@ admin_password = 'test123'
 
 
 def make_db(num_users=5):
-    db.drop_all()
-    db.create_all()
-
     users = [
         User(
             admin_username,
@@ -27,7 +24,7 @@ def make_db(num_users=5):
             is_admin=True
         )
     ]
-    for _ in range(num_users):
+    for _ in range(int(num_users)):
         u = User(
             fake.userName(),
             fake.email(),
