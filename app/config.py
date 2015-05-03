@@ -7,6 +7,8 @@ class base_config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY')
     BROKER_URL = os.environ.get('REDISCLOUD_URL', 'redis://127.0.0.1:6379')
     BROKER_BACKEND = os.environ.get('REDISCLOUD_URL', 'redis://127.0.0.1:6379')
+    MAIL_SERVER = os.environ.get('MAIL_SERVER', 'localhost')
+    MAIL_PORT = os.environ.get('MAIL_PORT', 1025)
 
 
 class dev_config(base_config):

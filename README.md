@@ -11,6 +11,7 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
     $ brew install memcached
     $ brew install redis
     $ brew install postgresql
+    $ gem install mailcatcher
     ```
 
 2. Install Python packages:
@@ -39,10 +40,10 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
     $ make db
     ```
 
-6. Run a local smtp debugging server:
+6. Run a local SMTP server:
 
     ```
-    $ sudo python -m smtpd -n -c DebuggingServer localhost:25
+    $ mailcatcher
     ```
 
 7. Run the celery worker:
@@ -71,7 +72,7 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
     cache.get('some_key')
     ```
 
-2. Email delivery with Mailgun
+2. Email delivery
 
     ```bash
     from app.extensions import mail
