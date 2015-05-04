@@ -2,6 +2,47 @@ from flask.ext.sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
+def populate_db(num_users=5):
+    """
+    Fills the database will fake data.
+    """
+    from faker import Factory
+    from app.user.models import User
+
+    fake = Factory.create()
+
+    admin_username = 'cburmeister'
+    admin_email = 'cburmeister@discogs.com'
+    admin_password = 'test123'
+
+    users = []
+    for _ in range(int(num_users)):
+        users.append(
+            User(
+                fake.userName(),
+                fake.email(),
+                fake.word() + fake.word(),
+                fake.ipv4()
+            )
+        )
+
+    users.append(
+        User(
+            admin_username,
+            admin_email,
+            admin_password,
+            fake.ipv4(),
+            active=True,
+            is_admin=True
+        )
+    )
+
+    for user in users:
+        db.session.add(user)
+
+    db.session.commit()
+
+
 class CRUDMixin(object):
     __table_args__ = {'extend_existing': True}
 

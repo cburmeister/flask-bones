@@ -6,35 +6,11 @@ from sqlalchemy.sql.expression import func
 from faker import Factory
 import unittest
 
-fake = Factory.create()
-
 admin_username = 'cburmeister'
 admin_email = 'cburmeister@discogs.com'
 admin_password = 'test123'
 
-
-def make_db(num_users=5):
-    users = [
-        User(
-            admin_username,
-            admin_email,
-            admin_password,
-            fake.ipv4(),
-            active=True,
-            is_admin=True
-        )
-    ]
-    for _ in range(int(num_users)):
-        u = User(
-            fake.userName(),
-            fake.email(),
-            fake.word() + fake.word(),
-            fake.ipv4()
-        )
-        users.append(u)
-    [db.session.add(x) for x in users]
-
-    db.session.commit()
+fake = Factory.create()
 
 
 class TestCase(unittest.TestCase):
@@ -42,10 +18,9 @@ class TestCase(unittest.TestCase):
         app = create_app(test_config)
         db.app = app  # hack for using db.init_app(app) in app/__init__.py
         self.app = app.test_client()
-        make_db()
 
     def tearDown(self):
-        make_db()
+        pass
 
     def login(self, username, password):
         return self.app.post('/login', data=dict(

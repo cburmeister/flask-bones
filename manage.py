@@ -1,16 +1,19 @@
 from app import create_app, config
-from app.database import db
+from app.database import db, populate_db
 from flask.ext.script import (
     Server,
     Shell,
     Manager,
     prompt_bool,
 )
-from tests import make_db
 
 
 def _make_context():
-    return dict(app=create_app(config.dev_config), db=db, make_db=make_db)
+    return dict(
+        app=create_app(config.dev_config),
+        db=db,
+        populate_db=populate_db
+    )
 
 
 manager = Manager(create_app(config=config.dev_config))
@@ -23,7 +26,7 @@ manager.add_command('shell', Shell(make_context=_make_context))
 def create_db(num_users=5):
     """Creates database tables and populates them."""
     db.create_all()
-    make_db(num_users=num_users)
+    populate_db(num_users=num_users)
 
 
 @manager.command
