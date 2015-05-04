@@ -1,4 +1,4 @@
-flask-bones [![Build Status](https://travis-ci.org/cburmeister/flask-bones.png?branch=master)](https://travis-ci.org/cburmeister/flask-bones) [![Coverage Status](https://coveralls.io/repos/cburmeister/flask-bones/badge.png?branch=master)](https://coveralls.io/r/cburmeister/flask-bones?branch=master) [![Stories in Ready](https://badge.waffle.io/cburmeister/flask-bones.png?label=ready&title=Ready)](https://waffle.io/cburmeister/flask-bones)
+flask-bones
 ===========
 
 I've been reusing this pattern for Flask applications and decided to stop repeating myself.
@@ -183,14 +183,11 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
     app.register_blueprint(user, url_prefix='/user')
     ```
 
-11. Automated tests and continuous integration support for TravisCI
+11. Automated tests
 
     ```bash
     # run the test suite
     python tests.py
-
-    #from travis.yml
-    coverage run tests.py
     ```
 
 12.  Use any relational database using the SQLAlchemy ORM
