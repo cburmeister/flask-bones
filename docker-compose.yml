@@ -1,0 +1,41 @@
+app:
+    build: .
+    command: make server
+    volumes:
+        - .:/var/www/flask-bones
+    ports:
+        - "5000:5000"
+    links:
+        - db
+        - redis
+        - memcached
+        - mailcatcher
+    env_file: .env
+celery:
+    build: .
+    command: make celery
+    volumes:
+        - .:/var/www/flask-bones
+    links:
+        - db
+        - redis
+        - memcached
+        - mailcatcher
+    env_file: .env
+db:
+    image: postgres:9.4.4
+    ports:
+        - "5432:5432"
+redis:
+    image: redis:2.8.17
+    ports:
+        - "6379:6379"
+memcached:
+    image: memcached:1.4.24
+    ports:
+        - "11211:11211"
+mailcatcher:
+    image: yappabe/mailcatcher
+    ports:
+        - 1025:1025
+        - 1080:1080

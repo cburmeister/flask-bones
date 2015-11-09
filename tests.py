@@ -83,6 +83,7 @@ class TestCase(unittest.TestCase):
         assert 'User %s deleted' % user.username in resp.data
 
     def test_user_list(self):
+        resp = self.login(admin_username, admin_password)
         resp = self.app.get('/user/list', follow_redirects=True)
         assert 'Users' in resp.data
 

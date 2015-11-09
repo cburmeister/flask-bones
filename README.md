@@ -3,7 +3,36 @@
 flask-bones
 ===========
 
-I've been reusing this pattern for Flask applications and decided to stop repeating myself.
+An example of a large scale Flask application using blueprints and extensions.
+
+## Setup with Docker
+
+Create an `.env` file:
+
+```
+SECRET_KEY=46-2346-24986-2384632-2039845-24
+SERVER_NAME=$HOST:5000
+```
+
+Let docker do the rest of the work:
+
+```
+$ docker-compose up -d
+```
+
+Here's a sneak peak at the different services:
+
+```
+$ docker-compose ps
+Name                        Command               State                       Ports
+------------------------------------------------------------------------------------------------------------------
+flaskbones_app_1           make server                      Up      0.0.0.0:5000->5000/tcp
+flaskbones_celery_1        make celery                      Up
+flaskbones_db_1            /docker-entrypoint.sh postgres   Up      0.0.0.0:5432->5432/tcp
+flaskbones_mailcatcher_1   mailcatcher --smtp-ip=0.0. ...   Up      0.0.0.0:1025->1025/tcp, 0.0.0.0:1080->1080/tcp
+flaskbones_memcached_1     /entrypoint.sh memcached         Up      0.0.0.0:11211->11211/tcp
+flaskbones_redis_1         /entrypoint.sh redis-server      Up      0.0.0.0:6379->6379/tcp
+```
 
 ## Setup
 
