@@ -132,20 +132,7 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
     bcrypt.check_password_hash(pw_hash, 'password')
     ```
 
-6. Deploy on Heroku with ease
-
-    ```bash
-    # provision new stack
-    $ heroku create
-
-    # configure environment
-    $ heroku config
-
-    # deploy
-    $ git push heroku master
-    ```
-
-7. Easily swap between multiple application configurations
+6. Easily swap between multiple application configurations
 
     ```bash
     from app.config import dev_config, test_config
@@ -164,7 +151,7 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
     app.config.from_object(dev_config)
     ```
 
-8. Form validation & CSRF protection with WTForms
+7. Form validation & CSRF protection with WTForms
 
     ```bash
     # place a csrf token on a form
@@ -174,7 +161,7 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
     form.validate_on_submit()
     ```
 
-10. Scale with Blueprints
+8. Scale with Blueprints
 
     ```bash
     # app/user/__init__.py
@@ -185,14 +172,14 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
     app.register_blueprint(user, url_prefix='/user')
     ```
 
-11. Automated tests
+9. Automated tests
 
     ```bash
     # run the test suite
     python tests.py
     ```
 
-12.  Use any relational database using the SQLAlchemy ORM
+10.  Use any relational database using the SQLAlchemy ORM
 
     ```bash
     from app.user.models import User
@@ -207,7 +194,7 @@ I've been reusing this pattern for Flask applications and decided to stop repeat
     users = User.query.paginate(page, 50)
     ```
 
-13. Merge and compress your javascripts and stylesheets
+11. Merge and compress your javascripts and stylesheets
 
     ```bash
     # create a bundle of assets
