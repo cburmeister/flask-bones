@@ -1,5 +1,6 @@
 from app import create_app, config
 from app.database import db, populate_db
+from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import (
     Server,
     Shell,
@@ -15,10 +16,14 @@ def _make_context():
         populate_db=populate_db
     )
 
+app = create_app(config=config.dev_config)
 
-manager = Manager(create_app(config=config.dev_config))
+migrate = Migrate(app, db)
+
+manager = Manager(app)
 manager.add_command('runserver', Server())
 manager.add_command('shell', Shell(make_context=_make_context))
+manager.add_command('db', MigrateCommand)
 
 
 @manager.command

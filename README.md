@@ -241,3 +241,17 @@ flaskbones_redis_1         /entrypoint.sh redis-server      Up      0.0.0.0:6379
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
     ```
+
+12. Version your database schema
+
+    ```bash
+    # Display the current revision
+    $ dcr app python manage.py db current
+    1fb7c6da302 (head)
+
+    # Create a new migration
+    $ dcr app python manage.py db revision
+
+    # Upgrade the database to a later version
+    $ dcr app python manage.py db upgrade
+    ```

@@ -4,6 +4,7 @@ Flask-Bcrypt==0.5.2
 Flask-Heroku-Env==0.0.4
 Flask-Login==0.3.2
 Flask-Mail==0.9.0
+Flask-Migrate==1.5.1
 Flask-Restless==0.12.0
 Flask-SQLAlchemy==1.0
 Flask-Script==2.0.5
