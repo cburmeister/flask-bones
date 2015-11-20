@@ -1,5 +1,6 @@
 Flask==0.10.1
 Flask-Assets==0.8
+Flask-Babel==0.9
 Flask-Bcrypt==0.5.2
 Flask-Heroku-Env==0.0.4
 Flask-Login==0.3.2

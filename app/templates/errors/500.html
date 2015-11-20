@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 
-{% block title %}Internal Server Error{% endblock %}
+{% block title %}{% trans %}Internal Server Error{% endtrans %}{% endblock %}
 
 {% block header %}
 {% endblock %}
 
 {% block body %}
-    <h1>500 Internal Server Error</h1>
-    <p>Something blew up.</p>
-    <p><a href="{{ url_for('index') }}">Go somewhere nice</a></p>
+    <h1>{% trans %}Internal Server Error{% endtrans %}</h1>
+    <p>{% trans %}Something blew up.{% endtrans %}</p>
+    <p><a href="{{ url_for('index') }}">{% trans %}Go somewhere nice{% endtrans %}</a></p>
 {% endblock %}
 
 {% block footer %}

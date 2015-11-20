@@ -1,8 +1,7 @@
 {% from 'components/field.html' import render_field %}
 {% extends "layout.html" %}
 
-{% block title %}
-{% endblock %}
+{% block title %}{% trans %}Register{% endtrans %}{% endblock %}
 
 {% block header %}
 {% endblock %}
@@ -30,7 +29,7 @@
             </div>
             <div class="panel-footer">
                 <button type="submit" class="btn btn-default">
-                    <i class="icon-ok-sign"></i> Submit
+                    <i class="icon-ok-sign"></i> {% trans %}Submit{% endtrans %}
                 </button>
             </div>
         </div>

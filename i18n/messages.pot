@@ -1,0 +1,152 @@
+# Translations template for PROJECT.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2015-11-24 07:36+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.1.1\n"
+
+#: app/auth/forms.py:10 app/user/forms.py:10
+msgid "Username"
+msgstr ""
+
+#: app/auth/forms.py:11 app/user/forms.py:22
+msgid "Password"
+msgstr ""
+
+#: app/auth/forms.py:25
+msgid "Unknown username"
+msgstr ""
+
+#: app/auth/forms.py:29
+msgid "Invalid password"
+msgstr ""
+
+#: app/auth/forms.py:33
+msgid "User not activated"
+msgstr ""
+
+#: app/auth/views.py:27
+msgid "You were logged in as {username}"
+msgstr ""
+
+#: app/auth/views.py:41
+msgid "You were logged out"
+msgstr ""
+
+#: app/auth/views.py:64
+msgid "Sent verification email to {email}"
+msgstr ""
+
+#: app/auth/views.py:91
+msgid "Registered user {username}. Please login to continue."
+msgstr ""
+
+#: app/auth/templates/login.html:4 app/auth/templates/login.html:22
+msgid "Login"
+msgstr ""
+
+#: app/auth/templates/login.html:24
+msgid "or"
+msgstr ""
+
+#: app/auth/templates/login.html:25 app/auth/templates/register.html:4
+msgid "Register"
+msgstr ""
+
+#: app/auth/templates/register.html:32
+msgid "Submit"
+msgstr ""
+
+#: app/templates/layout.html:24
+msgid "Terms"
+msgstr ""
+
+#: app/templates/layout.html:25
+msgid "Privacy"
+msgstr ""
+
+#: app/templates/layout.html:26
+msgid "Security"
+msgstr ""
+
+#: app/templates/errors/401.html:3 app/templates/errors/401.html:9
+msgid "Unauthorized"
+msgstr ""
+
+#: app/templates/errors/401.html:10
+msgid "You're not allowed to do this."
+msgstr ""
+
+#: app/templates/errors/401.html:11 app/templates/errors/404.html:11
+#: app/templates/errors/500.html:11
+msgid "Go somewhere nice"
+msgstr ""
+
+#: app/templates/errors/404.html:9
+msgid "Page Not Found"
+msgstr ""
+
+#: app/templates/errors/404.html:10
+msgid "What you were looking for is just not there."
+msgstr ""
+
+#: app/templates/errors/500.html:3 app/templates/errors/500.html:9
+msgid "Internal Server Error"
+msgstr ""
+
+#: app/templates/errors/500.html:10
+msgid "Something blew up."
+msgstr ""
+
+#: app/user/forms.py:13
+msgid "Email"
+msgstr ""
+
+#: app/user/forms.py:27
+msgid "Passwords must match"
+msgstr ""
+
+#: app/user/forms.py:33
+msgid "Confirm Password"
+msgstr ""
+
+#: app/user/forms.py:36
+msgid "I accept the TOS"
+msgstr ""
+
+#: app/user/forms.py:50
+msgid "Username already registered"
+msgstr ""
+
+#: app/user/forms.py:55
+msgid "Email already registered"
+msgstr ""
+
+#: app/user/forms.py:63
+msgid "Admin"
+msgstr ""
+
+#: app/user/forms.py:64
+msgid "Activated"
+msgstr ""
+
+#: app/user/views.py:48
+msgid "User {username} edited"
+msgstr ""
+
+#: app/user/views.py:60
+msgid "User {username} deleted"
+msgstr ""
+

@@ -48,7 +48,7 @@ class TestCase(unittest.TestCase):
 
     def test_404(self):
         resp = self.app.get('/nope', follow_redirects=True)
-        assert '404' in resp.data
+        assert 'Page Not Found' in resp.data
 
     def test_index(self):
         resp = self.app.get('/index', follow_redirects=True)

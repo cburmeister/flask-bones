@@ -1,4 +1,7 @@
-from flask import current_app, request, redirect, url_for, render_template, flash, abort
+from flask import (
+    current_app, request, redirect, url_for, render_template, flash, abort,
+)
+from flask.ext.babel import gettext
 from flask.ext.login import login_user, login_required, logout_user
 from itsdangerous import URLSafeSerializer, BadSignature
 from app.extensions import lm
@@ -19,7 +22,14 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         login_user(form.user)
-        flash('You were logged in as %s' % form.user.username, 'success')
+        flash(
+            gettext(
+                'You were logged in as {username}'.format(
+                    username=form.user.username
+                ),
+            ),
+            'success'
+        )
         return redirect(request.args.get('next') or url_for('index'))
     return render_template('login.html', form=form)
 
@@ -28,7 +38,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('You were logged out', 'success')
+    flash(gettext('You were logged out'), 'success')
     return redirect(url_for('.login'))
 
 
@@ -49,7 +59,14 @@ def register():
 
         send_registration_email.delay(user, token)
 
-        flash('Sent verification email to %s' % (user.email), 'success')
+        flash(
+            gettext(
+                'Sent verification email to {email}'.format(
+                    email=user.email
+                )
+            ),
+            'success'
+        )
         return redirect(url_for('index'))
     return render_template('register.html', form=form)
 
@@ -69,5 +86,12 @@ def verify(token):
         user.active = True
         user.update()
 
-        flash('Registered user %s. Please login to continue.' % user.username, 'success')
+        flash(
+            gettext(
+                'Registered user {username}. Please login to continue.'.format(
+                    username=user.username
+                ),
+            ),
+            'success'
+        )
         return redirect(url_for('auth.login'))

@@ -255,3 +255,19 @@ flaskbones_redis_1         /entrypoint.sh redis-server      Up      0.0.0.0:6379
     # Upgrade the database to a later version
     $ dcr app python manage.py db upgrade
     ```
+
+13. Internationalize the application for other languages (i18n)
+
+    ```bash
+    # Extract strings from source and compile a catalog (.pot)
+    $ pybabel extract -F babel.cfg -o i18n/messages.pot .
+
+    # Create a new resource (.po) for German translators
+    $ pybabel init -i i81n/messages.pot -d i18n -l de
+
+    # Compile translations (.mo)
+    $ pybabel compile -d i18n
+
+    # Merge changes into resource files
+    $ pybabel update -i i18n/messages.pot -d i18n
+    ```

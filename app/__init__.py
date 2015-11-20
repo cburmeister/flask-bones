@@ -1,6 +1,8 @@
 from flask import Flask, g, render_template, request
 from app.database import db
-from app.extensions import lm, api, travis, mail, heroku, bcrypt, celery
+from app.extensions import (
+    lm, api, travis, mail, heroku, bcrypt, celery, babel
+)
 from app.assets import assets
 import app.utils as utils
 from app import config
@@ -17,6 +19,10 @@ def create_app(config=config.base_config):
     register_blueprints(app)
     register_errorhandlers(app)
     register_jinja_env(app)
+
+    @babel.localeselector
+    def get_locale():
+        return request.accept_languages.best_match(config.SUPPORTED_LOCALES)
 
     @app.before_request
     def before_request():
@@ -41,6 +47,7 @@ def register_extensions(app):
     bcrypt.init_app(app)
     celery.config_from_object(app.config)
     assets.init_app(app)
+    babel.init_app(app)
 
 
 def register_blueprints(app):
