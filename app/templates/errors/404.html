@@ -6,9 +6,9 @@
 {% endblock %}
 
 {% block body %}
-    <h1>404 Page Not Found</h1>
-    <p>What you were looking for is just not there.</p>
-    <p><a href="{{ url_for('index') }}">Go somewhere nice</a></p>
+    <h1>{% trans %}Page Not Found{% endtrans %}</h1>
+    <p>{% trans %}What you were looking for is just not there.{% endtrans %}</p>
+    <p><a href="{{ url_for('index') }}">{% trans %}Go somewhere nice{% endtrans %}</a></p>
 {% endblock %}
 
 {% block footer %}

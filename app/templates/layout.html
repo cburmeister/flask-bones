@@ -21,9 +21,9 @@
         {% block footer -%}{%- endblock %}
         <hr />
         <ul class="list-inline text-center">
-            <li><a href="">Terms</a></li>
-            <li><a href="">Privacy</a></li>
-            <li><a href="">Security</a></li>
+            <li><a href="">{% trans %}Terms{% endtrans %} }}</a></li>
+            <li><a href="">{% trans %}Privacy{% endtrans %}</a></li>
+            <li><a href="">{% trans %}Security{% endtrans%}</a></li>
             <li><span class="text-muted"><i class="icon-time"></i> {{ g.request_time() }}</span></li>
         </ul>
     </div>

@@ -24,3 +24,6 @@ celery = Celery()
 
 from flask.ext.assets import Environment
 assets = Environment()
+
+from flask.ext.babel import Babel
+babel = Babel()
