@@ -1,8 +1,8 @@
 from flask import (
     current_app, request, redirect, url_for, render_template, flash, abort,
 )
-from flask.ext.babel import gettext
-from flask.ext.login import login_user, login_required, logout_user
+from flask_babel import gettext
+from flask_login import login_user, login_required, logout_user
 from itsdangerous import URLSafeSerializer, BadSignature
 from app.extensions import lm
 from app.tasks import send_registration_email

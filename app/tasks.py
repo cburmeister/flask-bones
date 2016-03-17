@@ -2,7 +2,7 @@ from flask import render_template
 from app.extensions import celery, mail
 from app.database import db
 from celery.signals import task_postrun
-from flask.ext.mail import Message
+from flask_mail import Message
 
 
 @celery.task

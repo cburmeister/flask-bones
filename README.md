@@ -107,7 +107,7 @@ flaskbones_redis_1         /entrypoint.sh redis-server      Up      0.0.0.0:6379
 
     ```bash
     from app.extensions import mail
-    from flask.ext.mail import Message
+    from flask_mail import Message
 
     # build an email
     msg = Message('User Registration', sender='admin@flask-bones.com', recipients=[user.email])

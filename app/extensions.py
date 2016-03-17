@@ -1,29 +1,29 @@
-from flask.ext.login import LoginManager
+from flask_login import LoginManager
 lm = LoginManager()
 
-from flask.ext.restless import APIManager
+from flask_restless import APIManager
 api = APIManager()
 
-from flask.ext.heroku import Heroku
+from flask_heroku import Heroku
 heroku = Heroku()
 
-from flask.ext.travis import Travis
+from flask_travis import Travis
 travis = Travis()
 
-from flask.ext.mail import Mail
+from flask_mail import Mail
 mail = Mail()
 
 from cachecore import SimpleCache
 cache = SimpleCache()
 
-from flask.ext.bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 
 from celery import Celery
 celery = Celery()
 
-from flask.ext.assets import Environment
+from flask_assets import Environment
 assets = Environment()
 
-from flask.ext.babel import Babel
+from flask_babel import Babel
 babel = Babel()
