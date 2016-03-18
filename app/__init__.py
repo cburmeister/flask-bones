@@ -8,7 +8,6 @@ import app.utils as utils
 from app import config
 from app.user import user
 from app.auth import auth
-import time
 
 
 def create_app(config=config.base_config):
@@ -26,8 +25,6 @@ def create_app(config=config.base_config):
 
     @app.before_request
     def before_request():
-        g.request_start_time = time.time()
-        g.request_time = lambda: '%.5fs' % (time.time() - g.request_start_time)
         g.pjax = 'X-PJAX' in request.headers
 
     @app.route('/', methods=['GET'])
