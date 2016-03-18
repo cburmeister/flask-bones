@@ -1,7 +1,7 @@
 from flask import Flask, g, render_template, request
 from app.database import db
 from app.extensions import (
-    lm, api, travis, mail, heroku, bcrypt, celery, babel
+    lm, api, travis, mail, heroku, bcrypt, celery, babel, debug_toolbar
 )
 from app.assets import assets
 import app.utils as utils
@@ -48,6 +48,7 @@ def register_extensions(app):
     celery.config_from_object(app.config)
     assets.init_app(app)
     babel.init_app(app)
+    debug_toolbar.init_app(app)
 
 
 def register_blueprints(app):
