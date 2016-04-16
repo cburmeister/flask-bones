@@ -4,7 +4,7 @@ db = SQLAlchemy()
 
 def populate_db(num_users=5):
     """
-    Fills the database will fake data.
+    Fills the database with fake data.
     """
     from faker import Factory
     from app.user.models import User
