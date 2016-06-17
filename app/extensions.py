@@ -13,7 +13,7 @@ travis = Travis()
 from flask.ext.mail import Mail
 mail = Mail()
 
-from cachecore import SimpleCache
+from werkzeug.contrib.cache import SimpleCache
 cache = SimpleCache()
 
 from flask.ext.bcrypt import Bcrypt
