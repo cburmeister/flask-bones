@@ -1,7 +1,7 @@
 from app import create_app, config
 from app.database import db, populate_db
-from flask.ext.migrate import Migrate, MigrateCommand
-from flask.ext.script import (
+from flask_migrate import Migrate, MigrateCommand
+from flask_script import (
     Server,
     Shell,
     Manager,

@@ -1,4 +1,4 @@
-from flask.ext.login import UserMixin
+from flask_login import UserMixin
 from app.extensions import cache, bcrypt
 from app.database import db, CRUDMixin
 import datetime
