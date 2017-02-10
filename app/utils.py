@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import flash, request, url_for
 
 
@@ -24,12 +25,11 @@ def url_for_other_page(remove_args=[], **kwargs):
 
 def timeago(time=False):
     """
-    Get a datetime object or a int() Epoch timestamp and return a
-    pretty string like 'an hour ago', 'Yesterday', '3 months ago',
-    'just now', etc
+    Get a datetime object or a int() Epoch timestamp and return a pretty string
+    like 'an hour ago', 'Yesterday', '3 months ago', 'just now', etc
     """
-    from datetime import datetime
     now = datetime.now()
+    time = time.replace(tzinfo=None)
     if type(time) is int:
         diff = now - datetime.fromtimestamp(time)
     elif isinstance(time, datetime):
