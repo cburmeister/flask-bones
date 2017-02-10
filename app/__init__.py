@@ -1,14 +1,13 @@
 from flask import Flask, g, render_template, request
 from app.database import db
 from app.extensions import (
-    lm, api, travis, mail, heroku, bcrypt, celery, babel
+    lm, api, travis, mail, heroku, bcrypt, celery, babel, debug_toolbar
 )
 from app.assets import assets
 import app.utils as utils
 from app import config
 from app.user import user
 from app.auth import auth
-import time
 
 
 def create_app(config=config.base_config):
@@ -26,8 +25,6 @@ def create_app(config=config.base_config):
 
     @app.before_request
     def before_request():
-        g.request_start_time = time.time()
-        g.request_time = lambda: '%.5fs' % (time.time() - g.request_start_time)
         g.pjax = 'X-PJAX' in request.headers
 
     @app.route('/', methods=['GET'])
@@ -48,6 +45,7 @@ def register_extensions(app):
     celery.config_from_object(app.config)
     assets.init_app(app)
     babel.init_app(app)
+    debug_toolbar.init_app(app)
 
 
 def register_blueprints(app):

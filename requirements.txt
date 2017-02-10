@@ -2,6 +2,7 @@ Flask==0.10.1
 Flask-Assets==0.8
 Flask-Babel==0.9
 Flask-Bcrypt==0.7.1
+Flask-DebugToolbar==0.10.0
 Flask-Heroku-Env==0.0.4
 Flask-Login==0.3.2
 Flask-Mail==0.9.0
