@@ -20,9 +20,11 @@ def create_app(config=config.base_config):
     register_errorhandlers(app)
     register_jinja_env(app)
 
-    @babel.localeselector
     def get_locale():
         return request.accept_languages.best_match(config.SUPPORTED_LOCALES)
+
+    if babel.locale_selector_func is None:
+        babel.locale_selector_func = get_locale
 
     @app.before_request
     def before_request():

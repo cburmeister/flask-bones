@@ -16,6 +16,7 @@ def _make_context():
         populate_db=populate_db
     )
 
+
 app = create_app(config=config.dev_config)
 
 migrate = Migrate(app, db)
