@@ -1,4 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import or_
+
 db = SQLAlchemy()
 
 
@@ -144,13 +146,12 @@ class DataTable(object):
         """Filters the query based on a field & value."""
         if field and value:
             field = getattr(self.model, field)
-            self.query = self.query.filter(field==value)
+            self.query = self.query.filter(field=value)
 
     def search(self, search_query):
         """Filters the query based on a list of fields & search query."""
         if search_query:
             search_query = '%%%s%%' % search_query
-            from sqlalchemy import or_
             fields = [getattr(self.model, x) for x in self.searchables]
             self.query = self.query.filter(or_(*[x.like(search_query) for x in fields]))
 

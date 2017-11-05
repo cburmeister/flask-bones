@@ -6,7 +6,9 @@ from flask_mail import Message
 
 
 @celery.task
-def send_registration_email(user, token):
+def send_registration_email(uid, token):
+    from models.user import User
+    user = User.query.filter_by(id=uid).first()
     msg = Message(
         'User Registration',
         sender='admin@flask-bones.com',

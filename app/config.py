@@ -33,6 +33,7 @@ class base_config(object):
         POSTGRES_PORT,
         POSTGRES_DB
     )
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     SUPPORTED_LOCALES = ['en']
 
