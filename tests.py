@@ -86,7 +86,3 @@ class TestCase(unittest.TestCase):
         resp = self.login(admin_username, admin_password)
         resp = self.app.get('/user/list', follow_redirects=True)
         assert 'Users' in resp.data
-
-
-if __name__ == '__main__':
-    unittest.main()
