@@ -8,8 +8,8 @@ class base_config(object):
     SERVER_NAME = os.environ['SERVER_NAME']
     SECRET_KEY = os.environ['SECRET_KEY']
 
-    MAIL_SERVER = os.environ['MAILCATCHER_PORT_1025_TCP_ADDR']
-    MAIL_PORT = os.environ['MAILCATCHER_PORT_1025_TCP_PORT']
+    MAIL_SERVER = os.environ['MAIL_PORT_1025_TCP_ADDR']
+    MAIL_PORT = os.environ['MAIL_PORT_1025_TCP_PORT']
 
     REDIS_HOST = os.environ['REDIS_PORT_6379_TCP_ADDR']
     REDIS_PORT = os.environ['REDIS_PORT_6379_TCP_PORT']
