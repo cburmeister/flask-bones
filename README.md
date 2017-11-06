@@ -5,269 +5,199 @@ flask-bones
 
 An example of a large scale Flask application using blueprints and extensions.
 
-## Setup with Docker
+## Setup
 
 Create an `.env` file:
-
 ```
 SECRET_KEY=46-2346-24986-2384632-2039845-24
 SERVER_NAME=$HOST:5000
 ```
 
-Let docker do the rest of the work:
-
+Let [docker](https://www.docker.com/) do the rest of the work:
+```bash
+docker-compose up -d
 ```
-$ docker-compose up -d
-```
-
-Here's a sneak peak at the different services:
-
-```
-$ docker-compose ps
-Name                        Command               State                       Ports
-------------------------------------------------------------------------------------------------------------------
-flaskbones_app_1           make server                      Up      0.0.0.0:5000->5000/tcp
-flaskbones_celery_1        make celery                      Up
-flaskbones_db_1            /docker-entrypoint.sh postgres   Up      0.0.0.0:5432->5432/tcp
-flaskbones_mailcatcher_1   mailcatcher --smtp-ip=0.0. ...   Up      0.0.0.0:1025->1025/tcp, 0.0.0.0:1080->1080/tcp
-flaskbones_memcached_1     /entrypoint.sh memcached         Up      0.0.0.0:11211->11211/tcp
-flaskbones_redis_1         /entrypoint.sh redis-server      Up      0.0.0.0:6379->6379/tcp
-```
-
-## Setup
-
-1. Install required services:
-
-    ```
-    $ brew install memcached
-    $ brew install redis
-    $ brew install postgresql
-    $ gem install mailcatcher
-    ```
-
-2. Install Python packages:
-
-    ```
-    $ make init
-    ```
-
-3. Set necessary environment variables:
-
-    ```
-    $ export SECRET_KEY=46-2346-24986-2384632-2039845-24
-    $ export DATABASE_URL=postgresql://$USER@localhost/flask_bones
-    $ export SERVER_NAME=$HOST:5000
-    ```
-
-4. Install Javascript dependencies:
-
-    ```
-    $ make assets
-    ```
-
-5. Setup database and seed with test data:
-
-    ```
-    $ make db
-    ```
-
-6. Run a local SMTP server:
-
-    ```
-    $ mailcatcher
-    ```
-
-7. Run the celery worker:
-
-    ```
-    $ make celery
-    ```
-
-8. Run local server:
-
-    ```
-    $ make server
-    ```
 
 ## Features
 
-1. Caching with Memcached
+### Caching with Memcached
 
-    ```bash
-    from app.extensions import cache
+```python
+from app.extensions import cache
 
-    # cache something
-    cache.set('some_key', 'some_value')
+# Cache something
+cache.set('some_key', 'some_value')
 
-    # fetch it later
-    cache.get('some_key')
-    ```
+# Fetch it later
+cache.get('some_key')
+```
 
-2. Email delivery
+### Email delivery
 
-    ```bash
-    from app.extensions import mail
-    from flask_mail import Message
+```python
+from app.extensions import mail
+from flask_mail import Message
 
-    # build an email
-    msg = Message('User Registration', sender='admin@flask-bones.com', recipients=[user.email])
-    msg.body = render_template('mail/registration.mail', user=user, token=token)
+# Build an email
+msg = Message('User Registration', sender='admin@flask-bones.com', recipients=[user.email])
+msg.body = render_template('mail/registration.mail', user=user, token=token)
 
-    # send
+# Send
+mail.send(msg)
+```
+
+### Asynchronous job scheduling with Celery & Redis
+
+```python
+from app.extensions import celery
+
+# Define a job
+@celery.task
+def send_email(msg):
     mail.send(msg)
-    ```
 
-3. Asynchronous job scheduling with Celery & Redis
+# Queue job
+send_email.delay(msg)
+```
 
-    ```bash
-    from app.extensions import celery
+### Stupid simple user management
 
-    # define a job
-    @celery.task                                                                     
-    def send_email(msg):                                                             
-        mail.send(msg) 
+```python
+from app.extensions import login_user, logout_user, login_required
 
-    # queue job
-    send_email.delay(msg)
-    ```
+# Login user
+login_user(user)
 
-4. Stupid simple user management
+# You now have a global proxy for the user
+current_user.is_authenticated
 
-    ```bash
-    from app.extensions import login_user, logout_user, login_required
+# Secure endpoints with a decorator
+@login_required
 
-    # login user
-    login_user(user)
+# Log out user
+logout_user()
+```
 
-    # you now have a global proxy for the user
-    current_user.is_authenticated
+### Password security that can keep up with Moores Law
 
-    # secure endpoints with a decorator
-    @login_required
+```python
+from app.extensions import bcrypt
 
-    # log out user
-    logout_user()
-    ```
+# Hash password
+pw_hash = bcrypt.generate_password_hash('password')
 
-5. Password security that can keep up with Moores Law
+# Validate password
+bcrypt.check_password_hash(pw_hash, 'password')
+```
 
-    ```bash
-    from app.extensions import bcrypt
+### Easily swap between multiple application configurations
 
-    # hash password
-    pw_hash = bcrypt.generate_password_hash('password')
+```python
+from app.config import dev_config, test_config
 
-    # validate password
-    bcrypt.check_password_hash(pw_hash, 'password')
-    ```
+app = Flask(__name__)
 
-6. Easily swap between multiple application configurations
+class dev_config():
+    DEBUG = True
 
-    ```bash
-    from app.config import dev_config, test_config
-    app = Flask(__name__)
+class test_config():
+    TESTING = True
 
-    class dev_config():
-        DEBUG = True
+# Configure for testing
+app.config.from_object(test_config)
 
-    class test_config():
-        TESTING = True
+# Configure for development
+app.config.from_object(dev_config)
+```
 
-    # configure for testing
-    app.config.from_object(test_config)
+### Form validation & CSRF protection with WTForms
 
-    # configure for development
-    app.config.from_object(dev_config)
-    ```
+Place a csrf token on a form:
+```html
+{{ form.csrf_token }}
+```
 
-7. Form validation & CSRF protection with WTForms
+Validate it:
+```python
+form.validate_on_submit()
+```
 
-    ```bash
-    # place a csrf token on a form
-    {{ form.csrf_token }}
+### Automated tests
 
-    # then validate
-    form.validate_on_submit()
-    ```
+Run the test suite:
+```bash
+python tests.py
+```
 
-8. Scale with Blueprints
+### Use any relational database using the SQLAlchemy ORM
 
-    ```bash
-    # app/user/__init__.py
-    user = Blueprint('user', __name__, template_folder='templates')
+```python
+from app.user.models import User
 
-    # app/__init__.py
-    app = Flask(__name__)
-    app.register_blueprint(user, url_prefix='/user')
-    ```
+# Fetch user by id
+user = User.get_by_id(id)
 
-9. Automated tests
+# Save current state of user
+user.update()
 
-    ```bash
-    # run the test suite
-    python tests.py
-    ```
+# Fetch a paginated set of users
+users = User.query.paginate(page, 50)
+```
 
-10.  Use any relational database using the SQLAlchemy ORM
+### Merge and compress your javascripts and stylesheets
 
-    ```bash
-    from app.user.models import User
+Create a bundle of assets:
+```python
+js = Bundle(
+    'js/jquery.js',
+    'js/bootstrap.min.js',
+    filters='jsmin',
+    output='gen/packed.js'
+)
+```
 
-    # fetch user by id
-    user = User.get_by_id(id)
+Serve up a single minified file:
+```html
+{% assets "js_all" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}
+```
 
-    # save current state of user
-    user.update()
+### Version your database schema
 
-    # fetch a paginated set of users
-    users = User.query.paginate(page, 50)
-    ```
+Display the current revision:
+```bash
+dcr app python manage.py db current
+```
 
-11. Merge and compress your javascripts and stylesheets
+Create a new migration:
+```bash
+dcr app python manage.py db revision
+```
 
-    ```bash
-    # create a bundle of assets
-    js = Bundle(
-        'js/jquery.js',
-        'js/bootstrap.min.js',
-        filters='jsmin',
-        output='gen/packed.js'
-    )
-    ```
+Upgrade the database to a later version:
+```bash
+dcr app python manage.py db upgrade
+```
 
-    ```bash
-    # serve up a single minified file
-    {% assets "js_all" %}
-        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-    ```
+### Internationalize the application for other languages (i18n)
 
-12. Version your database schema
+Extract strings from source and compile a catalog (`.pot`):
+```bash
+pybabel extract -F babel.cfg -o i18n/messages.pot .
+```
 
-    ```bash
-    # Display the current revision
-    $ dcr app python manage.py db current
-    1fb7c6da302 (head)
+Create a new resource (.po) for German translators:
+```bash
+pybabel init -i i81n/messages.pot -d i18n -l de
+```
 
-    # Create a new migration
-    $ dcr app python manage.py db revision
+Compile translations (.mo):
+```bash
+pybabel compile -d i18n
+```
 
-    # Upgrade the database to a later version
-    $ dcr app python manage.py db upgrade
-    ```
-
-13. Internationalize the application for other languages (i18n)
-
-    ```bash
-    # Extract strings from source and compile a catalog (.pot)
-    $ pybabel extract -F babel.cfg -o i18n/messages.pot .
-
-    # Create a new resource (.po) for German translators
-    $ pybabel init -i i81n/messages.pot -d i18n -l de
-
-    # Compile translations (.mo)
-    $ pybabel compile -d i18n
-
-    # Merge changes into resource files
-    $ pybabel update -i i18n/messages.pot -d i18n
-    ```
+Merge changes into resource files:
+```bash
+pybabel update -i i18n/messages.pot -d i18n
+```
