@@ -22,6 +22,7 @@ cssmin==0.2.0
 gunicorn==19.7.1
 itsdangerous==0.24
 psycopg2==2.7.3.2
+pytest==3.2.3
 python-dateutil==2.6.1
 redis==2.10.6
 requests==2.18.4
