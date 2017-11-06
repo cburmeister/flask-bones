@@ -4,9 +4,6 @@ lm = LoginManager()
 from flask_restless import APIManager
 api = APIManager()
 
-from flask_heroku import Heroku
-heroku = Heroku()
-
 from flask_travis import Travis
 travis = Travis()
 

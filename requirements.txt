@@ -1,3 +1,4 @@
+Faker==0.8.6
 Flask-Assets==0.12
 Flask-Babel==0.11.2
 Flask-Bcrypt==0.7.1
@@ -18,7 +19,6 @@ Werkzeug==0.12.2
 blinker==1.4
 celery==4.1.0
 cssmin==0.2.0
-fake-factory==0.2
 gunicorn==19.7.1
 itsdangerous==0.24
 psycopg2==2.7.3.2

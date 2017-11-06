@@ -3,14 +3,14 @@ from app.config import test_config
 from app.database import db
 from app.user.models import User
 from sqlalchemy.sql.expression import func
-from faker import Factory
+from faker import Faker
 import unittest
 
 admin_username = 'cburmeister'
 admin_email = 'cburmeister@discogs.com'
 admin_password = 'test123'
 
-fake = Factory.create()
+fake = Faker()
 
 
 class TestCase(unittest.TestCase):
@@ -64,7 +64,7 @@ class TestCase(unittest.TestCase):
         assert 'You were logged out' in resp.data
 
     def test_register_user(self):
-        username = fake.userName()
+        username = fake.user_name()
         email = fake.email()
         password = fake.word() + fake.word()
         resp = self.register_user(username, email, password)
