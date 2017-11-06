@@ -7,7 +7,7 @@ clean:
 	find . -name '*.pyc' -delete
 
 celery:
-	python runcelery.py -A app.tasks worker
+	python runcelery.py -A app.tasks worker -l INFO
 
 assets:
 	cd app/static && bower install && cd ..
