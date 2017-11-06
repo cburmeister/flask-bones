@@ -1,3 +1,4 @@
+from faker import Faker
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import or_
 
@@ -8,10 +9,9 @@ def populate_db(num_users=5):
     """
     Fills the database with fake data.
     """
-    from faker import Factory
     from app.user.models import User
 
-    fake = Factory.create()
+    fake = Faker()
 
     admin_username = 'cburmeister'
     admin_email = 'cburmeister@discogs.com'
@@ -21,7 +21,7 @@ def populate_db(num_users=5):
     for _ in range(int(num_users)):
         users.append(
             User(
-                fake.userName(),
+                fake.user_name(),
                 fake.email(),
                 fake.word() + fake.word(),
                 fake.ipv4()
