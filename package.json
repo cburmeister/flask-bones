@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "bower": "1.2.7"
+        "bower": "1.8.2"
     },
     "scripts": {
         "postinstall": "cd app/static/ && ../../node_modules/bower/bin/bower install && cd ../../"
