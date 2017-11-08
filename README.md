@@ -132,7 +132,7 @@ form.validate_on_submit()
 
 Run the test suite:
 ```bash
-python tests.py
+pytest
 ```
 
 ### Use any relational database using the SQLAlchemy ORM
