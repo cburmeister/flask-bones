@@ -18,6 +18,12 @@ Let [docker](https://www.docker.com/) do the rest of the work:
 docker-compose up -d
 ```
 
+Create the database and seed it with some data:
+```bash
+docker-compose run --rm app flask create_db
+docker-compose run --rm app flask populate_db
+```
+
 ## Features
 
 ### Caching with Memcached
@@ -167,17 +173,17 @@ Serve up a single minified file:
 
 Display the current revision:
 ```bash
-dcr app python manage.py db current
+dcr app flask db current
 ```
 
 Create a new migration:
 ```bash
-dcr app python manage.py db revision
+dcr app flask db revision
 ```
 
 Upgrade the database to a later version:
 ```bash
-dcr app python manage.py db upgrade
+dcr app flask db upgrade
 ```
 
 ### Internationalize the application for other languages (i18n)

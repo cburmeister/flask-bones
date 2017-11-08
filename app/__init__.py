@@ -1,4 +1,5 @@
 from flask import Flask, g, render_template, request
+from app.commands import create_db, drop_db, populate_db, recreate_db
 from app.database import db
 from app.extensions import (
     lm, api, travis, mail, bcrypt, celery, babel
@@ -19,6 +20,7 @@ def create_app(config=config.base_config):
     register_blueprints(app)
     register_errorhandlers(app)
     register_jinja_env(app)
+    register_commands(app)
 
     def get_locale():
         return request.accept_languages.best_match(config.SUPPORTED_LOCALES)
@@ -37,6 +39,14 @@ def create_app(config=config.base_config):
         return render_template('index.html')
 
     return app
+
+
+def register_commands(app):
+    """Registers custom commands for the Flask CLI."""
+    app.cli.command()(create_db)
+    app.cli.command()(drop_db)
+    app.cli.command()(populate_db)
+    app.cli.command()(recreate_db)
 
 
 def register_extensions(app):

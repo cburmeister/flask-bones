@@ -12,8 +12,5 @@ celery:
 assets:
 	cd app/static && bower install && cd ..
 
-server:
-	python manage.py runserver --host 0.0.0.0
-
 db:
-	python manage.py recreate_db
+	flask recreate_db

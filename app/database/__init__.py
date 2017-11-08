@@ -1,48 +1,7 @@
-from faker import Faker
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import or_
 
 db = SQLAlchemy()
-
-
-def populate_db(num_users=5):
-    """
-    Fills the database with fake data.
-    """
-    from app.user.models import User
-
-    fake = Faker()
-
-    admin_username = 'cburmeister'
-    admin_email = 'cburmeister@discogs.com'
-    admin_password = 'test123'
-
-    users = []
-    for _ in range(int(num_users)):
-        users.append(
-            User(
-                fake.user_name(),
-                fake.email(),
-                fake.word() + fake.word(),
-                fake.ipv4()
-            )
-        )
-
-    users.append(
-        User(
-            admin_username,
-            admin_email,
-            admin_password,
-            fake.ipv4(),
-            active=True,
-            is_admin=True
-        )
-    )
-
-    for user in users:
-        db.session.add(user)
-
-    db.session.commit()
 
 
 class CRUDMixin(object):
