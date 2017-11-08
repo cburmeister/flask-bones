@@ -169,6 +169,11 @@ Serve up a single minified file:
 {% endassets %}
 ```
 
+Bundle up the assets for production:
+```bash
+flask assets build
+```
+
 ### Version your database schema
 
 Display the current revision:
