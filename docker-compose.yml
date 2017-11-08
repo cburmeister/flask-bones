@@ -11,6 +11,8 @@ app:
         - memcached
         - mail
     env_file: .env
+    environment:
+        - FLASK_APP=serve.py
 celery:
     build: .
     command: make celery
