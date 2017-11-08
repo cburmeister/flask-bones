@@ -178,17 +178,17 @@ flask assets build
 
 Display the current revision:
 ```bash
-dcr app flask db current
+flask db current
 ```
 
 Create a new migration:
 ```bash
-dcr app flask db revision
+flask db revision
 ```
 
 Upgrade the database to a later version:
 ```bash
-dcr app flask db upgrade
+flask db upgrade
 ```
 
 ### Internationalize the application for other languages (i18n)
