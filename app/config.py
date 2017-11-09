@@ -40,7 +40,6 @@ class base_config(object):
 
 class dev_config(base_config):
     """Development configuration options."""
-    DEBUG = True
     ASSETS_DEBUG = True
     WTF_CSRF_ENABLED = False
 

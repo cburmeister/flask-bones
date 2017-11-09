@@ -12,6 +12,7 @@ app:
         - mail
     env_file: .env
     environment:
+        - FLASK_DEBUG=True
         - FLASK_APP=serve.py
 celery:
     build: .
