@@ -35,7 +35,7 @@ def populate_db(num_users):
 
 
 def create_db():
-    """Drops the database."""
+    """Creates the database."""
     db.create_all()
 
 
