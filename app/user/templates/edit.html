@@ -38,12 +38,12 @@
                 </div>
             </div>
             <div class="panel-footer">
-                <button type="submit" class="btn btn-default"><i class="icon-save"></i> Save</button>
-                <a class="btn btn-default" href="{{ url_for('.list') }}"><i class="icon-remove"></i> Cancel</a>
+                <button type="submit" class="btn btn-default"><i class="fa fa-floppy-o"></i> Save</button>
+                <a class="btn btn-default" href="{{ url_for('.list') }}"><i class="fa fa-times"></i> Cancel</a>
                 {% if current_user.is_admin and not user == current_user %}
                     {% set dialogue = 'Are you sure you want to delete %s?' % user.username %}
                     <a data-confirm data-dialogue="{{ dialogue }}" class="btn btn-default pull-right" href="{{ url_for('.delete', id=user.id) }}">
-                        <i class="icon-trash"></i> Delete
+                        <i class="fa fa-trash"></i> Delete
                     </a>
                 {% endif %}
             </div>

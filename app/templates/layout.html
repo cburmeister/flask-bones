@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title -%}{%- endblock %}</title>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     {% assets "js_all" -%}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {%- endassets %}
@@ -24,7 +24,7 @@
             <li><a href="#">{% trans %}Terms{% endtrans %}</a></li>
             <li><a href="#">{% trans %}Privacy{% endtrans %}</a></li>
             <li><a href="#">{% trans %}Security{% endtrans%}</a></li>
-            <li><span class="text-muted"><i class="icon-time"></i> {{ g.request_time() }}</span></li>
+            <li><span class="text-muted"><i class="fa fa-clock-o"></i> {{ g.request_time() }}</span></li>
         </ul>
     </div>
 </body>

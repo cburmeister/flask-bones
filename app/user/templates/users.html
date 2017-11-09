@@ -19,7 +19,7 @@
                         <td>
                             {% set dialogue = 'Are you sure you want to delete %s?' % u.username %}
                             <a data-confirm data-dialogue="{{ dialogue }}" class="btn btn-default btn-xs" href="{{ url_for('.delete', id=u.id) }}">
-                                <i class="icon-trash"></i>
+                                <i class="fa fa-trash"></i>
                             </a>
                         </td>
                     </tr>
