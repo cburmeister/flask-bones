@@ -13,18 +13,18 @@ def populate_db(num_users):
     for _ in range(num_users):
         users.append(
             User(
-                fake.user_name(),
-                fake.email(),
-                fake.word() + fake.word(),
-                fake.ipv4()
+                username=fake.user_name(),
+                email=fake.email(),
+                password=fake.word() + fake.word(),
+                remote_addr=fake.ipv4()
             )
         )
     users.append(
         User(
-            'cburmeister',
-            'cburmeister@discogs.com',
-            'test123',
-            fake.ipv4(),
+            username='cburmeister',
+            email='cburmeister@discogs.com',
+            password='test123',
+            remote_addr=fake.ipv4(),
             active=True,
             is_admin=True
         )
