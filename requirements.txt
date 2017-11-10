@@ -21,6 +21,7 @@ blinker==1.4
 cssmin==0.2.0
 gunicorn==19.7.1
 itsdangerous==0.24
+jsmin==2.2.2
 psycopg2==2.7.3.2
 pytest==3.2.3
 python-dateutil==2.6.1
