@@ -10,9 +10,11 @@ services:
       - "5000:5000"
     volumes:
       - .:/var/www/flask-bones
-  celery:
+  worker:
     build: .
-    command: make celery
+    command: python -m flask rq worker
+    environment:
+      - FLASK_APP=serve.py
     volumes:
       - .:/var/www/flask-bones
   mail:

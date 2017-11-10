@@ -52,18 +52,36 @@ msg.body = render_template('mail/registration.mail', user=user, token=token)
 mail.send(msg)
 ```
 
-### Asynchronous job scheduling with Celery & Redis
+### Asynchronous job scheduling with RQ
 
+`RQ` is a [simple job queue](http://python-rq.org/) for python backed by
+[redis](https://redis.io/).
+
+Define a job:
 ```python
-from app.extensions import celery
-
-# Define a job
-@celery.task
+@rq.job
 def send_email(msg):
     mail.send(msg)
+```
 
-# Queue job
-send_email.delay(msg)
+Start a worker:
+```bash
+flask rq worker
+```
+
+Queue the job for processing:
+```python
+send_email.queue(msg)
+```
+
+Monitor the status of the queue:
+```bash
+flask rq info --interval 3
+```
+
+For help on all available commands:
+```bash
+flask rq --help
 ```
 
 ### Stupid simple user management
