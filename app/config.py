@@ -5,23 +5,23 @@ class base_config(object):
     """Default configuration options."""
     SITE_NAME = 'Flask Bones'
 
-    SERVER_NAME = os.environ['SERVER_NAME']
-    SECRET_KEY = os.environ['SECRET_KEY']
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'secrets')
+    SERVER_NAME = os.environ.get('SERVER_NAME', 'app.docker:5000')
 
-    MAIL_SERVER = os.environ['MAIL_PORT_1025_TCP_ADDR']
-    MAIL_PORT = os.environ['MAIL_PORT_1025_TCP_PORT']
+    MAIL_SERVER = os.environ.get('MAIL_SERVER', 'mail')
+    MAIL_PORT = os.environ.get('MAIL_PORT', 1025)
 
-    REDIS_HOST = os.environ['REDIS_PORT_6379_TCP_ADDR']
-    REDIS_PORT = os.environ['REDIS_PORT_6379_TCP_PORT']
+    REDIS_HOST = os.environ.get('REDIS_PORT', 'redis')
+    REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
 
     BROKER_URL = 'redis://{}:{}'.format(REDIS_HOST, REDIS_PORT)
     BROKER_BACKEND = BROKER_URL
 
-    CACHE_HOST = os.environ['MEMCACHED_PORT_11211_TCP_ADDR']
-    CACHE_PORT = os.environ['MEMCACHED_PORT_11211_TCP_PORT']
+    CACHE_HOST = os.environ.get('MEMCACHED_HOST', 'memcached')
+    CACHE_PORT = os.environ.get('MEMCACHED_PORT', 11211)
 
-    POSTGRES_HOST = os.environ['DB_PORT_5432_TCP_ADDR']
-    POSTGRES_PORT = os.environ['DB_PORT_5432_TCP_PORT']
+    POSTGRES_HOST = os.environ.get('POSTGRES_HOST', 'postgres')
+    POSTGRES_PORT = os.environ.get('POSTGRES_PORT', 5432)
     POSTGRES_USER = os.environ.get('DB_ENV_USER', 'postgres')
     POSTGRES_PASS = os.environ.get('DB_ENV_PASS', 'postgres')
     POSTGRES_DB = 'postgres'
