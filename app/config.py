@@ -11,11 +11,9 @@ class base_config(object):
     MAIL_SERVER = os.environ.get('MAIL_SERVER', 'mail')
     MAIL_PORT = os.environ.get('MAIL_PORT', 1025)
 
-    REDIS_HOST = os.environ.get('REDIS_PORT', 'redis')
+    REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')
     REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
-
-    BROKER_URL = 'redis://{}:{}'.format(REDIS_HOST, REDIS_PORT)
-    BROKER_BACKEND = BROKER_URL
+    RQ_REDIS_URL = 'redis://{}:{}'.format(REDIS_HOST, REDIS_PORT)
 
     CACHE_HOST = os.environ.get('MEMCACHED_HOST', 'memcached')
     CACHE_PORT = os.environ.get('MEMCACHED_PORT', 11211)

@@ -5,6 +5,7 @@ Flask-Bcrypt==0.7.1
 Flask-Login==0.4.0
 Flask-Mail==0.9.1
 Flask-Migrate==2.1.1
+Flask-RQ2==16.0.2
 Flask-Restless==0.12.0
 Flask-SQLAlchemy==2.3.2
 Flask-Script==2.0.6
@@ -17,7 +18,6 @@ SQLAlchemy==1.1.15
 WTForms==2.1
 Werkzeug==0.12.2
 blinker==1.4
-celery==4.1.0
 cssmin==0.2.0
 gunicorn==19.7.1
 itsdangerous==0.24
