@@ -23,17 +23,9 @@ def list():
     )
 
     if g.pjax:
-        return render_template(
-            'users.html',
-            datatable=datatable,
-            stats=User.stats()
-        )
+        return render_template('users.html', datatable=datatable)
 
-    return render_template(
-        'list.html',
-        datatable=datatable,
-        stats=User.stats()
-    )
+    return render_template('list.html', datatable=datatable)
 
 
 @user.route('/edit/<int:id>', methods=['GET', 'POST'])
