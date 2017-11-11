@@ -15,6 +15,7 @@ from app.utils import url_for_other_page
 
 
 def create_app(config=config.base_config):
+    """Returns an initialized Flask application."""
     app = Flask(__name__)
     app.config.from_object(config)
 
@@ -25,6 +26,7 @@ def create_app(config=config.base_config):
     register_commands(app)
 
     def get_locale():
+        """Returns the locale to be used for the incoming request."""
         return request.accept_languages.best_match(config.SUPPORTED_LOCALES)
 
     if babel.locale_selector_func is None:
@@ -32,26 +34,27 @@ def create_app(config=config.base_config):
 
     @app.before_request
     def before_request():
+        """Prepare some things before the application handles a request."""
         g.request_start_time = time.time()
         g.request_time = lambda: '%.5fs' % (time.time() - g.request_start_time)
         g.pjax = 'X-PJAX' in request.headers
 
     @app.route('/', methods=['GET'])
     def index():
+        """Returns the applications index page."""
         return render_template('index.html')
 
     return app
 
 
 def register_commands(app):
-    """Registers custom commands for the Flask CLI."""
-    app.cli.command()(create_db)
-    app.cli.command()(drop_db)
-    app.cli.command()(populate_db)
-    app.cli.command()(recreate_db)
+    """Register custom commands for the Flask CLI."""
+    for command in [create_db, drop_db, populate_db, recreate_db]:
+        app.cli.command()(command)
 
 
 def register_extensions(app):
+    """Register extensions with the Flask application."""
     travis.init_app(app)
     db.init_app(app)
     lm.init_app(app)
@@ -64,6 +67,7 @@ def register_extensions(app):
 
 
 def register_blueprints(app):
+    """Register blueprints with the Flask application."""
     app.register_blueprint(user, url_prefix='/user')
     app.register_blueprint(auth)
 
