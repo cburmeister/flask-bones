@@ -7,13 +7,8 @@ An example of a large scale Flask application using blueprints and extensions.
 
 ## Setup
 
-Create an `.env` file:
-```
-SECRET_KEY=46-2346-24986-2384632-2039845-24
-SERVER_NAME=$HOST:5000
-```
-
-Let [docker](https://www.docker.com/) do the rest of the work:
+Quickly run the project using [docker](https://www.docker.com/) and
+[docker-compose](https://docs.docker.com/compose/):
 ```bash
 docker-compose up -d
 ```
@@ -21,7 +16,12 @@ docker-compose up -d
 Create the database and seed it with some data:
 ```bash
 docker-compose run --rm app flask create_db
-docker-compose run --rm app flask populate_db
+docker-compose run --rm app flask populate_db --num_users 5
+```
+
+Download front-end dependencies with [yarn](https://yarnpkg.com/en/):
+```bash
+yarn install --modules-folder ./app/static/node_modules
 ```
 
 ## Features
@@ -170,7 +170,7 @@ users = User.query.paginate(page, 50)
 
 ### Front-end asset management
 
-Download front-end dependencies with [Yarn](https://yarnpkg.com/en/):
+Download front-end dependencies with [yarn](https://yarnpkg.com/en/):
 ```bash
 yarn install --modules-folder ./app/static/node_modules
 ```
