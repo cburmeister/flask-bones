@@ -11,7 +11,7 @@ from app.commands import create_db, drop_db, populate_db, recreate_db
 from app.database import db
 from app.extensions import lm, travis, mail, migrate, bcrypt, babel, rq
 from app.user import user
-import app.utils as utils
+from app.utils import url_for_other_page
 
 
 def create_app(config=config.base_config):
@@ -86,5 +86,5 @@ def register_jinja_env(app):
     """Configure the Jinja env to enable some functions in templates."""
     app.jinja_env.globals.update({
         'timeago': lambda x: arrow.get(x).humanize(),
-        'url_for_other_page': utils.url_for_other_page,
+        'url_for_other_page': url_for_other_page,
     })
