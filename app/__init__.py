@@ -1,6 +1,7 @@
 import time
 
 from flask import Flask, g, render_template, request
+import arrow
 import requests
 
 from app import config
@@ -82,5 +83,8 @@ def register_errorhandlers(app):
 
 
 def register_jinja_env(app):
-    app.jinja_env.globals['url_for_other_page'] = utils.url_for_other_page
-    app.jinja_env.globals['timeago'] = utils.timeago
+    """Configure the Jinja env to enable some functions in templates."""
+    app.jinja_env.globals.update({
+        'timeago': lambda x: arrow.get(x).humanize(),
+        'url_for_other_page': utils.url_for_other_page,
+    })
