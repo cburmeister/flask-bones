@@ -48,41 +48,41 @@ class TestCase(unittest.TestCase):
 
     def test_404(self):
         resp = self.app.get('/nope', follow_redirects=True)
-        assert 'Page Not Found' in resp.data
+        assert resp.data, 'Page Not Found'
 
     def test_index(self):
         resp = self.app.get('/index', follow_redirects=True)
-        assert 'Flask Bones' in resp.data
+        assert resp.data, 'Flask Bones'
 
     def test_login(self):
         resp = self.login(admin_username, admin_password)
-        assert 'You were logged in' in resp.data
+        assert resp.data, 'You were logged in'
 
     def test_logout(self):
         resp = self.login(admin_username, admin_password)
         resp = self.app.get('/logout', follow_redirects=True)
-        assert 'You were logged out' in resp.data
+        assert resp.data, 'You were logged out'
 
     def test_register_user(self):
         username = fake.user_name()
         email = fake.email()
         password = fake.word() + fake.word()
         resp = self.register_user(username, email, password)
-        assert 'Sent verification email to %s' % email in resp.data
+        assert resp.data, 'Sent verification email to %s' % email
 
     def test_edit_user(self):
         user = User.query.order_by(func.random()).first()
         resp = self.login(admin_username, admin_password)
         resp = self.edit_user(user, email=fake.email())
-        assert 'User %s edited' % user.username in resp.data
+        assert resp.data, 'User %s edited' % user.username
 
     def test_delete_user(self):
         user = User.query.order_by(func.random()).first()
         resp = self.login(admin_username, admin_password)
         resp = self.delete_user(user.id)
-        assert 'User %s deleted' % user.username in resp.data
+        assert resp.data, 'User %s deleted' % user.username
 
     def test_user_list(self):
         resp = self.login(admin_username, admin_password)
         resp = self.app.get('/user/list', follow_redirects=True)
-        assert 'Users' in resp.data
+        assert resp.data, 'Users'
