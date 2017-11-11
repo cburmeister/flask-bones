@@ -8,7 +8,7 @@ from app.assets import assets
 from app.auth import auth
 from app.commands import create_db, drop_db, populate_db, recreate_db
 from app.database import db
-from app.extensions import lm, api, travis, mail, bcrypt, babel, rq
+from app.extensions import lm, api, travis, mail, migrate, bcrypt, babel, rq
 from app.user import user
 import app.utils as utils
 
@@ -60,6 +60,7 @@ def register_extensions(app):
     assets.init_app(app)
     babel.init_app(app)
     rq.init_app(app)
+    migrate.init_app(app, db)
 
 
 def register_blueprints(app):
