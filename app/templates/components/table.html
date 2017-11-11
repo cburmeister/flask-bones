@@ -1,11 +1,11 @@
 {% macro sort_link(sort, selected_sort, order) %}
     {% if sort == selected_sort %}
         {% if order == 'asc' %}
-            <i class="fa fa-chevron-up"></i>
             <a data-pjax href="{{ url_for_other_page(sort=sort, order='desc') }}">{{ sort }}</a>
+            <i class="fa fa-chevron-up"></i>
         {% else %}
-            <i class="fa fa-chevron-down"></i>
             <a data-pjax href="{{ url_for_other_page(sort=sort, order='asc') }}">{{ sort }}</a>
+            <i class="fa fa-chevron-down"></i>
         {% endif %}
     {% else %}
         <a data-pjax href="{{ url_for_other_page(sort=sort, order='asc') }}">{{ sort }}</a>
