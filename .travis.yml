@@ -1,0 +1,10 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker-compose up -d
+  - docker-compose run --rm app flask create_db
+  - docker-compose run --rm app flask populate_db --num_users 5
+  - docker-compose run --rm app pytest
+script:
+  - docker-compose run --rm app pytest
