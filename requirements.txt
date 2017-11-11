@@ -6,7 +6,6 @@ Flask-Login==0.4.0
 Flask-Mail==0.9.1
 Flask-Migrate==2.1.1
 Flask-RQ2==16.0.2
-Flask-Restless==0.12.0
 Flask-SQLAlchemy==2.3.2
 Flask-Script==2.0.6
 Flask-Travis==0.0.2

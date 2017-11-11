@@ -30,7 +30,8 @@ class User(CRUDMixin, UserMixin, db.Model):
         return '<User #%s:%r>' % (self.id, self.username)
 
     def set_password(self, password):
-        self.pw_hash = bcrypt.generate_password_hash(password, 10)
+        hash_ = bcrypt.generate_password_hash(password, 10).decode('utf-8')
+        self.pw_hash = hash_
 
     def check_password(self, password):
         return bcrypt.check_password_hash(self.pw_hash, password)

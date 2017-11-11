@@ -11,3 +11,4 @@ assets:
 
 db:
 	flask recreate_db
+	flask populate_db --num_users 5

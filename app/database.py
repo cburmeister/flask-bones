@@ -11,7 +11,7 @@ class CRUDMixin(object):
 
     @classmethod
     def get_by_id(cls, id):
-        if any((isinstance(id, basestring) and id.isdigit(),
+        if any((isinstance(id, str) and id.isdigit(),
                 isinstance(id, (int, float))),):
             return cls.query.get(int(id))
         return None
@@ -22,7 +22,7 @@ class CRUDMixin(object):
         return instance.save()
 
     def update(self, commit=True, **kwargs):
-        for attr, value in kwargs.iteritems():
+        for attr, value in kwargs.items():
             setattr(self, attr, value)
         return commit and self.save() or self
 
