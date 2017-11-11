@@ -1,8 +1,15 @@
 {
+    "name": "flask-bones",
+    "version": "1.0.0",
+    "description": "An example of a large scale Flask application using blueprints and extensions.",
+    "main": "index.js",
+    "repository": "https://github.com/cburmeister/flask-bones.git",
+    "author": "Corey Burmeister <burmeister.corey@gmail.com>",
+    "license": "MIT",
     "dependencies": {
-        "bower": "1.8.2"
-    },
-    "scripts": {
-        "postinstall": "cd app/static/ && ../../node_modules/bower/bin/bower install && cd ../../"
+        "bootbox": "4.4.0",
+        "bootstrap": "3.3.7",
+        "jquery": "3.2.1",
+        "jquery-pjax": "2.0.1"
     }
 }

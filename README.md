@@ -168,26 +168,15 @@ user.update()
 users = User.query.paginate(page, 50)
 ```
 
-### Merge and compress your javascripts and stylesheets
+### Front-end asset management
 
-Create a bundle of assets:
-```python
-js = Bundle(
-    'js/jquery.js',
-    'js/bootstrap.min.js',
-    filters='jsmin',
-    output='gen/packed.js'
-)
+Download front-end dependencies with [Yarn](https://yarnpkg.com/en/):
+```bash
+yarn install --modules-folder ./app/static/node_modules
 ```
 
-Serve up a single minified file:
-```html
-{% assets "js_all" %}
-    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-{% endassets %}
-```
-
-Bundle up the assets for production:
+Merge and compress them together with
+[Flask-Assets](https://flask-assets.readthedocs.io/en/latest/):
 ```bash
 flask assets build
 ```
