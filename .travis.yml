@@ -1,0 +1,19 @@
+sudo: required
+services:
+  - docker
+addons:
+  apt:
+    sources:
+      - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
+        key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
+    packages:
+      - yarn
+before_install:
+  - docker-compose up -d
+  - sleep 5
+  - docker-compose run --rm app flask create_db
+  - docker-compose run --rm app flask populate_db --num_users 5
+install:
+  - make assets
+script:
+  - docker-compose run --rm app pytest
