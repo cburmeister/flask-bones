@@ -146,6 +146,17 @@ Validate it:
 form.validate_on_submit()
 ```
 
+### Rate-limit routes
+```python
+from app.extensions import limiter
+
+@limiter.limit("5 per minute")
+@auth.route('/login', methods=['GET', 'POST'])
+def login():
+    # ...
+    return 'your_login_page_contents'
+```
+
 ### Automated tests
 
 Run the test suite:
