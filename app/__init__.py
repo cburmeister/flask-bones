@@ -16,8 +16,10 @@ from app.utils import url_for_other_page
 
 def create_app(config=config.base_config):
     """Returns an initialized Flask application."""
-    app = Flask(__name__)
+    app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config)
+    app.config.from_pyfile('app.cfg', silent=True)
+    app.config.from_envvar('CONFIG_FILE', silent=True)
 
     register_extensions(app)
     register_blueprints(app)
