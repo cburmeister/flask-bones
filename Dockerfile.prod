@@ -1,0 +1,10 @@
+FROM grahamdumpleton/mod-wsgi-docker:python-3.5
+USER $MOD_WSGI_USER:$MOD_WSGI_GROUP
+
+WORKDIR /app
+COPY --chown=whiskey:root . /app
+RUN mod_wsgi-docker-build
+
+EXPOSE 80
+ENTRYPOINT [ "mod_wsgi-docker-start" ]
+CMD [ "serve.wsgi" ]
