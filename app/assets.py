@@ -19,9 +19,10 @@ css = Bundle(
     'node_modules/bootstrap/dist/css/bootstrap.css',
     'node_modules/font-awesome/css/font-awesome.css',
     'css/style.css',
-    filters='cssmin',
+    filters=('cssmin','cssrewrite'),
     output='gen/packed.css'
 )
+
 assets = Environment()
 assets.register('js_all', js)
 assets.register('css_all', css)
