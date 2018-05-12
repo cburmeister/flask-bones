@@ -7,6 +7,7 @@ An example of a large scale Flask application using blueprints and extensions.
 
 ## Setup
 
+### Docker (recommended)
 Quickly run the project using [docker](https://www.docker.com/) and
 [docker-compose](https://docs.docker.com/compose/):
 ```bash
@@ -23,6 +24,21 @@ Download front-end dependencies with [yarn](https://yarnpkg.com/en/):
 ```bash
 yarn install --modules-folder ./app/static/node_modules
 ```
+
+### Production
+`Dockerfile.prod` contains a mod_wsgi-based image suitable for production use. You can have Docker build it instead of the development server by overriding the default docker-compose configuration:
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+```
+
+### Locally
+You can run the server on your local machine provided the dependencies are installed. [pipenv](https://github.com/pypa/pipenv) is recommended to automatically create an isolated virtual environment:
+```
+pipenv -r requirements.txt
+FLASK_APP=serve.py pipenv run flask run
+```
+
+Be sure to create an `instance/app.cfg` configuration or use environment variables to override the default connection settings for PostgreSQL, Redis, etc as appropriate.
 
 ## Features
 
@@ -230,3 +246,4 @@ Merge changes into resource files:
 ```bash
 pybabel update -i i18n/messages.pot -d i18n
 ```
+

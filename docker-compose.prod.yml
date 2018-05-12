@@ -1,0 +1,9 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    environment:
+        - SERVER_NAME=localhost:8080
+    ports: ['8080:80']
