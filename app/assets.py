@@ -1,7 +1,12 @@
 from flask_assets import Bundle, Environment, Filter
 
-# fixes missing semicolon in last statement of jquery.pjax.js
 class ConcatFilter(Filter):
+    """
+    Filter that merges files, placing a semicolon between them.
+
+    Fixes issues caused by missing semicolons at end of JS assets, for example
+    with last statement of jquery.pjax.js.
+    """
     def concat(self, out, hunks, **kw):
         out.write(';'.join([h.data() for h, info in hunks]))
 
