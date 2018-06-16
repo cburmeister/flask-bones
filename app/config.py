@@ -3,7 +3,7 @@ import os
 
 class base_config(object):
     """Default configuration options."""
-    SITE_NAME = 'Flask Bones'
+    SITE_NAME = os.environ.get('APP_NAME', 'Flask Bones')
 
     SECRET_KEY = os.environ.get('SECRET_KEY', 'secrets')
     SERVER_NAME = os.environ.get('SERVER_NAME', 'app.docker:5000')
@@ -20,9 +20,9 @@ class base_config(object):
 
     POSTGRES_HOST = os.environ.get('POSTGRES_HOST', 'postgres')
     POSTGRES_PORT = os.environ.get('POSTGRES_PORT', 5432)
-    POSTGRES_USER = os.environ.get('DB_ENV_USER', 'postgres')
-    POSTGRES_PASS = os.environ.get('DB_ENV_PASS', 'postgres')
-    POSTGRES_DB = 'postgres'
+    POSTGRES_USER = os.environ.get('POSTGRES_USER', 'postgres')
+    POSTGRES_PASS = os.environ.get('POSTGRES_PASS', 'postgres')
+    POSTGRES_DB = os.environ.get('POSTGRES_DB', 'postgres')
 
     SQLALCHEMY_DATABASE_URI = 'postgresql://%s:%s@%s:%s/%s' % (
         POSTGRES_USER,

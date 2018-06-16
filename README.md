@@ -24,6 +24,26 @@ Download front-end dependencies with [yarn](https://yarnpkg.com/en/):
 yarn install --modules-folder ./app/static/node_modules
 ```
 
+## Configuration
+
+The following environment variables are *optional*:
+
+| Name             | Purpose                                          |
+|------------------|--------------------------------------------------|
+| `APP_NAME`       | The name of the application. i.e Flask Bones     |
+| `MAIL_PORT`      | The port number of an SMTP server.               |
+| `MAIL_SERVER`    | The hostname of an SMTP server.                  |
+| `MEMCACHED_HOST` | The hostname of a memcached server.              |
+| `MEMCACHED_PORT` | The port number of a memcached server.           |
+| `POSTGRES_HOST`  | The hostname of a postgres database server.      |
+| `POSTGRES_PASS`  | The password of a postgres database user.        |
+| `POSTGRES_PORT`  | The port number of a postgres database server.   |
+| `POSTGRES_USER`  | The name of a postgres database user.            |
+| `REDIS_HOST`     | The hostname of a redis database server.         |
+| `REDIS_PORT`     | The port number of a redis database server.      |
+| `SECRET_KEY`     | A secret key required to provide authentication. |
+| `SERVER_NAME`    | The hostname and port number of the server.      |
+
 ## Features
 
 ### Caching with Memcached
