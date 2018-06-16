@@ -5,6 +5,8 @@ flask-bones
 
 An example of a large scale Flask application using blueprints and extensions.
 
+[![Build Status](https://travis-ci.org/cburmeister/flask-bones.svg?branch=master)](https://travis-ci.org/cburmeister/flask-bones)
+
 ## Setup
 
 Quickly run the project using [docker](https://www.docker.com/) and
