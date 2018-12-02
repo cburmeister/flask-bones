@@ -11,8 +11,8 @@ addons:
 before_install:
   - docker-compose up -d
   - sleep 5
-  - docker-compose run --rm app flask create_db
-  - docker-compose run --rm app flask populate_db --num_users 5
+  - docker-compose run --rm app flask create-db
+  - docker-compose run --rm app flask populate-db --num_users 5
 install:
   - make assets
 script:

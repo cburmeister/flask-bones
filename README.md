@@ -17,8 +17,8 @@ docker-compose up -d
 
 Create the database and seed it with some data:
 ```bash
-docker-compose run --rm app flask create_db
-docker-compose run --rm app flask populate_db --num_users 5
+docker-compose run --rm app flask create-db
+docker-compose run --rm app flask populate-db --num_users 5
 ```
 
 Download front-end dependencies with [yarn](https://yarnpkg.com/en/):
