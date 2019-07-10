@@ -17,7 +17,7 @@ MarkupSafe==1.0
 SQLAlchemy==1.2.7
 WTForms==2.2.1
 Werkzeug==0.14.1
-arrow==0.12.1
+arrow==0.14.2
 blinker==1.4
 cssmin==0.2.0
 gunicorn==19.8.1
