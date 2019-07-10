@@ -15,7 +15,7 @@ Flask==1.0.2
 Jinja2==2.10
 MarkupSafe==1.0
 SQLAlchemy==1.2.7
-WTForms==2.1
+WTForms==2.2.1
 Werkzeug==0.14.1
 arrow==0.12.1
 blinker==1.4
