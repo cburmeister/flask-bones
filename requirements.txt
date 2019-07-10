@@ -27,4 +27,4 @@ psycopg2==2.7.4
 pytest==3.5.1
 python-dateutil==2.7.3
 redis==2.10.6
-requests==2.20.1
+requests==2.22.0
