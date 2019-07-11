@@ -12,7 +12,7 @@ Flask-Script==2.0.6
 Flask-Travis==0.0.2
 Flask-WTF==0.14.2
 Flask==1.0.2
-Jinja2==2.10
+Jinja2==2.10.1
 MarkupSafe==1.0
 SQLAlchemy==1.2.7
 WTForms==2.2.1
