@@ -7,6 +7,7 @@ clean:
 	find . -name '*.pyc' -delete
 
 assets:
+	rm -rf ./app/static/node_modules
 	yarn install --modules-folder ./app/static/node_modules
 
 db:
