@@ -13,7 +13,7 @@ class ConcatFilter(Filter):
 js = Bundle(
     'node_modules/jquery/dist/jquery.js',
     'node_modules/jquery-pjax/jquery.pjax.js',
-    'node_modules/bootbox/bootbox.js',
+    'node_modules/bootbox/dist/bootbox.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
     'js/application.js',
     filters=(ConcatFilter, 'jsmin'),
