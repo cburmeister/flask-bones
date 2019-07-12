@@ -26,5 +26,5 @@ jsmin==2.2.2
 psycopg2==2.7.4
 pytest==5.0.1
 python-dateutil==2.7.3
-redis==2.10.6
+redis==3.2.1
 requests==2.22.0
