@@ -23,7 +23,7 @@ cssmin==0.2.0
 gunicorn==19.9.0
 itsdangerous==1.1.0
 jsmin==2.2.2
-psycopg2==2.7.4
+psycopg2==2.8.3
 pytest==5.0.1
 python-dateutil==2.7.3
 redis==3.2.1
