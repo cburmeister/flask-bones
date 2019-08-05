@@ -2,12 +2,13 @@
 # yarn lockfile v1
 
 
-bootbox@5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/bootbox/-/bootbox-5.2.0.tgz#07b14c2addfa4327e8cc58616678394cb8e6fde8"
+bootbox@5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/bootbox/-/bootbox-5.3.0.tgz#3dce98a5d028c2a928a221e8b2e14afc0d9876f3"
   dependencies:
     bootstrap ">=3.0.0"
-    jquery ">=1.9.1"
+    jquery ">=1.12.0"
+    popper.js ">=1.12.9"
 
 bootstrap@4.3.1, bootstrap@>=3.0.0:
   version "4.3.1"
@@ -21,6 +22,10 @@ jquery-pjax@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/jquery-pjax/-/jquery-pjax-2.0.1.tgz#6b3a1ba16e644e624bdcfe72eb6b3d96a846f5f2"
 
-jquery@3.4.1, jquery@>=1.9.1:
+jquery@3.4.1, jquery@>=1.12.0:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
+
+popper.js@>=1.12.9:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.15.0.tgz#5560b99bbad7647e9faa475c6b8056621f5a4ff2"
