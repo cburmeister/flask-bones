@@ -2,7 +2,7 @@ Faker==2.0.2
 Flask-Assets==0.12
 Flask-Babel==0.12.2
 Flask-Bcrypt==0.7.1
-Flask-Limiter==1.0.1
+Flask-Limiter==1.1.0
 Flask-Login==0.4.1
 Flask-Mail==0.9.1
 Flask-Migrate==2.5.2
