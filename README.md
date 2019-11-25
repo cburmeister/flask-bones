@@ -240,7 +240,7 @@ pybabel extract -F babel.cfg -o i18n/messages.pot .
 
 Create a new resource (.po) for German translators:
 ```bash
-pybabel init -i i81n/messages.pot -d i18n -l de
+pybabel init -i i18n/messages.pot -d i18n -l de
 ```
 
 Compile translations (.mo):
