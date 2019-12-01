@@ -7,7 +7,7 @@
     "author": "Corey Burmeister <burmeister.corey@gmail.com>",
     "license": "MIT",
     "dependencies": {
-        "bootbox": "5.3.2",
+        "bootbox": "5.3.4",
         "bootstrap": "4.3.1",
         "font-awesome": "4.7.0",
         "jquery": "3.4.1",

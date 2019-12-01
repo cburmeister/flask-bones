@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-bootbox@5.3.2:
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/bootbox/-/bootbox-5.3.2.tgz#f3117d80d70f4c94f1ea7724a687775fb9aef71a"
+bootbox@5.3.4:
+  version "5.3.4"
+  resolved "https://registry.yarnpkg.com/bootbox/-/bootbox-5.3.4.tgz#03064346c79c019708500dab679341645bb10952"
   dependencies:
     bootstrap ">=3.0.0"
     jquery ">=1.12.0"
