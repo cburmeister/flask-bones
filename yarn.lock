@@ -10,9 +10,9 @@ bootbox@5.3.2:
     jquery ">=1.12.0"
     popper.js ">=1.12.9"
 
-bootstrap@4.3.1, bootstrap@>=3.0.0:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
+bootstrap@4.4.1, bootstrap@>=3.0.0:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.4.1.tgz#8582960eea0c5cd2bede84d8b0baf3789c3e8b01"
 
 font-awesome@4.7.0:
   version "4.7.0"
