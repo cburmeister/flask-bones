@@ -1,4 +1,4 @@
-Welcome {{ user.username }},
+Welcome {{ user.username|e}},
 
 Please follow the link below to finish your registration.
 
