@@ -1,4 +1,4 @@
-Faker==2.0.2
+Faker==3.0.0
 Flask-Assets==0.12
 Flask-Babel==0.12.2
 Flask-Bcrypt==0.7.1
