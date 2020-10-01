@@ -2,17 +2,21 @@
 # yarn lockfile v1
 
 
-bootbox@5.3.2:
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/bootbox/-/bootbox-5.3.2.tgz#f3117d80d70f4c94f1ea7724a687775fb9aef71a"
+bootbox@5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/bootbox/-/bootbox-5.4.1.tgz#5f5facc543ee459c0436738470b3ddfbb3347a41"
   dependencies:
-    bootstrap ">=3.0.0"
-    jquery ">=1.12.0"
-    popper.js ">=1.12.9"
+    bootstrap "^4.4.0"
+    jquery "^3.5.1"
+    popper.js "^1.16.0"
 
-bootstrap@4.3.1, bootstrap@>=3.0.0:
+bootstrap@4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
+
+bootstrap@^4.4.0:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.2.tgz#a85c4eda59155f0d71186b6e6ad9b875813779ab"
 
 font-awesome@4.7.0:
   version "4.7.0"
@@ -22,10 +26,14 @@ jquery-pjax@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/jquery-pjax/-/jquery-pjax-2.0.1.tgz#6b3a1ba16e644e624bdcfe72eb6b3d96a846f5f2"
 
-jquery@3.4.1, jquery@>=1.12.0:
+jquery@3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
 
-popper.js@>=1.12.9:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.15.0.tgz#5560b99bbad7647e9faa475c6b8056621f5a4ff2"
+jquery@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
+
+popper.js@^1.16.0:
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
